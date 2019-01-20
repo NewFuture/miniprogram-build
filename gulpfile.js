@@ -13,10 +13,11 @@ var replace = require('gulp-replace');
 var gulpif = require('gulp-if');
 var debug = require('gulp-debug');
 var colors = require('ansi-colors');
-var argv = require('yargs').argv;
+
 
 
 var config = {
+	release: false,
 	debug: false,
 	src: 'src',
 	dist: 'dist',
@@ -25,10 +26,6 @@ var config = {
 	}
 }
 
-if (argv['config']) {
-	var userConfig = require('' + argv['config']);
-	Object.assign(config, userConfig)
-}
 
 // Log for output msg.
 function log() {
@@ -56,7 +53,7 @@ function compileScss(scssFile) {
 	return gulp.src(scssFile, { base: config.src })
 		.pipe(sass({ errLogToConsole: true, outputStyle: 'expanded' })
 			.on('error', sass.logError))
-		.pipe(gulpif(Boolean(argv.debug), debug({ title: '`compileScss` Debug:' })))
+		.pipe(gulpif(Boolean(config.debug), debug({ title: '`compileScss` Debug:' })))
 		// .pipe(postcss([lazysprite(lazyspriteConfig), pxtorpx(), base64()]))
 		.pipe(rename({ 'extname': '.wxss' }))
 		.pipe(replace('.scss', '.wxss'))
@@ -198,30 +195,31 @@ gulp.task('compileScss', () => compileScss());
 gulp.task('replaceJson', () => replaceJson());
 gulp.task('minifyImage', () => minifyImage());
 gulp.task('copyFiles', () => copyBasicFiles());
-gulp.task('watch', watch);
-gulp.task('compile', gulp.parallel(
+
+exports.config = config;
+exports.watch = watch;
+exports.compile = gulp.parallel(
 	gulp.task('compileTypeScript'),
 	gulp.task('compileScss'),
 	gulp.task('replaceJson'),
 	gulp.task('copyFiles'),
-));
-
+);
 
 // 删除生成文件
-gulp.task('clean', gulp.parallel(cleanDist));
+exports.clean = gulp.parallel(cleanDist);
 
 
-//注册测试任务
-gulp.task('build', gulp.series(
-	gulp.task('clean'),
-	gulp.task('compile'),
-));
+//注册构建任务
+exports.build = gulp.series(
+	exports.clean,
+	exports.compile,
+);
 
 //注册开发Task
-gulp.task('dev', gulp.series(
-	gulp.task('clean'),
-	gulp.task('compile'),
-	gulp.task('watch')
-));
+exports.dev = gulp.series(
+	exports.clean,
+	exports.compile,
+	watch
+);
 
-gulp.task('default', gulp.task('dev'));
+exports.default = exports.dev;
