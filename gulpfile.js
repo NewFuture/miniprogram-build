@@ -39,25 +39,32 @@ function log() {
  */
 function compileTypeScript(tsFile) {
 	var tsProject = ts.createProject(config.tsconfig);
-	var src = tsFile ? gulp.src(tsFile, { base: config.src }) : tsProject.src();
+	var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: !config.release }) : tsProject.src();
 	return src.pipe(tsProject())
 		.js
-		.pipe(gulp.dest(config.dist));
+		.pipe(gulp.dest(config.dist, {
+			// @ts-ignore
+			sourcemaps: !config.release
+		}));
 }
+
 /**
  * 编译scss
  * @param {string} [scssFile] - 无则编译所有
  */
 function compileScss(scssFile) {
 	scssFile = scssFile || (config.src + '/**/*.{scss,sass,css}');
-	return gulp.src(scssFile, { base: config.src })
+	return gulp.src(scssFile, { base: config.src, sourcemaps: !config.release })
 		.pipe(sass({ errLogToConsole: true, outputStyle: 'expanded' })
 			.on('error', sass.logError))
 		.pipe(gulpif(Boolean(config.debug), debug({ title: '`compileScss` Debug:' })))
 		// .pipe(postcss([lazysprite(lazyspriteConfig), pxtorpx(), base64()]))
 		.pipe(rename({ 'extname': '.wxss' }))
 		.pipe(replace('.scss', '.wxss'))
-		.pipe(gulp.dest(config.dist))
+		.pipe(gulp.dest(config.dist, {
+			// @ts-ignore
+			sourcemaps: !config.release
+		}))
 }
 
 /**
@@ -111,6 +118,16 @@ function copyBasicFiles(file) {
 		.pipe(gulp.dest(config.dist));
 }
 
+/**
+ * NPM创建 符号链接
+ * 文件在windows需要管理员权限，所以package.json 为拷贝
+ */
+function linkPackages() {
+	gulp.src(['./package.json'])
+		.pipe(gulp.dest(config.dist + '/'), { end: true })
+	return gulp.src(['./node_modules'], { resolveSymlinks: false })
+		.pipe(gulp.symlink(config.dist));
+}
 
 // clean 任务, dist 目录
 function cleanDist() {
@@ -195,6 +212,7 @@ gulp.task('compileScss', () => compileScss());
 gulp.task('replaceJson', () => replaceJson());
 gulp.task('minifyImage', () => minifyImage());
 gulp.task('copyFiles', () => copyBasicFiles());
+gulp.task(linkPackages);
 
 exports.config = config;
 exports.watch = watch;
@@ -212,12 +230,14 @@ exports.clean = gulp.parallel(cleanDist);
 //注册构建任务
 exports.build = gulp.series(
 	exports.clean,
+	gulp.task('linkPackages'),
 	exports.compile,
 );
 
 //注册开发Task
 exports.dev = gulp.series(
 	exports.clean,
+	gulp.task('linkPackages'),
 	exports.compile,
 	watch
 );

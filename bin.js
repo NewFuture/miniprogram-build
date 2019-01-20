@@ -22,8 +22,10 @@ if (argv['release']) {
     tasks.config.release = true;
 }
 
-if (argv._.length === 0) {
-    tasks.default(() => { });
+if(argv['init']){
+    // init
+}else if (argv._.length === 0) {
+    tasks.default(()=>{});
 } else {
     argv._.forEach(task => {
         tasks[task]();

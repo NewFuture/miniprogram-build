@@ -4,7 +4,8 @@
   "description": "build miniprogram with typescript & scss ",
   "main": "gulpfile.js",
   "bin": {
-    "mp-build": "bin.js"
+    "mp-build": "bin.js",
+    "miniprogram-build": "bin.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,6 +31,9 @@
     "gulp-sass": "^4.0.2",
     "gulp-typescript": "^5.0.0",
     "yargs": "^12.0.5"
+  },
+  "peerDependencies": {
+    "typescript": "*"
   },
   "devDependencies": {
     "typescript": "^3.2.4"
