@@ -65,13 +65,13 @@ mp-build build --config=./config.prod.json --release
 
 ```json
 {
-	"release": false,
-	"debug": false,
-	"src": "src",
-	"dist": "dist",
-	"tsconfig": "tsconfig.json",
-	"replace": {
+    "release": false,
+    "debug": false,
+    "src": "src",
+    "dist": "dist",
+    "tsconfig": "tsconfig.json",
+    "replace": {
         "REPLACE_KEY": "all {{REPLACE_KEY}} in json files will replaced by this"
-	}
+    }
 }
 ```
