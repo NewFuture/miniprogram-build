@@ -55,7 +55,13 @@ function compileTypeScript(tsFile) {
 function compileScss(scssFile) {
 	scssFile = scssFile || (config.src + '/**/*.{scss,sass,css}');
 	return gulp.src(scssFile, { base: config.src, sourcemaps: !config.release })
-		.pipe(sass({ errLogToConsole: true, outputStyle: 'expanded' })
+		.pipe(sass(
+			{
+				errLogToConsole: true,
+				outputStyle: config.release ? 'compressed' : 'expanded',
+				includePaths: ['node_modules'],
+				sourceMapEmbed: !config.release,
+			})
 			.on('error', sass.logError))
 		.pipe(gulpif(Boolean(config.debug), debug({ title: '`compileScss` Debug:' })))
 		// .pipe(postcss([lazysprite(lazyspriteConfig), pxtorpx(), base64()]))

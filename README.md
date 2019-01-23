@@ -6,7 +6,13 @@ build miniprogram with typescript & scss
 
 * File Compile
   * `TS` => `js`
-  * `scss/sass/css` => `wxss`
+
+* `scss/sass/css` => `wxss`
+    * [x] compile
+    * [x] import node_modules
+    * [ ] inline svg
+    * [x] source map
+
   * image compress
   * sourcemaps
   * watch all source files
