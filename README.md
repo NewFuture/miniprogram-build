@@ -4,28 +4,37 @@ build miniprogram with typescript & scss
 
 ## Features
 
-* File Compile
-  * `TS` => `js`
-
+* `TS` => `js`
+    * [x] compile
+    * [ ] sourcemap
+    * [ ] build break
+    * [ ] compress
+    * [ ] one tslib
 * `scss/sass/css` => `wxss`
     * [x] compile
     * [x] import node_modules
-    * [ ] inline svg
-    * [x] source map
-
-  * image compress
-  * sourcemaps
-  * watch all source files
-* Multi Environment (生多个APP)
-  * APPID
-  * domain & other configs
-* Support miniprogram native npm
+    * [x] sourcemaps
+    * [ ] import wxss
+    * [ ] inline svg/image
+    * [ ] build break
+    * [ ] local scss
+* `svg` ==> `iconfonts`
+    * [ ] svg ==> iconfont 
+    * [ ] inline iconfont
+* resource
+    * [ ] image compress
+* [x] Multi Environment (生多个APP)
+    * APPID
+    * domain & other configs
+* build miniprogram native npm
+    * [ ] rollup js lib
+    * [ ] components
 
 
 ## Todo
 * [ ] init
 * [ ] console verbose
-* [ ] pages config
+* [ ] ~~pages config~~
 * [ ] template project
 
 
@@ -47,7 +56,7 @@ task
 * `watch` watch src files change and update dist
 * `dev` = `build`+`watch`
 * `clean` remove dist
-* default is dev
+* default is `dev`
 
 flags
 
@@ -78,7 +87,7 @@ mp-build build --config=./config.prod.json --release
     "ignore": "",
     "tsconfig": "tsconfig.json",
     "replace": {
-        "REPLACE_KEY": "all {{REPLACE_KEY}} in json files will replaced by this"
+        "APP_ID": "all {{APP_ID}} in json files will replaced by this value"
     }
 }
 ```
