@@ -14,7 +14,7 @@ var gulpif = require('gulp-if');
 var debug = require('gulp-debug');
 var colors = require('ansi-colors');
 
-
+var compileScss = require('./src/compile-scss');
 
 var config = {
 	release: false,
@@ -48,30 +48,31 @@ function compileTypeScript(tsFile) {
 		}));
 }
 
-/**
- * 编译scss
- * @param {string} [scssFile] - 无则编译所有
- */
-function compileScss(scssFile) {
-	scssFile = scssFile || (config.src + '/**/*.{scss,sass,css}');
-	return gulp.src(scssFile, { base: config.src, sourcemaps: !config.release })
-		.pipe(sass(
-			{
-				errLogToConsole: true,
-				outputStyle: config.release ? 'compressed' : 'expanded',
-				includePaths: ['node_modules'],
-				sourceMapEmbed: !config.release,
-			})
-			.on('error', sass.logError))
-		.pipe(gulpif(Boolean(config.debug), debug({ title: '`compileScss` Debug:' })))
-		// .pipe(postcss([lazysprite(lazyspriteConfig), pxtorpx(), base64()]))
-		.pipe(rename({ 'extname': '.wxss' }))
-		.pipe(replace('.scss', '.wxss'))
-		.pipe(gulp.dest(config.dist, {
-			// @ts-ignore
-			sourcemaps: !config.release
-		}))
-}
+// /**
+//  * 编译scss
+//  * @param {string} [scssFile] - 无则编译所有
+//  */
+// function compileScss(scssFile) {
+
+// 	// scssFile = scssFile || (config.src + '/**/*.{scss,sass,css}');
+// 	// return gulp.src(scssFile, { base: config.src, sourcemaps: !config.release })
+// 	// 	.pipe(sass(
+// 	// 		{
+// 	// 			errLogToConsole: true,
+// 	// 			outputStyle: config.release ? 'compressed' : 'expanded',
+// 	// 			includePaths: ['node_modules'],
+// 	// 			sourceMapEmbed: !config.release,
+// 	// 		})
+// 	// 		.on('error', sass.logError))
+// 	// 	.pipe(gulpif(Boolean(config.debug), debug({ title: '`compileScss` Debug:' })))
+// 	// 	// .pipe(postcss([lazysprite(lazyspriteConfig), pxtorpx(), base64()]))
+// 	// 	.pipe(rename({ 'extname': '.wxss' }))
+// 	// 	.pipe(replace('.scss', '.wxss'))
+// 	// 	.pipe(gulp.dest(config.dist, {
+// 	// 		// @ts-ignore
+// 	// 		sourcemaps: !config.release
+// 	// 	}))
+// }
 
 /**
  * 图片压缩
@@ -171,7 +172,7 @@ function watchHandler(type, file) {
 	} else {
 		switch (extname) {
 			case '.scss': // SCSS 文件
-				return compileScss(file);
+				return compileScss(file, config);
 
 			case '.ts': // ts 文件
 				return file.endsWith('.d.ts') ? Promise.resolve() : compileTypeScript(file);
@@ -214,7 +215,7 @@ function watch(cb) {
 }
 
 gulp.task('compileTypeScript', () => compileTypeScript());
-gulp.task('compileScss', () => compileScss());
+gulp.task('scss', () => compileScss(config.src + '/**/*.{scss,sass,css}', config));
 gulp.task('replaceJson', () => replaceJson());
 gulp.task('minifyImage', () => minifyImage());
 gulp.task('copyFiles', () => copyBasicFiles());
@@ -224,7 +225,7 @@ exports.config = config;
 exports.watch = watch;
 exports.compile = gulp.parallel(
 	gulp.task('compileTypeScript'),
-	gulp.task('compileScss'),
+	gulp.task('scss'),
 	gulp.task('replaceJson'),
 	gulp.task('copyFiles'),
 );

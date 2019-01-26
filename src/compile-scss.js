@@ -8,7 +8,7 @@ var gulpif = require('gulp-if');
 var cssnano = require('cssnano');
 var postcss = require('gulp-postcss');
 var inline = require('./lib/inline');
-
+var empty = require('./lib/empty');
 
 /**
  * 编译scss
@@ -26,8 +26,7 @@ function compileScss(scssFile, config) {
         }).on('error', sass.logError))
         .pipe(gulpif(Boolean(config.debug), debug({ title: '`compileScss` Debug:' })))
         .pipe(inline())
-        .pipe(postcss([cssnano()]))
-        // .pipe(postcss([lazysprite(lazyspriteConfig), pxtorpx(), base64()]))
+        .pipe(config.release ? postcss([cssnano()]) : empty())
         .pipe(rename({ 'extname': '.wxss' }))
         // .pipe(replace('.scss', '.wxss'))
         .pipe(gulp.dest(config.dist, {

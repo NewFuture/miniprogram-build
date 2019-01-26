@@ -1,5 +1,5 @@
 //@ts-check
-
+'use strict';
 var through = require('through2');
 var inline = require('./inline-image');
 

@@ -1,5 +1,6 @@
 ///@ts-check
 // Node libs
+'use strict';
 var fs = require("fs");
 var path = require("path");
 var mime = require("mime");

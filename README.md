@@ -14,31 +14,34 @@ build miniprogram with typescript & scss
     * [x] compile
     * [x] import node_modules
     * [x] sourcemaps
+    * [x] minify (release) / expanded (debug)
     * [ ] keep import wxss
     * [x] inline image
     * [x] inline svg
-    * [x] svg compress
-    * [x] PostCSS & cssnano
+    * [x] PostCSS & cssnano & svg compress
     * [ ] build break
     * [ ] skip local scss `_`
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
     * [ ] build wxss
 * resource
+    * [ ] copy/src
+    * [ ] regex 
     * [ ] image compress
 * [x] Multi Environment (生多个APP)
     * APPID
     * domain & other configs
-* build miniprogram native npm
-    * [ ] rollup js lib
-    * [ ] components
 
 
 ## Todo
+* [ ] ignore path
 * [ ] init
 * [ ] console verbose
 * [ ] ~~pages config~~
 * [ ] template project
+* build miniprogram native npm
+    * [ ] rollup js lib
+    * [ ] components
 
 
 ## Usage
