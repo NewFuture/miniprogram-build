@@ -3,8 +3,6 @@
 var fs = require("fs");
 var path = require("path");
 var mime = require("mime");
-
-var extend = require("extend");
 var async = require("async");
 
 // Cache regex's
@@ -113,7 +111,7 @@ module.exports = (function () {
                         complete();
                     } else {
                         // process it and put it into the cache
-                        var loc = img;
+                        // var loc = img;
                         //     is_local_file = !rData.test(img) && !rExternal.test(img);
 
                         // Resolve the image path relative to the CSS file
@@ -187,17 +185,8 @@ module.exports = (function () {
             done = opts;
             opts = {};
         }
-
-        // Set default, helper-specific options
-        opts = extend({
-            maxImageSize: 32768
-        }, opts);
-
+        
         var complete = function (err, encoded, cacheable) {
-            // Too long?
-            // if (cacheable && encoded && opts.maxImageSize && encoded.length > opts.maxImageSize) {
-            //     err = "Skipping " + img + " (greater than " + opts.maxImageSize + " bytes)";
-            // }
 
             // Return the original source if an error occurred
             if (err) {
@@ -213,20 +202,6 @@ module.exports = (function () {
         // Already base64 encoded?
         if (rData.test(img)) {
             complete(null, img, false);
-
-            // External URL?
-        } else if (rExternal.test(img)) {
-            // grunt.log.writeln("Encoding file: " + img);
-            // fetch.image(img, function (err, src, cacheable) {
-            //     var encoded, type;
-            //     if (err == null) {
-            //         type = mime.lookup(img);
-            //         encoded = exports.getDataURI(type, src);
-            //     }
-            //     complete(err, encoded, cacheable);
-            // });
-
-            // Local file?
         } else {
             // Does the image actually exist?
             if (!fs.existsSync(img) || !fs.lstatSync(img).isFile()) {
@@ -270,7 +245,7 @@ module.exports = (function () {
             ret += img.toString("base64");
         }
 
-        return '\"'+ret+'\"';
+        return '\"' + ret + '\"';
     };
 
     return exports;

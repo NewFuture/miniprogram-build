@@ -22,6 +22,7 @@
   "homepage": "https://github.com/NewFuture/miniprogram-build#readme",
   "dependencies": {
     "ansi-colors": "^3.2.3",
+    "async": "^2.6.1",
     "cssnano": "^4.1.8",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
