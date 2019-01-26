@@ -15,12 +15,14 @@ build miniprogram with typescript & scss
     * [x] import node_modules
     * [x] sourcemaps
     * [ ] import wxss
-    * [ ] inline svg/image
+    * [x] inline image
+    * [x] inline svg
+    * [x] svg compress
     * [ ] build break
     * [ ] local scss
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
-    * [ ] inline iconfont
+    * [ ] build wxss
 * resource
     * [ ] image compress
 * [x] Multi Environment (生多个APP)
