@@ -6,13 +6,13 @@
 'use strict';
 var gulp = require('gulp');
 var config = {
-	release: false,
-	debug: false,
-	src: 'src',
-	dist: 'dist',
-	tsconfig: 'tsconfig.json',
-	replace: {
-	}
+    release: false,
+    debug: false,
+    src: 'src',
+    dist: 'dist',
+    tsconfig: 'tsconfig.json',
+    replace: {
+    }
 }
 var compileScss = require('./src/compile-scss');
 gulp.task('scss', () => compileScss(config.src + '/**/*.{scss,sass,css}', config));

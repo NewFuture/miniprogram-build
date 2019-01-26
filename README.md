@@ -14,12 +14,13 @@ build miniprogram with typescript & scss
     * [x] compile
     * [x] import node_modules
     * [x] sourcemaps
-    * [ ] import wxss
+    * [ ] keep import wxss
     * [x] inline image
     * [x] inline svg
     * [x] svg compress
+    * [x] PostCSS & cssnano
     * [ ] build break
-    * [ ] local scss
+    * [ ] skip local scss `_`
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
     * [ ] build wxss
