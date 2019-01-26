@@ -9,12 +9,15 @@ var async = require("async");
 
 // Cache regex's
 var rImages = /([\s\S]*?)(url\(([^)]+)\))(?!\s*[;,]?\s*\/\*\s*base64:skip\s*\*\/)|([\s\S]+)/img;
-var rExternal = /^(http|https|\/\/)/;
-var rSchemeless = /^\/\//;
-var rData = /^data:/;
+var rExternal = /^\W*([a-zA-z]+:)?\/\//;
+// var rSchemeless = /^\/\//;
+var rData = /^\W*data:/;
 var rQuotes = /['"]/g;
 var rParams = /([?#].*)$/g;
 
+function isLocalFile(url) {
+    return !rExternal.test(url) && !rData.test(url);
+}
 // Grunt export wrapper
 module.exports = (function () {
     "use strict";
@@ -41,7 +44,7 @@ module.exports = (function () {
             opts = {};
         }
 
-        var deleteAfterEncoding = opts.deleteAfterEncoding;
+        // var deleteAfterEncoding = opts.deleteAfterEncoding;
         var src = file.contents.toString();
         var result = "";
         var match, img, line, tasks, group;
@@ -96,6 +99,13 @@ module.exports = (function () {
                         result += group[2];
                         return complete();
                     }
+                    if (!isLocalFile(rawUrl)) {
+                        if (opts.debug) {
+                            console.log(img + ' skipped not local file');
+                        }
+                        result += group[2];
+                        return complete();
+                    }
                     // see if this img was already processed before...
                     if (cache[img]) {
                         // grunt.log.error("The image " + img + " has already been encoded elsewhere in your stylesheet. I'm going to do it again, but it's going to make your stylesheet a lot larger than it needs to be.");
@@ -103,26 +113,27 @@ module.exports = (function () {
                         complete();
                     } else {
                         // process it and put it into the cache
-                        var loc = img,
-                            is_local_file = !rData.test(img) && !rExternal.test(img);
+                        var loc = img;
+                        //     is_local_file = !rData.test(img) && !rExternal.test(img);
 
                         // Resolve the image path relative to the CSS file
-                        if (is_local_file) {
-                            // local file system.. fix up the path
-                            // loc = path.join(path.dirname(file.path), img);
+                        // if (is_local_file) {
+                        //     // local file system.. fix up the path
+                        //     // loc = path.join(path.dirname(file.path), img);
 
-                            loc = opts.baseDir ? path.join(opts.baseDir, img) :
-                                path.join(path.dirname(file.path), img);
+                        var loc = opts.baseDir ? path.join(opts.baseDir, img) :
+                            path.join(path.dirname(file.path), img);
 
-                            // If that didn't work, try finding the image relative to
-                            // the current file instead.
-                            if (!fs.existsSync(loc)) {
-                                if (opts.debug) {
-                                    console.log('in ' + loc + ' file doesn\'t exist');
-                                }
-                                loc = path.join(file.cwd, img);
-                            }
+                        // If that didn't work, try finding the image relative to
+                        // the current file instead.
+                        if (!fs.existsSync(loc)) {
+                            // if (opts.debug) {
+                            console.error('in ' + loc + ' file doesn\'t exist');
+                            // }
+                            loc = path.join(file.cwd, img);
+                            complete(new Error(loc + ' file doesn\'t exist'))
                         }
+                        // }
 
                         // Test for scheme less URLs => "//example.com/image.png"
                         // if (!is_local_file && rSchemeless.test(loc)) {
@@ -138,12 +149,12 @@ module.exports = (function () {
                                     cache[img] = url;
                                 }
 
-                                if (deleteAfterEncoding && is_local_file) {
-                                    if (opts.debug) {
-                                        console.info("Deleting file: " + loc);
-                                    }
-                                    fs.unlinkSync(loc);
-                                }
+                                // if (deleteAfterEncoding && is_local_file) {
+                                //     if (opts.debug) {
+                                //         console.info("Deleting file: " + loc);
+                                //     }
+                                //     fs.unlinkSync(loc);
+                                // }
                             } else {
                                 result += group[2];
                             }
@@ -184,9 +195,9 @@ module.exports = (function () {
 
         var complete = function (err, encoded, cacheable) {
             // Too long?
-            if (cacheable && encoded && opts.maxImageSize && encoded.length > opts.maxImageSize) {
-                err = "Skipping " + img + " (greater than " + opts.maxImageSize + " bytes)";
-            }
+            // if (cacheable && encoded && opts.maxImageSize && encoded.length > opts.maxImageSize) {
+            //     err = "Skipping " + img + " (greater than " + opts.maxImageSize + " bytes)";
+            // }
 
             // Return the original source if an error occurred
             if (err) {
@@ -252,14 +263,14 @@ module.exports = (function () {
         var ret = "data:";
         ret += mimeType;
         if ("image/svg+xml" === mimeType) {
-            ret += ";utf-8,";
+            ret += ";charset=UTF-8,";
             ret += encodeURI(img.toString());
         } else {
             ret += ";base64,";
             ret += img.toString("base64");
         }
 
-        return ret;
+        return '\"'+ret+'\"';
     };
 
     return exports;
