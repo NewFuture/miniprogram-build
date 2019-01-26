@@ -8,10 +8,10 @@ var empty = require('./lib/empty');
 
 /**
  * 编译TS
- * @param {string} tsFile 
- * @param {object} config 
+ * @param {object} config * 
+ * @param {string} [tsFile] 
  */
-function compileTS(tsFile, config) {
+function compileTS(config,tsFile) {
     var tsProject = ts.createProject(config.tsconfig);
     var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: !config.release }) : tsProject.src();
     return src.pipe(config.release ? empty() : sourcemaps.init())
