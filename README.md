@@ -6,9 +6,9 @@ build miniprogram with typescript & scss
 
 * `TS` => `js`
     * [x] compile
-    * [ ] sourcemap
-    * [ ] build break
+    * [x] sourcemaps
     * [ ] compress
+    * [ ] build break
     * [ ] one tslib
 * `scss/sass/css` => `wxss`
     * [x] compile
