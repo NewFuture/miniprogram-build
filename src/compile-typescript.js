@@ -8,7 +8,7 @@ var empty = require('./lib/empty');
 var debug = require("gulp-debug");
 var size = require('gulp-size');
 
-var TITLE = 'typescript';
+var TITLE = 'typescript:';
 /**
  * 编译TS
  * @param {object} config * 

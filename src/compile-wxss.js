@@ -10,7 +10,7 @@ var inline = require('./lib/inline');
 var empty = require('./lib/empty');
 var size = require('gulp-size');
 
-var TITLE = 'wxss';
+var TITLE = 'wxss:';
 /**
  * 编译scss
  * @param {object} config

@@ -4,7 +4,7 @@
 var gulp = require('gulp');
 var size = require('gulp-size');
 
-var TITLE = 'copy';
+var TITLE = 'copy:';
 
 /**
  * 

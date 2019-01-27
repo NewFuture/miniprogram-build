@@ -6,7 +6,7 @@ var rename = require('gulp-rename');
 var debug = require('gulp-debug');
 var size = require('gulp-size');
 
-var TITLE = 'wxml';
+var TITLE = 'wxml:';
 /**
  * 
  * @param {object} config 

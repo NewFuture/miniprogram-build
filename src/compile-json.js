@@ -7,7 +7,7 @@ var size = require('gulp-size');
 var multiReplace = require('./lib/multi-replace');
 var jsonMini = require('./lib/json-mini');
 
-var TITLE = 'json';
+var TITLE = 'json:';
 /**
  * 复制 Json文件
  * @param {object} config
