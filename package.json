@@ -7,6 +7,10 @@
     "mp-build": "bin/mp-build.js",
     "miniprogram-build": "bin/mp-build.js"
   },
+  "files": [
+    "src/",
+    "bin/"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
