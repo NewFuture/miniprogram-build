@@ -7,18 +7,18 @@ build miniprogram with typescript & scss
 * `TS` => `js`
     * [x] compile
     * [x] sourcemaps
-    * [ ] compress
     * [ ] build break
+    * [ ] tree shaking
     * [ ] one tslib
 * `scss/sass/css` => `wxss`
     * [x] compile
     * [x] import node_modules
     * [x] sourcemaps
     * [x] minify (release) / expanded (debug)
-    * [ ] keep import wxss
     * [x] inline image
     * [x] inline svg
     * [x] PostCSS & cssnano & svg compress
+    * [ ] keep import wxss
     * [ ] build break
     * [ ] skip local scss `_`
 * `wxml/html` ==> `wxml`
@@ -31,7 +31,7 @@ build miniprogram with typescript & scss
     * [x] minify
     * [x] APPID or domain & other configs
 * resource
-    * [ ] copy/src
+    * [x] copy/src
     * [x] image compress
 * console verbose
     * [x] all files
@@ -40,7 +40,6 @@ build miniprogram with typescript & scss
 ## Todo
 * [ ] exlude path
 * [ ] init
-
 * [ ] ~~pages config~~
 * [ ] template project
 * build miniprogram native npm
