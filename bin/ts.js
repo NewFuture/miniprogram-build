@@ -5,7 +5,7 @@
 // var path = require('path');
 'use strict';
 var gulp = require('gulp');
-var compileTS = require('../src/compile-js');
+var compileTS = require('../src/compile-typescript');
 var config = {
     release: false,
     debug: false,

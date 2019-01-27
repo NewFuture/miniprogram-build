@@ -33,14 +33,14 @@ build miniprogram with typescript & scss
 * resource
     * [ ] copy/src
     * [x] image compress
-
+* console verbose
+    * [x] all files
+    * [x] file size
 
 ## Todo
 * [ ] exlude path
 * [ ] init
-* [ ] console verbose
-    * [x] files
-    * [] file size
+
 * [ ] ~~pages config~~
 * [ ] template project
 * build miniprogram native npm
