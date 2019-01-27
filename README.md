@@ -36,15 +36,17 @@ build miniprogram with typescript & scss
 * console verbose
     * [x] all files
     * [x] file size
+* miniprogram native npm
+    * [x] link node_modules
+    * [ ] rollup js lib
+    * [ ] components
 
 ## Todo
 * [ ] exlude path
 * [ ] init
 * [ ] ~~pages config~~
 * [ ] template project
-* build miniprogram native npm
-    * [ ] rollup js lib
-    * [ ] components
+
 
 
 ## Usage
