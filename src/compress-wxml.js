@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var htmlmin = require('gulp-htmlmin');
 var rename = require('gulp-rename');
+var debug = require('gulp-debug');
 
 /**
  * 
@@ -11,6 +12,7 @@ var rename = require('gulp-rename');
  */
 function compressImage(config, wxmlsrc) {
     return gulp.src(wxmlsrc, { base: config.src })
+        .pipe(debug({ title: 'wxml' }))
         .pipe(htmlmin({
             collapseWhitespace: true,
             removeComments: true,

@@ -27,9 +27,9 @@ build miniprogram with typescript & scss
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
     * [ ] build wxss
-* [x] JSON
-    * minify
-    * APPID // domain & other configs
+*  `JSON`
+    * [x] minify
+    * [x] APPID or domain & other configs
 * resource
     * [ ] copy/src
     * [x] image compress
@@ -39,6 +39,8 @@ build miniprogram with typescript & scss
 * [ ] exlude path
 * [ ] init
 * [ ] console verbose
+    * [x] files
+    * [] file size
 * [ ] ~~pages config~~
 * [ ] template project
 * build miniprogram native npm

@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var multiReplace = require('./lib/multi-replace');
 var jsonmini = require('./lib/json-mini');
 var empty = require('./lib/empty');
+var debug = require('gulp-debug');
 /**
  * 复制 Json文件
  * @param {object} config
@@ -16,6 +17,7 @@ function replaceJson(config, jsonFile) {
         replaceData[`{{${key}}}`] = config.replace[key];
     }
     return gulp.src(jsonFile, { base: config.src })
+        .pipe(debug({ title: 'json' }))
         .pipe(multiReplace(replaceData))
         .pipe(config.release ? jsonmini() : empty())
         .pipe(gulp.dest(config.dist));

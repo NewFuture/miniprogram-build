@@ -2,6 +2,7 @@
 'use strict';
 var gulp = require('gulp');
 var imagemin = require('gulp-imagemin');
+// var debug = require('gulp-debug');
 
 /**
  * 
@@ -10,7 +11,8 @@ var imagemin = require('gulp-imagemin');
  */
 function compressImage(config, imgsrc) {
     return gulp.src(imgsrc, { base: config.src })
-        .pipe(imagemin({verbose:true}))
+        // .pipe(debug({ title: 'image' }))
+        .pipe(imagemin({ verbose: true }))
         .pipe(gulp.dest(config.dist))
 }
 
