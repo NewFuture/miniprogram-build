@@ -21,6 +21,9 @@ build miniprogram with typescript & scss
     * [x] PostCSS & cssnano & svg compress
     * [ ] build break
     * [ ] skip local scss `_`
+* `wxml/html` ==> `wxml`
+    * [x] copy rename
+    * [x] compress
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
     * [ ] build wxss
@@ -29,12 +32,11 @@ build miniprogram with typescript & scss
     * APPID // domain & other configs
 * resource
     * [ ] copy/src
-    * [ ] regex 
-    * [ ] image compress
+    * [x] image compress
 
 
 ## Todo
-* [ ] ignore path
+* [ ] exlude path
 * [ ] init
 * [ ] console verbose
 * [ ] ~~pages config~~
