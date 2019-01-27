@@ -1,11 +1,11 @@
 ///@ts-check
 'use strict';
 var gulp = require('gulp');
-var multiReplace = require('./lib/multi-replace');
-var jsonmini = require('./lib/json-mini');
-var empty = require('./lib/empty');
+var rename = require('gulp-rename');
 var debug = require('gulp-debug');
 var size = require('gulp-size');
+var multiReplace = require('./lib/multi-replace');
+var jsonMini = require('./lib/json-mini');
 
 var TITLE = 'json';
 /**
@@ -22,7 +22,8 @@ function replaceJson(config, jsonFile) {
     return gulp.src(jsonFile, { base: config.src })
         .pipe(debug({ title: TITLE }))
         .pipe(multiReplace(replaceData))
-        .pipe(config.release ? jsonmini() : empty())
+        .pipe(jsonMini(!config.release))
+        .pipe(rename({ 'extname': '.json' }))
         .pipe(size({ title: TITLE, showFiles: true }))
         .pipe(gulp.dest(config.dist));
 }

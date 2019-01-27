@@ -1,28 +1,37 @@
-//@ts-check
+///@ts-check
 'use strict';
-var through = require("through2");
-var PluginError = require('plugin-error');
-module.exports = function () {
-    'use strict';
 
-    return through.obj(function (file, encoding, callback) {
+var through2 = require('through2');
+var minify = require('node-json-minify');
+
+/**
+ * 
+ * @param {string} json 
+ * @param {boolean} pretty 
+ */
+function mini(json, pretty) {
+    var data = minify(json);
+    return pretty ? JSON.stringify(JSON.parse(data), undefined, 4) : data;
+}
+
+/**
+ * 
+ * @param {boolean} [pretty] - 格式化输出
+ */
+function jsonMinify(pretty) {
+    return through2.obj((file, enc, cb) => {
         if (file.isNull()) {
-            this.push(file);
-            return callback();
+            return cb(null, file);
         }
-
+        if (file.isBuffer()) {
+            file.contents = new Buffer(mini(file.contents.toString(), pretty));
+        }
         if (file.isStream()) {
-            this.emit('error', new PluginError('json-mini', 'Streaming not supported'));
-            return callback();
+            file.contents = file.contents.pipe(through2.obj((json, enc, cb) => {
+                cb(null, mini(json.toString(), pretty));
+            }));
         }
-
-        try {
-            file.contents = new Buffer(JSON.stringify(JSON.parse(file.contents.toString())));
-        } catch (err) {
-            this.emit('error', new PluginError('json-mini', err));
-        }
-
-        this.push(file);
-        callback();
+        cb(null, file);
     });
-};
+}
+module.exports = jsonMinify;

@@ -28,6 +28,7 @@ build miniprogram with typescript & scss
     * [ ] svg ==> iconfont 
     * [ ] build wxss
 *  `JSON`
+    * [x] jsonc (添加注释)
     * [x] minify
     * [x] APPID or domain & other configs
 * resource
