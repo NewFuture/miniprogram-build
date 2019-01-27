@@ -12,7 +12,7 @@ var TITLE = 'typescript';
 /**
  * 编译TS
  * @param {object} config * 
- * @param {string} [tsFile] 
+ * @param {string|string[]} [tsFile] 
  */
 function compileTS(config, tsFile) {
     var tsProject = ts.createProject(config.tsconfig);

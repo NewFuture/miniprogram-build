@@ -13,10 +13,10 @@ var size = require('gulp-size');
 var TITLE = 'wxss';
 /**
  * 编译scss
- * @param {string|string[]} scssFile - 无则编译所有
  * @param {object} config
+ * @param {string|string[]} scssFile  编译源 
  */
-function compileScss(scssFile, config) {
+function compileScss(config,scssFile) {
     scssFile = scssFile;
     return gulp.src(scssFile, { base: config.src, sourcemaps: !config.release })
         .pipe(debug({ title: TITLE }))
