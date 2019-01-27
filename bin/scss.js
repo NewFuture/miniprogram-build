@@ -14,7 +14,7 @@ var config = {
     replace: {
     }
 }
-var compileScss = require('./src/compile-scss');
+var compileScss = require('../src/compile-scss');
 gulp.task('scss', () => compileScss(config.src + '/**/*.{scss,sass,css}', config));
 
 gulp.task('scss')(console.log);

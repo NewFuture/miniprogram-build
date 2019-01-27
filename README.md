@@ -24,13 +24,13 @@ build miniprogram with typescript & scss
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
     * [ ] build wxss
+* [x] JSON
+    * minify
+    * APPID // domain & other configs
 * resource
     * [ ] copy/src
     * [ ] regex 
     * [ ] image compress
-* [x] Multi Environment (生多个APP)
-    * APPID
-    * domain & other configs
 
 
 ## Todo

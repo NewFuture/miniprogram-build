@@ -15,6 +15,7 @@ var debug = require('gulp-debug');
 var colors = require('ansi-colors');
 
 var compileScss = require('./src/compile-scss');
+var compileTS = require('./src/compile-ts')
 
 var config = {
 	release: false,
@@ -33,20 +34,20 @@ function log() {
 	console.log.apply(false, data);
 }
 
-/**
- * 编译ts文件
- * @param {string} [tsFile] - 源文件，无则编译所有文件
- */
-function compileTypeScript(tsFile) {
-	var tsProject = ts.createProject(config.tsconfig);
-	var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: !config.release }) : tsProject.src();
-	return src.pipe(tsProject())
-		.js
-		.pipe(gulp.dest(config.dist, {
-			// @ts-ignore
-			sourcemaps: !config.release
-		}));
-}
+// /**
+//  * 编译ts文件
+//  * @param {string} [tsFile] - 源文件，无则编译所有文件
+//  */
+// function compileTypeScript(tsFile) {
+// 	var tsProject = ts.createProject(config.tsconfig);
+// 	var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: !config.release }) : tsProject.src();
+// 	return src.pipe(tsProject())
+// 		.js
+// 		.pipe(gulp.dest(config.dist, {
+// 			// @ts-ignore
+// 			sourcemaps: !config.release
+// 		}));
+// }
 
 // /**
 //  * 编译scss
@@ -175,7 +176,7 @@ function watchHandler(type, file) {
 				return compileScss(file, config);
 
 			case '.ts': // ts 文件
-				return file.endsWith('.d.ts') ? Promise.resolve() : compileTypeScript(file);
+				return file.endsWith('.d.ts') ? Promise.resolve() : compileTS(config, file);
 
 			case '.json': //json 文件
 				return replaceJson(file);
@@ -214,7 +215,7 @@ function watch(cb) {
 	cb();
 }
 
-gulp.task('compileTypeScript', () => compileTypeScript());
+gulp.task('compileTypeScript', () => compileTS(config));
 gulp.task('scss', () => compileScss(config.src + '/**/*.{scss,sass,css}', config));
 gulp.task('replaceJson', () => replaceJson());
 gulp.task('minifyImage', () => minifyImage());
