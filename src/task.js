@@ -8,6 +8,7 @@ var del = require('del');
 var colors = require('ansi-colors');
 var log = require('fancy-log');
 
+var taskLog = require('./lib/task-log')
 var compileTs = require('./compile-typescript');
 var compileWxss = require('./compile-wxss');
 var compileWxml = require('./compress-wxml');
@@ -45,14 +46,18 @@ exports.clean = gulp.parallel(() => {
     return del(config.dist);
 });
 
-exports.ts = gulp.parallel(() => compileTs(config, buildSrc(EXT.ts)));
-exports.wxss = gulp.parallel(() => compileWxss(config, buildSrc(EXT.wxss)));
-exports.wxml = gulp.parallel(() => compileWxml(config, buildSrc(EXT.wxml)));
-exports.json = gulp.parallel(() => compileJson(config, buildSrc(EXT.json)));
-exports.image = gulp.parallel(() => minifyImage(config, buildSrc(EXT.image)));
+exports.ts = gulp.parallel(() => compileTs(config, getSrc(EXT.ts)));
+exports.wxss = gulp.parallel(() => compileWxss(config, getSrc(EXT.wxss)));
+exports.wxml = gulp.parallel(() => compileWxml(config, getSrc(EXT.wxml)));
+exports.json = gulp.parallel(() => compileJson(config, getSrc(EXT.json)));
+exports.image = gulp.parallel(() => minifyImage(config, getSrc(EXT.image)));
 exports.copy = gulp.parallel(() => copy(config, config.copy));
-exports.npm = gulp.parallel(() => fs.exists('node_modules',
-    e => e ? buildNpm(config) : log(colors.red('npm: '), colors.yellowBright('node_modules doesn\'t exist! please run `npm i`')))
+exports.npm = gulp.parallel((cb) =>
+    fs.exists('node_modules',
+        e => (e ? buildNpm(config) : log(colors.red('npm: '), colors.yellowBright('node_modules/ doesn\'t exist! please run `' + colors.bgRedBright('npm i') + '`'))
+            , cb())
+    )
+
 );
 //编译项目
 exports.compile = gulp.parallel(
@@ -67,20 +72,26 @@ exports.compile = gulp.parallel(
 // 重新生成文件
 exports.build = gulp.series(
     exports.clean,
+    taskLog(colors.cyan('build:'), 'compiling', colors.blue.underline(config.src), '→', colors.blue.underline(config.dist)),
     exports.compile,
+    taskLog(colors.magenta('finished compiling !'))
 );
 
 //监听文件
-exports.watch = () => gulp.watch([config.src], { ignored: /[\/\\]\./ })
-    .on('change', function (file) {
-        log(colors.yellow(file), 'is changed');
-        return fileUpdate(file);
-    })
-    .on('add', function (file) {
-        log(colors.green(file), 'is added');
-        return fileUpdate(file);
-    })
-    .on('unlink', deleteDistFileFormSrc);
+exports.watch = (cb) => {
+    gulp.watch([config.src], { ignored: /[\/\\]\./ })
+        .on('change', function (file) {
+            log(colors.yellow(file), 'is changed');
+            return fileUpdate(file);
+        })
+        .on('add', function (file) {
+            log(colors.green(file), 'is added');
+            return fileUpdate(file);
+        })
+        .on('unlink', deleteDistFileFormSrc);
+    log(colors.cyan('start watching'), colors.blue.underline(config.src), colors.gray('......'));
+    cb && (cb);
+}
 
 
 exports.dev = gulp.series(
@@ -88,14 +99,14 @@ exports.dev = gulp.series(
     exports.watch
 );
 
-exports.default = exports.dev;
+exports.default = exports.build;
 
 
 /**
  * 
  * @param {string[]} exts 
  */
-function buildSrc(exts) {
+function getSrc(exts) {
     if (exts.length === 1) {
         return config.src + '/**/*.' + exts[0];
     } else {
@@ -138,7 +149,7 @@ function fileUpdate(file) {
     var extname = getExt(file);
     if (EXT.wxss.indexOf(extname) >= 0) {
         // wxss全部编译
-        return compileWxss(config, buildSrc(EXT.wxss));
+        return compileWxss(config, getSrc(EXT.wxss));
     } else if (EXT.ts.indexOf(extname) >= 0) {
         return compileTs(config, file);
     } else if (EXT.wxml.indexOf(extname) >= 0) {
