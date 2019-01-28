@@ -5,29 +5,41 @@
 
 var tasks = require('../src/task');
 var argv = require('yargs').argv;
-// var gulp = require('gulp');
-
+var fs = require('fs');
+var minify = require('node-json-minify');
 
 if (argv['config']) {
     var configFile = '' + argv['config'];
     if (!configFile.startsWith('.') && !configFile.startsWith('/')) {
         configFile = './' + configFile;
     }
-    Object.assign(tasks.config, require(configFile))
+    if (!fs.existsSync(configFile)) {
+        console.error(configFile, 'configure file not found!');
+    } else {
+        var json = fs.readFileSync(configFile, 'utf-8');
+        var config = JSON.parse(minify(json));
+        Object.assign(tasks.$config, config);
+    }
 }
-if (argv['debug']) {
-    tasks.config.debug = true;
+
+for (var key in argv) {
+    if (key !== '_' && key !== '$0' && key !== 'config') {
+        tasks.$config[key] = argv[key]
+    }
 }
-if (argv['release']) {
-    tasks.config.release = true;
-}
+// if (argv['debug']) {
+//     tasks.$config.debug = true;
+// }
+// if (argv['release']) {
+//     tasks.$config.release = true;
+// }
 
 // if(argv['init']){
 //     // init
 // }else
 
 if (argv._.length === 0) {
-    tasks.default(()=>{});
+    tasks.default(() => { });
 } else {
     argv._.forEach(task => {
         tasks[task]();

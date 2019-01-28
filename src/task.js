@@ -29,13 +29,13 @@ var config = {
     exclude: '',
     copy: 'src/**/*.js',
     tsconfig: 'tsconfig.json',
-    replace: {
+    var: {
     }
 }
 
 
 
-exports.config = config;
+exports.$config = config;
 
 // clean 任务, dist 目录
 exports.clean = gulp.parallel(() => {
