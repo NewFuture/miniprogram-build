@@ -20,11 +20,11 @@ function compileTS(config, tsFile) {
     var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: !config.release }) : tsProject.src();
     return src
         .pipe(debug({ title: TITLE }))
+        .pipe(replace(config.var, undefined, "{{", "}}"))
         .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(tsProject(ts.reporter.fullReporter(true)))
         .js
         .pipe(config.release ? empty() : sourcemaps.write())
-        .pipe(replace(config.var, undefined, "{{", "}}"))
         .pipe(size({ title: TITLE, showFiles: true }))
         .pipe(gulp.dest(config.dist));
 }

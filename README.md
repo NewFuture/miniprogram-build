@@ -7,7 +7,7 @@ build miniprogram with typescript & scss
 * `js`
     * [x] compile `TS`
     * [x] sourcemaps
-    * [ ] replace `{{var}}`
+    * [x] replace `{{var}}`
     * [ ] build break
     * [ ] tree shaking
     * [ ] one tslib
@@ -71,7 +71,6 @@ task
 * `watch` watch src files change and update dist
 * `dev` = `build`+`watch`
 * `clean` remove dist
-* default is `dev`
 
 flags
 
@@ -102,7 +101,7 @@ mp-build build --config=./config.prod.json --release
     "exclude": "",
     "tsconfig": "tsconfig.json",
     "var": {
-        "APP_ID": "all {{APP_ID}} in json files will replaced by this value"
+        "APP_ID": "all {{APP_ID}} in json/ts files will replaced by this value"
     }
 }
 ```

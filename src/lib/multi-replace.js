@@ -6,10 +6,23 @@ var log = require('fancy-log');
 var colors = require('ansi-colors');
 
 var TITLE = 'replace:'
-// this is how you get the relative path from a vinyl file instance
 
-function getRelativePath(file) {
-    return path.relative(path.join(file.cwd, file.base), file.path);
+/**
+ * 
+ * @param {number} n 
+ * @param {string} key 
+ * @param {*} value 
+ * @param {object} file 
+ */
+function logReplace(n, key, value, file) {
+    log(
+        TITLE,
+        n > 1 ? colors.green(n + '*') : '',
+        colors.blue.italic(key),
+        colors.dim('==>'),
+        typeof value === 'string' ? colors.cyan.underline(value) : colors.magenta.italic('Function'),
+        colors.gray('(in ' + path.relative(path.join(file.cwd, file.base), file.path) + ')')
+    )
 }
 
 /**
@@ -21,7 +34,7 @@ function getRelativePath(file) {
  */
 function multiReplace(opts, replacement, prefix, suffix) {
     function replace(file, encoding, callback) {
-        var str = String(file.contents)
+        var str = file.contents.toString()
         prefix = prefix || '';
         suffix = suffix || '';
         if (file.isBuffer()) {
@@ -31,31 +44,25 @@ function multiReplace(opts, replacement, prefix, suffix) {
                     var search_key = prefix + key + suffix;
                     var sp = str.split(search_key);
                     if (sp.length > 1) {
-                        log(TITLE,
-                            colors.green('[' + (sp.length - 1) + ']'),
-                            colors.dim.italic(search_key), '==>', colors.cyan.underline(opts[key]),
-                            colors.gray('(' + getRelativePath(file) + ')')
-                        );
                         str = sp.join(opts[key]);
+                        logReplace(sp.length - 1, search_key, opts[key], file);
                     }
                 }
             } else if (typeof opts === 'string') {
                 var search_key = prefix + opts + suffix;
                 var n = str.split(search_key).length - 1;
                 if (n > 0) {
-                    log(TITLE,
-                        colors.green('[' + n + ']'),
-                        colors.dim.underline.italic(search_key), '==>',
-                        typeof replacement === 'string' ? colors.cyan.underline(replacement) : colors.magenta.italic('Function'),
-                        colors.gray('(in ' + getRelativePath(file) + ')')
-                    );
-                    this.emit('found', search_key, n, getRelativePath(file), replacement);
                     //@ts-ignore
                     str = str.replace(new RegExp(search_key, 'mg'), replacement);
+                    logReplace(n, search_key, replacement, file);
                 }
             } else {
                 //@ts-ignore
-                str = str.replace(opts, replacement);
+                var n = (str.match(opts) || []).length
+                if (n > 0) {
+                    str = str.replace(opts, replacement);
+                    logReplace(n, search_key, replacement, file);
+                }
             }
             file.contents = new Buffer(str);
         } else if (file.isStream()) {

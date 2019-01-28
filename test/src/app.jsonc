@@ -2,6 +2,6 @@
     /**
     注释 
     */
-    "appid": "{{APPID}}", //APPID,
+    "appid": "{{APP_ID}}", //APPID,
     "test": 1
 }

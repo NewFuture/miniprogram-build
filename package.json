@@ -4,8 +4,9 @@
   "description": "build miniprogram with typescript & scss ",
   "main": "gulpfile.js",
   "bin": {
+    "miniprogram-build": "bin/mp-build.js",
     "mp-build": "bin/mp-build.js",
-    "miniprogram-build": "bin/mp-build.js"
+    "mp": "bin/mp-build.js"
   },
   "files": [
     "src/",
