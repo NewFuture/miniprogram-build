@@ -81,7 +81,7 @@ examples
 
 * dev in int env
 ```
-mp-build --config=./config.int.json 
+mp-build dev --config=./config.int.json 
 ```
 * build for prod release
 ```
@@ -96,9 +96,9 @@ mp-build build --config=./config.prod.json --release
     "debug": false,
     "src": "src",
     "dist": "dist",
-    "ignore": "",
+    "exclude": "",
     "tsconfig": "tsconfig.json",
-    "replace": {
+    "var": {
         "APP_ID": "all {{APP_ID}} in json files will replaced by this value"
     }
 }
