@@ -4,20 +4,23 @@ build miniprogram with typescript & scss
 
 ## Features
 
-* `TS` => `js`
-    * [x] compile
+* `js`
+    * [x] compile `TS`
     * [x] sourcemaps
+    * [ ] replace `{{var}}`
     * [ ] build break
     * [ ] tree shaking
     * [ ] one tslib
-* `scss/sass/css` => `wxss`
+* `wxss`
     * [x] compile
-    * [x] import node_modules
+        * `scss`/`sass`
+        * `css`
+    * [x] import `node_modules`
     * [x] sourcemaps
     * [x] minify (release) / expanded (debug)
     * [x] inline image
     * [x] inline svg
-    * [x] PostCSS & cssnano & svg compress
+    * [x] PostCSS & cssnano & inline svg compress
     * [ ] keep import wxss
     * [ ] build break
     * [ ] skip local scss `_`
@@ -30,7 +33,7 @@ build miniprogram with typescript & scss
 *  `JSON`
     * [x] jsonc (添加注释)
     * [x] minify
-    * [x] APPID or domain & other configs
+    * [x] replace `{{var}}`
 * resource
     * [x] copy/src
     * [x] image compress

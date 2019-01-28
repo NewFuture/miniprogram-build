@@ -39,7 +39,7 @@ exports.$config = config;
 
 // clean 任务, dist 目录
 exports.clean = gulp.parallel(() => {
-    log(colors.blue('clean:') + ' ' + config.dist);
+    log(colors.blue('clean:'), config.dist);
     return del(config.dist);
 });
 
@@ -71,11 +71,11 @@ exports.build = gulp.series(
 //监听文件
 exports.watch = () => gulp.watch([config.src], { ignored: /[\/\\]\./ })
     .on('change', function (file) {
-        log(colors.yellow(file) + ' is changed');
+        log(colors.yellow(file), 'is changed');
         return fileUpdate(file);
     })
     .on('add', function (file) {
-        log(colors.green(file) + ' is added');
+        log(colors.green(file), 'is added');
         return fileUpdate(file);
     })
     .on('unlink', deleteDistFileFormSrc);
@@ -119,7 +119,7 @@ function log() {
  * @param {string} file 
  */
 function deleteDistFileFormSrc(file) {
-    log(colors.magenta(file) + ' is deleted');
+    log(colors.magenta(file), 'is deleted');
     var distFile = file.replace(config.src, config.dist);
     var extname = getExt(file);
     for (var key in EXT) {
@@ -129,7 +129,7 @@ function deleteDistFileFormSrc(file) {
             break;
         }
     }
-    log(colors.red('delete') + ' ' + distFile);
+    log(colors.red('delete'), distFile);
     return del(distFile);
 }
 

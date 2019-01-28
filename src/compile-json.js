@@ -15,13 +15,13 @@ var TITLE = 'json:';
  */
 function replaceJson(config, jsonFile) {
     jsonFile = jsonFile || (config.src + '/**/*.{json,jsonc}');
-    var replaceData = {};
-    for (var key in (config.replace || {})) {
-        replaceData[`{{${key}}}`] = config.replace[key];
-    }
+    // var replaceData = {};
+    // for (var key in (config.replace || {})) {
+    //     replaceData[`{{${key}}}`] = config.replace[key];
+    // }
     return gulp.src(jsonFile, { base: config.src })
         .pipe(debug({ title: TITLE }))
-        .pipe(multiReplace(replaceData))
+        .pipe(multiReplace(config.var, undefined, '{{', '}}'))
         .pipe(jsonMini(!config.release))
         .pipe(rename({ 'extname': '.json' }))
         .pipe(size({ title: TITLE, showFiles: true }))
