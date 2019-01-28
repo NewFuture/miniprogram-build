@@ -6,6 +6,8 @@ var fs = require('fs');
 var gulp = require('gulp');
 var del = require('del');
 var colors = require('ansi-colors');
+var log = require('fancy-log');
+
 var compileTs = require('./compile-typescript');
 var compileWxss = require('./compile-wxss');
 var compileWxml = require('./compress-wxml');
@@ -107,11 +109,6 @@ function buildSrc(exts) {
  */
 function getExt(filename) {
     return path.extname(filename).substr(1).toLowerCase();
-}
-
-// Log for output msg.
-function log() {
-    return console.log.apply(false, Array.prototype.slice.call(arguments));
 }
 
 /**

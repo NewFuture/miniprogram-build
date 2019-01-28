@@ -5,6 +5,8 @@ var fs = require("fs");
 var path = require("path");
 var mime = require("mime");
 var async = require("async");
+var colors = require('ansi-colors');
+var fancyLog = require('fancy-log');
 
 // Cache regex's
 var rImages = /([\s\S]*?)(url\(([^)]+)\))(?!\s*[;,]?\s*\/\*\s*base64:skip\s*\*\/)|([\s\S]+)/img;
@@ -13,6 +15,14 @@ var rExternal = /^\W*([a-zA-z]+:)?\/\//;
 var rData = /^\W*data:/;
 var rQuotes = /['"]/g;
 var rParams = /([?#].*)$/g;
+
+function log(img, file) {
+    fancyLog('inline:',
+        colors.cyan.underline(path.relative(path.join(file.cwd, file.base), img)),
+        colors.gray("→"),
+        colors.gray('(' + colors.underline(path.relative(path.join(file.cwd, file.base), file.path)) + ')'),
+    );
+}
 
 function isLocalFile(url) {
     return !rExternal.test(url) && !rData.test(url);
@@ -139,6 +149,7 @@ module.exports = (function () {
                         //     loc = 'http:' + loc;
                         // }
 
+                        log(loc, file)
                         exports.image(loc, opts, function (err, resp, cacheable) {
                             if (err == null) {
                                 var url = "url(" + resp + ")";
@@ -186,7 +197,7 @@ module.exports = (function () {
             done = opts;
             opts = {};
         }
-        
+
         var complete = function (err, encoded, cacheable) {
 
             // Return the original source if an error occurred
@@ -223,6 +234,7 @@ module.exports = (function () {
             var src = fs.readFileSync(img);
             var type = mime.getType(img);
             var encoded = exports.getDataURI(type, src);
+
             complete(null, encoded, true);
         }
     };
