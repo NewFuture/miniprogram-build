@@ -47,6 +47,7 @@ exports.clean = gulp.parallel(() => {
 });
 
 exports.ts = gulp.parallel(() => compileTs(config, getSrc(EXT.ts)));
+exports.typescript = exports.ts;
 exports.wxss = gulp.parallel(() => compileWxss(config, getSrc(EXT.wxss)));
 exports.wxml = gulp.parallel(() => compileWxml(config, getSrc(EXT.wxml)));
 exports.json = gulp.parallel(() => compileJson(config, getSrc(EXT.json)));
@@ -72,9 +73,9 @@ exports.compile = gulp.parallel(
 // 重新生成文件
 exports.build = gulp.series(
     exports.clean,
-    taskLog(colors.cyan('build:'), 'compiling', colors.blue.underline(config.src), '→', colors.blue.underline(config.dist)),
+    taskLog(colors.gray("↓↓↓↓↓↓"), 'compile', colors.blue.underline(config.src), '→', colors.blue.underline(config.dist), colors.gray("↓↓↓↓↓↓")),
     exports.compile,
-    taskLog(colors.magenta('finished compiling !'))
+    taskLog(colors.gray("↑↑↑↑↑↑"), colors.magenta('finished compiling'), colors.gray("↑↑↑↑↑↑"))
 );
 
 //监听文件

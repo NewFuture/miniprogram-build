@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
 var debug = require('gulp-debug');
 var cssnano = require('cssnano');
 var postcss = require('gulp-postcss');
@@ -18,7 +19,8 @@ var TITLE = 'wxss:';
  */
 function compileScss(config, scssFile) {
     scssFile = scssFile;
-    return gulp.src(scssFile, { base: config.src, sourcemaps: !config.release })
+    return gulp.src(scssFile, { base: config.src })
+        .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(debug({ title: TITLE }))
         .pipe(sass({
             errLogToConsole: true,
@@ -32,12 +34,10 @@ function compileScss(config, scssFile) {
         })
         .pipe(inline())
         .pipe(config.release ? postcss([cssnano()]) : empty())
+        .pipe(config.release ? empty() : sourcemaps.write())
         .pipe(rename({ 'extname': '.wxss' }))
         .pipe(size({ title: TITLE, showFiles: true }))
-        .pipe(gulp.dest(config.dist, {
-            // @ts-ignore
-            sourcemaps: !config.release
-        }))
+        .pipe(gulp.dest(config.dist))
 }
 
 module.exports = compileScss
