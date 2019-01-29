@@ -13,9 +13,9 @@ var TITLE = 'copy:';
  */
 function copy(config, file) {
     // file = file || ([config.src + '/**/*', '!' + config.src + '/**/*.{ts,json,jsonc,scss,sass,css,png,jpg,jpeg,svg,gif}']);
-    return gulp.src(file, { base: config.src })
+    return file ? gulp.src(file, { base: config.src })
         .pipe(size({ title: TITLE, showFiles: true }))
-        .pipe(gulp.dest(config.dist));
+        .pipe(gulp.dest(config.dist)) : null;
 }
 
 module.exports = copy;

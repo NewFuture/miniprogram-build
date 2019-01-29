@@ -4,8 +4,8 @@ var gulp = require('gulp');
 var rename = require('gulp-rename');
 var debug = require('gulp-debug');
 var size = require('gulp-size');
-var multiReplace = require('./lib/multi-replace');
-var jsonMini = require('./lib/json-mini');
+var multiReplace = require('../lib/multi-replace');
+var jsonMini = require('../lib/json-mini');
 
 var TITLE = 'json:';
 /**

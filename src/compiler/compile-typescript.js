@@ -6,8 +6,8 @@ var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 var debug = require("gulp-debug");
 var size = require('gulp-size');
-var empty = require('./lib/empty');
-var replace = require('./lib/multi-replace');
+var empty = require('../lib/empty');
+var replace = require('../lib/multi-replace');
 
 var TITLE = 'typescript:';
 /**
@@ -20,8 +20,8 @@ function compileTS(config, tsFile) {
     var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: !config.release }) : tsProject.src();
     return src
         .pipe(debug({ title: TITLE }))
-        .pipe(replace(config.var, undefined, "{{", "}}"))
         .pipe(config.release ? empty() : sourcemaps.init())
+        .pipe(replace(config.var, undefined, "{{", "}}"))
         .pipe(tsProject(ts.reporter.fullReporter(true)))
         .js
         .pipe(config.release ? empty() : sourcemaps.write())

@@ -9,13 +9,15 @@ var colors = require('ansi-colors');
 var log = require('fancy-log');
 
 var taskLog = require('./lib/task-log')
-var compileTs = require('./compile-typescript');
-var compileWxss = require('./compile-wxss');
-var compileWxml = require('./compress-wxml');
-var compileJson = require('./compile-json');
-var minifyImage = require('./compress-image');
-var copy = require('./copy');
-var buildNpm = require('./build-npm');
+var compileTs = require('./compiler/compile-typescript');
+var compileWxss = require('./compiler/compile-wxss');
+var compileWxml = require('./compiler/compress-wxml');
+var compileJson = require('./compiler/compile-json');
+var minifyImage = require('./compiler/compress-image');
+var copy = require('./compiler/copy');
+var buildNpm = require('./compiler/build-npm');
+
+var js = require('./tasks/js');
 
 var EXT = {
     ts: ['ts'],
@@ -30,13 +32,11 @@ var config = {
     src: 'src',
     dist: 'dist',
     exclude: '',
-    copy: 'src/**/*.js',
-    tsconfig: 'tsconfig.json',
+    copy: '',
+    // tsconfig: 'tsconfig.json',
     var: {
     }
 }
-
-
 
 exports.$config = config;
 
@@ -46,7 +46,10 @@ exports.clean = gulp.parallel(() => {
     return del(config.dist);
 });
 
-exports.ts = gulp.parallel(() => compileTs(config, getSrc(EXT.ts)));
+exports.ts = js.jsTask(config);
+// gulp.parallel(
+// js.jsTask(config)
+// );
 exports.typescript = exports.ts;
 exports.wxss = gulp.parallel(() => compileWxss(config, getSrc(EXT.wxss)));
 exports.wxml = gulp.parallel(() => compileWxml(config, getSrc(EXT.wxml)));

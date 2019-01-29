@@ -7,8 +7,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var debug = require('gulp-debug');
 var cssnano = require('cssnano');
 var postcss = require('gulp-postcss');
-var inline = require('./lib/inline');
-var empty = require('./lib/empty');
+var inline = require('../lib/inline');
+var empty = require('../lib/empty');
 var size = require('gulp-size');
 
 var TITLE = 'wxss:';
