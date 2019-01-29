@@ -15,14 +15,14 @@ var TITLE = 'replace:'
  * @param {object} file 
  */
 function logReplace(n, key, value, file) {
-    log(
+    log.info(
         TITLE,
         n > 1 ? colors.green(n + '*') : '',
         colors.blue.italic(key),
         colors.dim('→'),
         typeof value === 'string' ? colors.cyan.underline(value) : colors.magenta.italic('Function'),
         colors.gray('(' + colors.underline(
-            path.relative(path.join(file.cwd, file.base), file.path)
+            path.relative(file.base, file.path)
         ) + ')'),
     )
 }

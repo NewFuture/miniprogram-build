@@ -21,9 +21,9 @@ function replaceJson(config, jsonFile) {
     // }
     return gulp.src(jsonFile, { base: config.src })
         .pipe(debug({ title: TITLE }))
+        .pipe(rename({ 'extname': '.json' }))
         .pipe(multiReplace(config.var, undefined, '{{', '}}'))
         .pipe(jsonMini(!config.release))
-        .pipe(rename({ 'extname': '.json' }))
         .pipe(size({ title: TITLE, showFiles: true }))
         .pipe(gulp.dest(config.dist));
 }
