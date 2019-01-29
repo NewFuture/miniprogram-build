@@ -16,7 +16,7 @@ var TITLE = 'wxss:';
  * @param {object} config
  * @param {string|string[]} scssFile  编译源 
  */
-function compileScss(config,scssFile) {
+function compileScss(config, scssFile) {
     scssFile = scssFile;
     return gulp.src(scssFile, { base: config.src, sourcemaps: !config.release })
         .pipe(debug({ title: TITLE }))
@@ -25,7 +25,11 @@ function compileScss(config,scssFile) {
             outputStyle: config.release ? 'compressed' : 'expanded',
             includePaths: ['node_modules'],
             sourceMapEmbed: !config.release,
-        }).on('error', sass.logError))
+        }))
+        .on('error', function (err) {
+            sass.logError.call(this, err);
+            this.emit('end');
+        })
         .pipe(inline())
         .pipe(config.release ? postcss([cssnano()]) : empty())
         .pipe(rename({ 'extname': '.wxss' }))

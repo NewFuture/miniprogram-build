@@ -8,7 +8,8 @@ build miniprogram with typescript & scss
     * [x] compile `TS`
     * [x] sourcemaps
     * [x] replace `{{var}}`
-    * [ ] build break
+    * [x] build break
+    * [ ] JS support
     * [ ] tree shaking
     * [ ] one tslib
 * `wxss`
@@ -22,7 +23,7 @@ build miniprogram with typescript & scss
     * [x] inline svg
     * [x] PostCSS & cssnano & inline svg compress
     * [ ] keep import wxss
-    * [ ] build break
+    * [x] build break when Invalid
     * [ ] skip local scss `_`
 * `wxml/html` ==> `wxml`
     * [x] copy rename
