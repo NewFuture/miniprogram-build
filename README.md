@@ -9,7 +9,7 @@ build miniprogram with typescript & scss
     * [x] sourcemaps
     * [x] replace `{{var}}`
     * [x] build break
-    * [ ] JS support
+    * [x] JS support
     * [ ] tree shaking
     * [ ] one tslib
 * `wxss`
