@@ -25,14 +25,14 @@ build miniprogram with typescript & scss
     * [ ] keep import wxss
     * [x] build break when Invalid
     * [ ] skip local scss `_`
-* `wxml/html` ==> `wxml`
+* `wxml`
+    * [x] `wxml`
+    * [x] `html`
     * [x] copy rename
     * [x] compress
-* `svg` ==> `iconfonts`
-    * [ ] svg ==> iconfont 
-    * [ ] build wxss
 *  `JSON`
-    * [x] jsonc (添加注释)
+    * [x] comments (添加注释)
+    * [x] trailing comma
     * [x] minify
     * [x] replace `{{var}}`
 * resource
@@ -41,19 +41,21 @@ build miniprogram with typescript & scss
 * console verbose
     * [x] all files
     * [x] file size
-* miniprogram native npm
-    * [x] link node_modules
-    * [ ] rollup js lib
-    * [ ] components
+
 
 ## Todo
 * [ ] exlude path
 * [ ] init
 * [ ] ~~pages config~~
 * [ ] template project
-
-
-
+* `svg` ==> `iconfonts`
+    * [ ] svg ==> iconfont 
+    * [ ] build wxss
+* miniprogram native npm
+    * [x] link node_modules
+    * [ ] rollup js lib
+    * [ ] components
+    
 ## Usage
 
 ### install 
