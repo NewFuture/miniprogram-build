@@ -1,6 +1,6 @@
 {
   "name": "miniprogram-build",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "build miniprogram with typescript & scss ",
   "main": "gulpfile.js",
   "bin": {
