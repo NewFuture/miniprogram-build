@@ -2,7 +2,7 @@
 'use strict';
 
 var through2 = require('through2');
-var minify = require('node-json-minify');
+var json5 = require('json5');
 
 /**
  * 
@@ -10,8 +10,8 @@ var minify = require('node-json-minify');
  * @param {boolean} pretty 
  */
 function mini(json, pretty) {
-    var data = minify(json);
-    return pretty ? JSON.stringify(JSON.parse(data), undefined, 4) : data;
+    var data = json5.parse(json);
+    return JSON.stringify(data, undefined, pretty ? 4 : 0);
 }
 
 /**
