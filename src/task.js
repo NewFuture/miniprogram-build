@@ -28,7 +28,6 @@ var EXT = {
 }
 var config = {
     release: false,
-    debug: false,
     src: 'src',
     dist: 'dist',
     exclude: '',
@@ -46,11 +45,11 @@ exports.clean = gulp.parallel(() => {
     return del(config.dist);
 });
 
-exports.ts = js.jsTask(config);
+exports.js = js.jsTask(config);
 // gulp.parallel(
 // js.jsTask(config)
 // );
-exports.typescript = exports.ts;
+exports.typescript = exports.js;
 exports.wxss = gulp.parallel(() => compileWxss(config, getSrc(EXT.wxss)));
 exports.wxml = gulp.parallel(() => compileWxml(config, getSrc(EXT.wxml)));
 exports.json = gulp.parallel(() => compileJson(config, getSrc(EXT.json)));
@@ -65,7 +64,7 @@ exports.npm = gulp.parallel((cb) =>
 );
 //编译项目
 exports.compile = gulp.parallel(
-    exports.ts,
+    exports.js,
     exports.wxss,
     exports.wxml,
     exports.json,

@@ -44,7 +44,8 @@ function loadConfig(configFile) {
             return config;
         } catch (ex) {
             log.error(TITLE, colors.red.underline(configFile), 'failed to load.', colors.redBright(ex));
-            process.exit(1);
+            // process.exit(1);
+            throw ex;
         }
     }
 }
