@@ -18,6 +18,7 @@ var copy = require('./compiler/copy');
 var buildNpm = require('./compiler/build-npm');
 
 var js = require('./tasks/js');
+var wxss = require('./tasks/wxss');
 
 var EXT = {
     ts: ['ts'],
@@ -30,6 +31,7 @@ var config = {
     release: false,
     src: 'src',
     dist: 'dist',
+    assets:'assets',
     exclude: '',
     copy: '',
     // tsconfig: 'tsconfig.json',
@@ -50,7 +52,8 @@ exports.js = js.jsTask(config);
 // js.jsTask(config)
 // );
 exports.typescript = exports.js;
-exports.wxss = gulp.parallel(() => compileWxss(config, getSrc(EXT.wxss)));
+exports.wxss = wxss.task(config);
+// gulp.parallel(() => compileWxss(config, getSrc(EXT.wxss)));
 exports.wxml = gulp.parallel(() => compileWxml(config, getSrc(EXT.wxml)));
 exports.json = gulp.parallel(() => compileJson(config, getSrc(EXT.json)));
 exports.image = gulp.parallel(() => minifyImage(config, getSrc(EXT.image)));
@@ -81,20 +84,25 @@ exports.build = gulp.series(
 );
 
 //监听文件
-exports.watch = (cb) => {
-    gulp.watch([config.src], { ignored: /[\/\\]\./ })
-        .on('change', function (file) {
-            log(colors.yellow(file), 'is changed');
-            return fileUpdate(file);
-        })
-        .on('add', function (file) {
-            log(colors.green(file), 'is added');
-            return fileUpdate(file);
-        })
-        .on('unlink', deleteDistFileFormSrc);
-    log(colors.cyan('start watching'), colors.blue.underline(config.src), colors.gray('......'));
-    cb && (cb);
-}
+exports.watch = gulp.parallel(
+    wxss.watch(config),
+    js.watch(config),
+)
+
+//  (cb) => {
+//     gulp.watch([config.src], { ignored: /[\/\\]\./ })
+//         .on('change', function (file) {
+//             log(colors.yellow(file), 'is changed');
+//             return fileUpdate(file);
+//         })
+//         .on('add', function (file) {
+//             log(colors.green(file), 'is added');
+//             return fileUpdate(file);
+//         })
+//         .on('unlink', deleteDistFileFormSrc);
+//     log(colors.cyan('start watching'), colors.blue.underline(config.src), colors.gray('......'));
+//     cb && (cb);
+// }
 
 
 exports.dev = gulp.series(

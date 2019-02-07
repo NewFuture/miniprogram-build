@@ -18,7 +18,6 @@ var TITLE = 'wxss:';
  * @param {string|string[]} scssFile  编译源 
  */
 function compileScss(config, scssFile) {
-    scssFile = scssFile;
     return gulp.src(scssFile, { base: config.src })
         .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(debug({ title: TITLE }))

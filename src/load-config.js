@@ -25,11 +25,12 @@ function loadConfig(configFile) {
     if (configFile) {
         if (!fs.existsSync(configFile)) {
             log.error(TITLE, colors.red.underline(configFile), colors.redBright('does not exist'));
-            process.exit(1);
+            throw ex;            
+            // process.exit(1);
         }
     } else {
         // try load default configure file
-        for (let index = 0; index < DEFAULT_CONFIG_FILES.length; index++) {
+        for (var index = 0; index < DEFAULT_CONFIG_FILES.length; index++) {
             if (fs.existsSync(DEFAULT_CONFIG_FILES[index])) {
                 configFile = DEFAULT_CONFIG_FILES[index];
                 break;
