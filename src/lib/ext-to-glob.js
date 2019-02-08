@@ -1,14 +1,20 @@
+///@ts-check
+'use strict';
+
+var path = require('path');
 
 /**
  * @param {object} config
- * @param {string[]} exts 
+ * @param {string[]|string} exts 
  */
-module.exports=function(config,exts) {
+module.exports=function(config,exts,includeAssets) {
     var glob=[];
-    if (exts.length === 1) {
-        glob=[ config.src + '/**/*.' + exts[0]];
+    if(typeof exts === 'string'){
+        glob = [exts];
+    }else if (exts.length === 1) {
+        glob = [ config.src + '/**/*.' + exts[0]];
     } else {
-        glob =[ config.src + '/**/*.{' + exts.join(',') + '}'];
+        glob = [ config.src + '/**/*.{' + exts.join(',') + '}'];
     }
 
     if(config.exclude){
@@ -17,6 +23,11 @@ module.exports=function(config,exts) {
         }else{
             glob.push(config.exclude);
         }
+    }
+
+    if(config.assets){
+        var a=path.join(config.src,config.assets).replace(/\\/g,'/')+'/**/*';
+        glob.push(includeAssets?a:'!'+a);
     }
     return glob;
 }

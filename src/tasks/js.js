@@ -6,7 +6,7 @@ var path = require('path');
 var compileTs = require('../compiler/compile-typescript');
 var compileJs = require('../compiler/compile-javascript');
 
-exports.jsTask = function (config) {
+exports.build = function (config) {
     return function () {
         // 自动判断TS/JS
         if (config.tsconfig || fs.existsSync('tsconfig.json')) {
