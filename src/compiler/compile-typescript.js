@@ -18,7 +18,7 @@ var TITLE = 'typescript:';
 function compileTS(config, tsFile) {
     var tsProject = ts.createProject(config.tsconfig);
     var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: !config.release }) : tsProject.src();
-   console.log(tsFile,src)
+//    console.log(tsFile,src)
     return src
         .pipe(debug({ title: TITLE }))
         // .on('error',console.error)

@@ -5,6 +5,7 @@ var fs = require('fs');
 var path = require('path');
 var compileTs = require('../compiler/compile-typescript');
 var compileJs = require('../compiler/compile-javascript');
+var unlink = require('../lib/unlink');
 
 exports.build = function (config) {
     return function () {
@@ -32,12 +33,7 @@ exports.watch = function (config) {
               return update(config,file);
             }).on('add',function(file){
               return  update(config,file);
-            }).on('unlink', function(file){
-                var distFile = file.replace(config.src, config.dist)
-                                    .replace(/\.ts$/i, '.js');;
-                // log(colors.red('delete'), distFile);
-                return del(distFile); 
-            });
+            }).on('unlink', unlink(config.src,config.dist,'.js'));
             // cb && cb();
     }
 }

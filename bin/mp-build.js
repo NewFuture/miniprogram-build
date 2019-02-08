@@ -2,30 +2,20 @@
 
 ///@ts-check
 'use strict';
-var yargs = require('yargs');
-var tasks = require('../src/task');
 var loadConfig = require('../src/load-config');
-
-// var config = loadConfig( yargs.argv['config']);
-// Object.assign(tasks.$config, config);
-
-// for (var key in  yargs.argv) {
-//     if (key !== '_' && key !== '$0' && key !== 'config') {
-//         tasks.$config[key] =  yargs.argv[key]
-//     }
-// }
-
-var argv = yargs
+var tasks = require('../src/task');
+var argv = require('yargs')
     .usage('\nMiniProgram build tools <小程序编译打包工具>')
     .usage('Usage <用法>:\n  $0 [command...] [--option]')
     .example('$0 dev','编译并监测文件变化')
     .example('$0 --config=mpconfig.json','指定配置文件')
     .example('$0 --release','优化编译')
     .config('config','JSON config file <配置置文件,命令参数优先级高于配置>',loadConfig)
+    // .default('config','')
     .alias('c','config')
-    .help('help')
+    .help('help','show help <显示帮助信息>')
     .alias('h','help')
-    // .alias('v','version')
+    .describe('version','show version number <查看本版号>')
     .epilog('2018 - 2019 by NewFuture')
     // .option('config',{
     //     describe:'config file <配置置文件,命令参数优先级高于配置>',
@@ -48,7 +38,9 @@ var argv = yargs
     .option('exclude',{
         describe: 'ignored files <编译忽略文件(夹)>',
         // example: 'types/**/*',
-        type:'string|array',
+        // type:'string|array',
+        array:true,
+        string:true,
     })
     .option('tsconfig',{
         describe: 'typescript config file <TS配置,未设置会自动查找tsconfig.json>',
@@ -87,19 +79,16 @@ var argv = yargs
     .strict()
     .argv;
 
-// console.log(config);
-for (var key in  argv) {
-console.log(key,argv[key])
-}
+Object.assign(tasks.$config, argv);
 
-
-
-
-
-// if (yargs.argv._.length === 0) {
-//     tasks.default(() => { });
-// } else {
-//     yargs.argv._.forEach(task => {
-//         tasks[task]();
-//     });
+// for (var key in argv) {
+//     console.log(key,argv[key])
 // }
+
+if (argv._.length === 0) {
+    tasks.default(() => { });
+} else {
+    argv._.forEach(task => {
+        tasks[task]();
+    });
+}

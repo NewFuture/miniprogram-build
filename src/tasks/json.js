@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 // var fs = require('fs');
 var extToGlob = require('../lib/ext-to-glob');
+var unlink = require('../lib/unlink');
 var compileJson = require('../compiler/compile-json');
 
 var JSON_EXTS = ['json', 'jsonc', 'cjson'];
@@ -26,11 +27,7 @@ exports.watch = function (config) {
             return gulp.watch(glob,{})
             .on('change',function(file){return compileJson(config,file);})
             .on('add',function(file){return compileJson(config,file);})
-            .on('unlink', function(file){
-                var distFile = file.replace(config.src, config.dist)
-                                    .replace(/\.c?jsonc?$/i, '.json');;
-                // log(colors.red('delete'), distFile);
-                return del(distFile); 
-            });
+            .on('unlink', unlink(config.src,config.dist,'.json'))
+            ;
     }
 }
