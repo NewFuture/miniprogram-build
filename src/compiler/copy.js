@@ -8,14 +8,14 @@ var TITLE = 'copy:';
 
 /**
  * 
- * @param {object} config 
+ * @param {string} dist 
  * @param {string|string[]} file 
+ * @param {string} src
  */
-function copy(config, file) {
-    // file = file || ([config.src + '/**/*', '!' + config.src + '/**/*.{ts,json,jsonc,scss,sass,css,png,jpg,jpeg,svg,gif}']);
-    return file ? gulp.src(file, { base: config.src })
+function copy(dist, file, src) {
+    return file ? gulp.src(file, src ? { base: src } : undefined)
         .pipe(size({ title: TITLE, showFiles: true }))
-        .pipe(gulp.dest(config.dist)) : null;
+        .pipe(gulp.dest(dist)) : null;
 }
 
 module.exports = copy;

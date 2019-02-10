@@ -8,11 +8,22 @@ var copy = require('../compiler/copy');
 /**
  * @param {object} config
  */
+function copyTo(config) {
+    /**
+     * @param {string|string[]} file
+     */
+    return function (file) {
+        copy(config.dist, file, config.src);
+    }
+}
+
+/**
+ * @param {object} config
+ */
 exports.build = function (config) {
     return function () {
-        // copy(config, config.copy)
         if (config.copy) {
-            return copy(config, extToGlob(config, config.copy));
+            return copyTo(config)(extToGlob(config, config.copy));
         }
     };
 }
@@ -25,10 +36,9 @@ exports.watch = function (config) {
         if (!config.copy) {
             return;
         }
-        var glob = extToGlob(config, config.copy);
-        return gulp.watch(glob, {})
-            .on('change', function (file) { return copy(config, file); })
-            .on('add', function (file) { return copy(config, file); })
+        return gulp.watch(extToGlob(config, config.copy), {})
+            .on('change', copyTo(config))
+            .on('add', copyTo(config))
             .on('unlink', unlink(config.src, config.dist));
     }
 }
