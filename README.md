@@ -47,7 +47,7 @@ A command line tool to build & watch MiniProgram.
 ## Todo
 * [x] exclude path
 * [x] multi watcher
-* [ ] init
+* [ ] ~~init~~
 * [x] config
 * [ ] 显示报错位置
 * [ ] ~~pages config~~

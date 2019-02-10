@@ -26,6 +26,18 @@ exports.$config = {
     var: {
     }
 };
+exports.$gulp = gulp;
+/**
+ * @param {string[]} tasks
+ */
+exports.$execute = function (tasks) {
+    gulp.series(tasks)(function (err) {
+        if (err) {
+            console.error(err);
+            throw err;
+        }
+    });
+}
 
 gulp.task('js', js.build(exports.$config));
 gulp.task('wxss', wxss.build(exports.$config));
@@ -122,14 +134,3 @@ gulp.task(
 //     exports.watch
 // );
 
-/**
- * @param {string[]} tasks
- */
-exports.$execute = function (tasks) {
-    gulp.series(tasks)(function (err) {
-        if (err) {
-            console.error(err);
-            throw err;
-        }
-    });
-}

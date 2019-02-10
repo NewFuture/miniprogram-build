@@ -15,7 +15,6 @@ var TITLE = 'replace:'
  * @param {object} file 
  */
 function logReplace(n, key, value, file) {
-    console.log(key, value);
     log.info(
         TITLE,
         n > 1 ? colors.green(n + '*') : '',
