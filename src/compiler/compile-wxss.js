@@ -16,6 +16,7 @@ var TITLE = 'wxss:';
  * 编译scss
  * @param {object} config
  * @param {string|string[]} scssFile  编译源 
+ * @returns {NodeJS.ReadWriteStream}
  */
 function compileScss(config, scssFile) {
     return gulp.src(scssFile, { base: config.src })

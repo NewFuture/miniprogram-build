@@ -22,7 +22,7 @@ exports.build = function (config) {
                     colors.yellowBright('node_modules/ doesn\'t exist! please run `' + colors.bgRedBright('npm i') + '`'),
                 );
             } else {
-                buildNpm(config);
+                return buildNpm(config);
             }
         }
         cb && cb();

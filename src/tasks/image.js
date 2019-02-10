@@ -21,9 +21,8 @@ function compress(config) {
  * @param {object} config
  */
 exports.build = function (config) {
-    return function (cb) {
-        compress(config)(extToGlob(config, IMAGE_EXTS));
-        cb && cb();
+    return function () {
+        return compress(config)(extToGlob(config, IMAGE_EXTS));
     };
 }
 

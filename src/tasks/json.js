@@ -11,10 +11,8 @@ var JSON_EXTS = ['json', 'jsonc', 'cjson'];
  * @param {object} config
  */
 exports.build = function (config) {
-    return function (cb) {
-        compileJson(config, extToGlob(config, JSON_EXTS));
-        cb && cb();
-
+    return function () {
+        return compileJson(config, extToGlob(config, JSON_EXTS));
     };
 }
 /**

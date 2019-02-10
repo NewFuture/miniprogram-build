@@ -15,15 +15,14 @@ var TS_EXTS = ['ts', 'js'];
  * @param {object} config
  */
 exports.build = function (config) {
-    return function (cb) {
+    return function () {
         // 自动判断TS/JS
         if (config.tsconfig || fs.existsSync('tsconfig.json')) {
             config.tsconfig = config.tsconfig || 'tsconfig.json';
-            compileTs(config);
+            return compileTs(config);
         } else {
-            compileJs(config, config.src + '/**/*.js');
+            return compileJs(config, config.src + '/**/*.js');
         }
-        cb && cb();
     }
 }
 

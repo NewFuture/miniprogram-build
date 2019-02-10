@@ -11,9 +11,8 @@ var WXML_EXTS = ['wxml', 'html'];
  * @param {object} config
  */
 exports.build = function (config) {
-    return function (cb) {
-        compileWxml(config, extToGlob(config, WXML_EXTS));
-        cb && cb();
+    return function () {
+        return compileWxml(config, extToGlob(config, WXML_EXTS));
     };
 }
 /**

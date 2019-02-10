@@ -13,7 +13,7 @@ function copyTo(config) {
      * @param {string|string[]} file
      */
     return function (file) {
-        copy(config.dist, file, config.src);
+       return copy(config.dist, file, config.src);
     }
 }
 
@@ -21,11 +21,10 @@ function copyTo(config) {
  * @param {object} config
  */
 exports.build = function (config) {
-    return function (cb) {
+    return function () {
         if (config.copy) {
-            copyTo(config)(extToGlob(config, config.copy));
+          return  copyTo(config)(extToGlob(config, config.copy));
         }
-        cb & cb();
     };
 }
 
