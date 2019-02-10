@@ -11,8 +11,9 @@ var WXML_EXTS = ['wxml', 'html'];
  * @param {object} config
  */
 exports.build = function (config) {
-    return function () {
-        return compileWxml(config, extToGlob(config, WXML_EXTS));
+    return function (cb) {
+        compileWxml(config, extToGlob(config, WXML_EXTS));
+        cb && cb();
     };
 }
 /**
@@ -20,9 +21,11 @@ exports.build = function (config) {
  */
 exports.watch = function (config) {
     return function (cb) {
-        return gulp.watch(extToGlob(config, WXML_EXTS))
+        gulp.watch(extToGlob(config, WXML_EXTS))
             .on('change', function (file) { return compileWxml(config, file); })
             .on('add', function (file) { return compileWxml(config, file); })
             .on('unlink', unlink(config.src, config.dist, '.wxml'));
+        cb && cb();
+
     }
 }

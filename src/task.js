@@ -66,13 +66,14 @@ gulp.task(
 gulp.task(
     'build',
     gulp.series(
-        taskLog(colors.gray("↓↓↓↓↓↓"), 'compile', colors.blue.underline(exports.$config.src), '→', colors.blue.underline(exports.$config.dist), colors.gray("↓↓↓↓↓↓")),
         'clean',
+        taskLog(colors.gray("↓↓↓↓↓↓"), 'compile', colors.blue.underline(exports.$config.src), '→', colors.blue.underline(exports.$config.dist), colors.gray("↓↓↓↓↓↓")),
         'compile',
         taskLog(colors.gray("↑↑↑↑↑↑"), colors.magenta('finished compiling'), colors.gray("↑↑↑↑↑↑")),
     )
 );
 // 监测文件修改
+
 gulp.task(
     'watch',
     gulp.parallel('js-watch', 'wxss-watch', 'wxml-watch', 'json-watch', 'image-watch', 'copy-watch', 'npm-watch')

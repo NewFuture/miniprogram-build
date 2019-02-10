@@ -20,8 +20,9 @@ function compile(config) {
  * @param {object} config
  */
 exports.build = function (config) {
-    return function () {
-        return compile(config);
+    return function (cb) {
+        compile(config);
+        cb && cb();
     };
 }
 
@@ -44,7 +45,7 @@ exports.watch = function (config) {
 
     return function (cb) {
         var glob = extToSrc(config, WXSS_EXTS, true);
-        return gulp.watch(glob, {})
+        gulp.watch(glob, {})
             .on('change', update)
             .on('add', update)
             .on('unlink', function (file) {
@@ -54,5 +55,6 @@ exports.watch = function (config) {
                     return unlink(config.src, config.dist, '.wxss')(file);
                 }
             });
+        cb && cb();
     }
 }

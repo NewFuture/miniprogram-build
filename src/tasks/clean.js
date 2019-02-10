@@ -8,6 +8,7 @@ var colors = require('ansi-colors');
 exports.build = function (config) {
     return function (cb) {
         log(colors.blue('clean:'), config.dist);
-        return del(config.dist);
+        del(config.dist);
+        cb & cb();
     };
 }

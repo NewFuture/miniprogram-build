@@ -11,8 +11,10 @@ var JSON_EXTS = ['json', 'jsonc', 'cjson'];
  * @param {object} config
  */
 exports.build = function (config) {
-    return function () {
-        return compileJson(config, extToGlob(config, JSON_EXTS));
+    return function (cb) {
+        compileJson(config, extToGlob(config, JSON_EXTS));
+        cb && cb();
+
     };
 }
 /**
@@ -20,11 +22,11 @@ exports.build = function (config) {
  */
 exports.watch = function (config) {
     return function (cb) {
-        var glob = extToGlob(config, JSON_EXTS);
-        return gulp.watch(glob, {})
+        gulp.watch(extToGlob(config, JSON_EXTS), {})
             .on('change', function (file) { return compileJson(config, file); })
             .on('add', function (file) { return compileJson(config, file); })
             .on('unlink', unlink(config.src, config.dist, '.json'))
             ;
+        cb && cb();
     }
 }

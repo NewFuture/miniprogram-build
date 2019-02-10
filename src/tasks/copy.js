@@ -21,10 +21,11 @@ function copyTo(config) {
  * @param {object} config
  */
 exports.build = function (config) {
-    return function () {
+    return function (cb) {
         if (config.copy) {
-            return copyTo(config)(extToGlob(config, config.copy));
+            copyTo(config)(extToGlob(config, config.copy));
         }
+        cb & cb();
     };
 }
 
@@ -33,12 +34,12 @@ exports.build = function (config) {
  */
 exports.watch = function (config) {
     return function (cb) {
-        if (!config.copy) {
-            return;
-        }
-        return gulp.watch(extToGlob(config, config.copy), {})
+        if (config.copy) {
+             gulp.watch(extToGlob(config, config.copy), {})
             .on('change', copyTo(config))
             .on('add', copyTo(config))
             .on('unlink', unlink(config.src, config.dist));
+        }
+        cb && cb();
     }
 }

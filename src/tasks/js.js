@@ -15,14 +15,15 @@ var TS_EXTS = ['ts', 'js'];
  * @param {object} config
  */
 exports.build = function (config) {
-    return function () {
+    return function (cb) {
         // 自动判断TS/JS
         if (config.tsconfig || fs.existsSync('tsconfig.json')) {
             config.tsconfig = config.tsconfig || 'tsconfig.json';
-            return compileTs(config);
+            compileTs(config);
         } else {
-            return compileJs(config, config.src + '/**/*.js');
+            compileJs(config, config.src + '/**/*.js');
         }
+        cb && cb();
     }
 }
 
@@ -39,13 +40,13 @@ function update(config, file) {
  */
 exports.watch = function (config) {
     return function (cb) {
-        return gulp.watch(extToGlob(config, TS_EXTS), {
+        gulp.watch(extToGlob(config, TS_EXTS), {
             ignored: config.src + '/*/**.d.ts',
         }).on('change', function (file) {
             return update(config, file);
         }).on('add', function (file) {
             return update(config, file);
         }).on('unlink', unlink(config.src, config.dist, '.js'));
-        // cb && cb();
+        cb && cb();
     }
 }

@@ -21,8 +21,9 @@ function compress(config) {
  * @param {object} config
  */
 exports.build = function (config) {
-    return function () {
-        return compress(config)(extToGlob(config, IMAGE_EXTS));
+    return function (cb) {
+        compress(config)(extToGlob(config, IMAGE_EXTS));
+        cb && cb();
     };
 }
 
@@ -31,10 +32,10 @@ exports.build = function (config) {
  */
 exports.watch = function (config) {
     return function (cb) {
-        var glob = extToGlob(config, IMAGE_EXTS);
-        return gulp.watch(glob, {})
+        gulp.watch(extToGlob(config, IMAGE_EXTS), {})
             .on('change', compress(config))
             .on('add', compress(config))
             .on('unlink', unlink(config.src, config.dist));
+        cb && cb();
     }
 }
