@@ -33,7 +33,7 @@ exports.$gulp = gulp;
 exports.$execute = function (tasks) {
     gulp.series(tasks)(function (err) {
         if (err) {
-            console.error(err);
+            console.error(JSON.stringify(err));
             throw err;
         }
     });
@@ -59,32 +59,43 @@ gulp.task('clean', clean.build(exports.$config));
 
 //编译项目
 gulp.task(
-    'compile',
+    '_compile-brefore',
+    taskLog(colors.gray("↓↓↓↓↓↓"), 'compile', colors.blue.underline(exports.$config.src), '→', colors.blue.underline(exports.$config.dist), colors.gray("↓↓↓↓↓↓")),
+);
+gulp.task(
+    '_compile-all',
     gulp.parallel('js', 'wxss', 'wxml', 'json', 'image', 'copy', 'npm')
 );
+gulp.task(
+    '_compile-end',
+    taskLog(colors.gray("↑↑↑↑↑↑"), colors.magenta('finished compiling'), colors.gray("↑↑↑↑↑↑")),
+);
+gulp.task('compile', gulp.series([
+    '_compile-brefore',
+    '_compile-all',
+    '_compile-end',
+]))
 // 重新生成文件
 gulp.task(
     'build',
     gulp.series(
         'clean',
-        taskLog(colors.gray("↓↓↓↓↓↓"), 'compile', colors.blue.underline(exports.$config.src), '→', colors.blue.underline(exports.$config.dist), colors.gray("↓↓↓↓↓↓")),
         'compile',
-        taskLog(colors.gray("↑↑↑↑↑↑"), colors.magenta('finished compiling'), colors.gray("↑↑↑↑↑↑")),
     )
 );
 // 监测文件修改
-
 gulp.task(
-    'watch',
+    '_watch-all',
     gulp.parallel('js-watch', 'wxss-watch', 'wxml-watch', 'json-watch', 'image-watch', 'copy-watch', 'npm-watch')
 );
+gulp.task('_watch-ready', taskLog(colors.cyanBright('watching for modifying ...')));
+gulp.task('watch', gulp.series(['_watch-all', '_watch-ready']));
 
 //开发模式
 gulp.task(
     'dev',
     gulp.series(
         'build',
-        taskLog(colors.cyanBright('watching for modifying ...')),
         'watch',
     )
 );

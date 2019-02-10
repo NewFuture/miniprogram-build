@@ -36,7 +36,7 @@ exports.watch = function (config) {
     return function (cb) {
         gulp.watch(PACKAGE_JSON, {})
             .on('change', function (file) { return copy(config.dist, file, config.src); })
-            .on('add', exports.build(config))
+            .on('add', function () { exports.build(config)(); })
             .on('unlink', unlink(config.src, config.dist));
         cb && cb();
     }
