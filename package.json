@@ -1,8 +1,8 @@
 {
   "name": "miniprogram-build",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "build miniprogram with typescript & scss ",
-  "main": "gulpfile.js",
+  "main": "src/task.js",
   "bin": {
     "miniprogram-build": "bin/mp-build.js",
     "mp-build": "bin/mp-build.js",
