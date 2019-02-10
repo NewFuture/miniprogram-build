@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 ///@ts-check
 'use strict';
-var loadConfig = require('../src/load-config');
+var config = require('../src/load-config');
 var tasks = require('../src/task');
 var argv = require('yargs')
     .usage('\nMiniProgram build tools <小程序编译打包工具>')
@@ -9,16 +9,15 @@ var argv = require('yargs')
     .example('$0 dev', '编译并监测文件变化')
     .example('$0 --config=mpconfig.json', '指定配置文件')
     .example('$0 --release --var.APP_ID=1234', '优化编译')
-    .config('config', 'JSON config file <配置置文件,命令参数优先级高于配置>', loadConfig)
-    // .default('config','')
+    // configuration
+    .pkgConf('mpconfig')
+    .config(config.default())
+    .config('config', 'JSON config file <配置置文件,命令参数优先级高于配置>', config.load)
     .alias('c', 'config')
     .help('help', 'show help <显示帮助信息>')
     .alias('h', 'help')
     .describe('version', 'show version number <查看本版号>')
     .epilog('2018 - 2019 by NewFuture')
-    // .option('config',{
-    //     describe:'config file <配置置文件,命令参数优先级高于配置>',
-    // })
     .option('release', {
         describe: 'production mode <发布模式会优化压缩>',
         default: false,
@@ -36,8 +35,7 @@ var argv = require('yargs')
     })
     .option('exclude', {
         describe: 'ignored files <编译忽略文件(夹)>',
-        // example: 'types/**/*',
-        // type:'string|array',
+        example: 'types/**/*',
         array: true,
         string: true,
     })
@@ -59,11 +57,7 @@ var argv = require('yargs')
         // type: 'object',
     })
     // .showHelpOnFail(true,'--help for available options')
-    // .describe({
-    //     release:'release mode for publish'
-    // })
-    // .boolean(['release'])
-    .command('dev', 'build and watch <构建和检测文件修改>')
+    .command(['*', 'dev'], 'build and watch <构建和检测文件修改>')
     .command('watch', 'watch file changes <监测文件变化>')
     .command('build', 'clean and compile <清理和编译所有文件>')
     .command('clean', 'remove all files in dist <清理dist>')
@@ -79,15 +73,4 @@ var argv = require('yargs')
     .argv;
 
 Object.assign(tasks.$config, argv);
-
-// for (var key in argv) {
-//     console.log(key,argv[key])
-// }
-
-if (argv._.length === 0) {
-    tasks.dev(() => { });
-} else {
-    argv._.forEach(task => {
-        tasks[task]();
-    });
-}
+tasks.$execute(argv._.length === 0 ? ['dev'] : argv._);

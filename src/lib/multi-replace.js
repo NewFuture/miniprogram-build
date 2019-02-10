@@ -15,12 +15,13 @@ var TITLE = 'replace:'
  * @param {object} file 
  */
 function logReplace(n, key, value, file) {
+    console.log(key, value);
     log.info(
         TITLE,
         n > 1 ? colors.green(n + '*') : '',
         colors.blue.italic(key),
         colors.dim('→'),
-        typeof value === 'string' ? colors.cyan.underline(value) : colors.magenta.italic('Function'),
+        typeof value === 'function' ? colors.magenta.italic('Function') : colors.cyan.underline(value),
         colors.gray('(' + colors.underline(
             path.relative(file.base, file.path)
         ) + ')'),
@@ -36,7 +37,7 @@ function logReplace(n, key, value, file) {
  */
 function multiReplace(opts, replacement, prefix, suffix) {
     function replace(file, encoding, callback) {
-        var str = file.contents.toString()
+        var str = file.contents.toString();
         prefix = prefix || '';
         suffix = suffix || '';
         if (file.isBuffer()) {
@@ -50,7 +51,16 @@ function multiReplace(opts, replacement, prefix, suffix) {
                         logReplace(sp.length - 1, search_key, opts[key], file);
                     }
                 }
-            } else if (typeof opts === 'string') {
+            } else if (typeof opts === 'function') {
+                /**
+                 * @type {number}
+                 */
+                var n = (str.match(opts) || []).length||0;
+                if (n > 0) {
+                    str = str.replace(opts, replacement);
+                    logReplace(n, search_key, replacement, file);
+                }
+            } else {
                 var search_key = prefix + opts + suffix;
                 var n = str.split(search_key).length - 1;
                 if (n > 0) {
@@ -58,13 +68,7 @@ function multiReplace(opts, replacement, prefix, suffix) {
                     str = str.replace(new RegExp(search_key, 'mg'), replacement);
                     logReplace(n, search_key, replacement, file);
                 }
-            } else {
-                //@ts-ignore
-                var n = (str.match(opts) || []).length
-                if (n > 0) {
-                    str = str.replace(opts, replacement);
-                    logReplace(n, search_key, replacement, file);
-                }
+
             }
             file.contents = new Buffer(str);
         } else if (file.isStream()) {
