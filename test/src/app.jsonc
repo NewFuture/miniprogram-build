@@ -3,5 +3,5 @@
     注释 
     */
     "appid": "{{APP_ID}}", //APPID,
-    "test": 1,
+    "test": 2,
 }
