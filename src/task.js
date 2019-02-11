@@ -5,7 +5,7 @@ var gulp = require('gulp');
 var colors = require('ansi-colors');
 var path = require('path');
 
-var taskLog = require('./lib/task-log');
+var taskLog = require('./log/task-log');
 
 var js = require('./tasks/js');
 var wxss = require('./tasks/wxss');
