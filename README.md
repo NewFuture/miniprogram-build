@@ -62,7 +62,13 @@ A command line tool to build & watch MiniProgram.
     
 ## Usage
 
-### install 
+### quick start
+
+```
+npx miniprogram-build -h
+```
+
+### install as devDependence
 
 ```
 npm i miniprogram-build -D

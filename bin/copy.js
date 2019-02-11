@@ -3,7 +3,7 @@
 //@ts-check
 'use strict';
 var gulp = require('gulp');
-var copy = require('../src/copy');
+var copy = require('../src/compiler/copy');
 var config = {
     release: false,
     debug: false,
@@ -15,6 +15,6 @@ var config = {
     }
 }
 
-gulp.task('copy', () => copy(config, config.src + '/**/*.js'));
+gulp.task('copy', () => copy(config.dist, config.src + '/**/*.js', config.src));
 
 gulp.task('copy')(console.log);

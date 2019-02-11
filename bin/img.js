@@ -3,7 +3,7 @@
 //@ts-check
 'use strict';
 var gulp = require('gulp');
-var compressImage = require('../src/compress-image');
+var compressImage = require('../src/compiler/compress-image');
 var config = {
     release: false,
     debug: false,
@@ -15,6 +15,6 @@ var config = {
     }
 }
 
-gulp.task('img', () => compressImage(config,config.src + '/**/*.{png,jpg,jpeg,gif,svg}'));
+gulp.task('img', () => compressImage(config.src + '/**/*.{png,jpg,jpeg,gif,svg}', config.src, config.dist));
 
 gulp.task('img')(console.log);

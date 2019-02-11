@@ -3,7 +3,7 @@
 //@ts-check
 'use strict';
 var gulp = require('gulp');
-var compressWxml = require('../src/compress-wxml');
+var compressWxml = require('../src/compiler/compress-wxml');
 var config = {
     release: false,
     debug: false,

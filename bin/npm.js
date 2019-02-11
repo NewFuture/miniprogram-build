@@ -2,7 +2,7 @@
 //@ts-check
 'use strict';
 var gulp = require('gulp');
-var linkNpm = require('../src/build-npm');
+var linkNpm = require('../src/compiler/build-npm');
 var config = {
     release: false,
     debug: false,

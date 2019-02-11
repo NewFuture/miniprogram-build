@@ -2,7 +2,7 @@
 //@ts-check
 'use strict';
 var gulp = require('gulp');
-var compileJson = require('../src/compile-json');
+var compileJson = require('../src/compiler/compile-json');
 var config = {
     release: false,
     debug: false,
