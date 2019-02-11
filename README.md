@@ -10,6 +10,7 @@ A command line tool to build & watch MiniProgram.
     * [x] replace `{{var}}`
     * [x] build break
     * [x] JS support
+    * [x] error report
     * [ ] tree shaking
     * [ ] one tslib
 * `wxss`
@@ -26,16 +27,19 @@ A command line tool to build & watch MiniProgram.
     * [x] build break when Invalid
     * [ ] ~~skip local scss `_`~~
     * [x] assest folder
+    * [x] error report
 * `wxml`
     * [x] `wxml`
     * [x] `html`
     * [x] copy rename
     * [x] compress
+    * [x] error report
 * `JSON`
     * [x] comments (添加注释)
     * [x] trailing comma
     * [x] minify
     * [x] replace `{{var}}`
+    * [x] error report
 * resource
     * [x] copy/src
     * [x] image compress

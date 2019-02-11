@@ -5,6 +5,7 @@ var htmlmin = require('gulp-htmlmin');
 var rename = require('gulp-rename');
 var debug = require('gulp-debug');
 var size = require('gulp-size');
+var err = require('../log/error');
 
 var TITLE = 'wxml:';
 /**
@@ -20,6 +21,7 @@ function compressImage(config, wxmlsrc) {
             removeComments: true,
             keepClosingSlash: true
         }))
+        .on('error', err(TITLE))
         .pipe(rename({ 'extname': '.wxml' }))
         .pipe(size({ title: TITLE, showFiles: true }))
         .pipe(gulp.dest(config.dist))

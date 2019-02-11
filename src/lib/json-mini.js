@@ -29,7 +29,7 @@ function jsonMinify(pretty) {
                 file.contents = new Buffer(mini(file.contents.toString(), pretty));
             } catch (error) {
                 err = error
-                err.message += " in " + file.path;
+                err.fileName = file.path;
             }
         }
         if (file.isStream()) {
@@ -37,7 +37,7 @@ function jsonMinify(pretty) {
                 try {
                     cb(null, mini(json.toString(), pretty));
                 } catch (error) {
-                    error.message += " in " + file.path;
+                    error.fileName = file.path;
                     cb(error);
                 }
             }));
