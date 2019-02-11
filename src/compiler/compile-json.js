@@ -4,6 +4,8 @@ var gulp = require('gulp');
 var rename = require('gulp-rename');
 var debug = require('gulp-debug');
 var size = require('gulp-size');
+var log = require('fancy-log');
+var colors = require('ansi-colors');
 var multiReplace = require('../lib/multi-replace');
 var jsonMini = require('../lib/json-mini');
 
@@ -22,8 +24,12 @@ function replaceJson(config, jsonFile) {
     return gulp.src(jsonFile, { base: config.src })
         .pipe(debug({ title: TITLE }))
         .pipe(rename({ 'extname': '.json' }))
-        .pipe(multiReplace(config.var, undefined, '{{', '}}'))
         .pipe(jsonMini(!config.release))
+        .on('error', function (err) {
+            log.error(TITLE, colors.red(err.name), '\n', colors.red.underline(err.message));
+            this.emit('end');
+        })
+        .pipe(multiReplace(config.var, undefined, '{{', '}}'))
         .pipe(size({ title: TITLE, showFiles: true }))
         .pipe(gulp.dest(config.dist));
 }

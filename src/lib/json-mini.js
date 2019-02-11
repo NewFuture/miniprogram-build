@@ -20,18 +20,29 @@ function mini(json, pretty) {
  */
 function jsonMinify(pretty) {
     return through2.obj((file, enc, cb) => {
+        var err = null;
         if (file.isNull()) {
             return cb(null, file);
         }
         if (file.isBuffer()) {
-            file.contents = new Buffer(mini(file.contents.toString(), pretty));
+            try {
+                file.contents = new Buffer(mini(file.contents.toString(), pretty));
+            } catch (error) {
+                err = error
+                err.message += " in " + file.path;
+            }
         }
         if (file.isStream()) {
             file.contents = file.contents.pipe(through2.obj((json, enc, cb) => {
-                cb(null, mini(json.toString(), pretty));
+                try {
+                    cb(null, mini(json.toString(), pretty));
+                } catch (error) {
+                    error.message += " in " + file.path;
+                    cb(error);
+                }
             }));
         }
-        cb(null, file);
+        cb(err, file);
     });
 }
 module.exports = jsonMinify;
