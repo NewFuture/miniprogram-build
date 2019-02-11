@@ -3,6 +3,7 @@
 
 var gulp = require('gulp');
 var colors = require('ansi-colors');
+var path = require('path');
 
 var taskLog = require('./lib/task-log');
 
@@ -31,6 +32,8 @@ exports.$gulp = gulp;
  * @param {string[]} tasks
  */
 exports.$execute = function (tasks) {
+    exports.$config.src = path.normalize(exports.$config.src);
+    exports.$config.dist = path.normalize(exports.$config.dist);
     gulp.series(tasks)(function (err) {
         if (err) {
             console.error(JSON.stringify(err));
@@ -59,9 +62,9 @@ gulp.task('clean', clean.build(exports.$config));
 
 //编译项目
 gulp.task('compile', gulp.series(
-    taskLog(colors.gray("↓↓↓↓↓↓"), 'compile', colors.blue.underline(exports.$config.src), '→', colors.blue.underline(exports.$config.dist), colors.gray("↓↓↓↓↓↓")),
+    taskLog(colors.gray("↓↓↓↓↓↓"), colors.blue('compiling ' + colors.underline(exports.$config.src) + ' → ' + colors.underline(exports.$config.dist)), colors.gray("↓↓↓↓↓↓")),
     gulp.parallel('js', 'wxss', 'wxml', 'json', 'image', 'copy', 'npm'),
-    taskLog(colors.gray("↑↑↑↑↑↑"), colors.magenta('finished compiling'), colors.gray("↑↑↑↑↑↑")),
+    taskLog(colors.gray("↑↑↑↑↑↑"), colors.green('√ finished compiling'), colors.gray("↑↑↑↑↑↑")),
 ))
 // 重新生成文件
 gulp.task('build', gulp.series('clean', 'compile'));
