@@ -15,17 +15,24 @@ var PACKAGE_JSON = 'package.json';
  */
 exports.build = function (config) {
     return function (cb) {
-        if (fs.existsSync(PACKAGE_JSON)) {
-            if (!fs.existsSync('node_modules')) {
-                log(
-                    colors.red('npm:'),
-                    colors.yellowBright('node_modules/ doesn\'t exist! please run `' + colors.bgRedBright('npm i') + '`'),
-                );
+        fs.exists(PACKAGE_JSON, function (is_json_exists) {
+            if (!is_json_exists) {
+                cb && cb();
             } else {
-                return buildNpm(config);
+                fs.exists('node_modules', function (is_modules_exists) {
+                    if (!is_modules_exists) {
+                        log(
+                            colors.red('npm:'),
+                            colors.yellowBright('node_modules/ doesn\'t exist! please run `' + colors.bgRedBright('npm i') + '`'),
+                        );
+                        cb && cb();
+
+                    } else {
+                        return buildNpm(config).end(cb);
+                    }
+                });
             }
-        }
-        cb && cb();
+        })
     };
 }
 
