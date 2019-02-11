@@ -17,7 +17,7 @@ var argv = require('yargs')
     .help('help', 'show help <显示帮助信息>')
     .alias('h', 'help')
     .describe('version', 'show version number <查看本版号>')
-    .epilog('2018 - 2019 by NewFuture')
+    .epilog('2018 - ' + (new Date()).getFullYear() + ' @ NewFuture')
     .option('release', {
         describe: 'production mode <发布模式会优化压缩>',
         default: false,
