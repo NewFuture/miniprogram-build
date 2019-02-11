@@ -22,7 +22,7 @@ A command line tool to build & watch MiniProgram.
     * [x] inline image
     * [x] inline svg
     * [x] PostCSS & cssnano & inline svg compress
-    * [ ] keep import wxss
+    * [x] keep import wxss (MUST start with `/` and end with `.wxss`)
     * [x] build break when Invalid
     * [ ] ~~skip local scss `_`~~
     * [x] assest folder
@@ -50,6 +50,7 @@ A command line tool to build & watch MiniProgram.
 * [ ] ~~init~~
 * [x] config
 * [ ] 显示报错位置
+* [ ] break errors
 * [ ] ~~pages config~~
 * [ ] template project
 * `svg` ==> `iconfonts`

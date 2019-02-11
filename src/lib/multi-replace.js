@@ -54,18 +54,17 @@ function multiReplace(opts, replacement, prefix, suffix) {
                 /**
                  * @type {number}
                  */
-                var n = (str.match(opts) || []).length||0;
+                var n = (str.match(opts) || []).length || 0;
                 if (n > 0) {
                     str = str.replace(opts, replacement);
                     logReplace(n, search_key, replacement, file);
                 }
             } else {
-                var search_key = prefix + opts + suffix;
-                var n = str.split(search_key).length - 1;
+                var n = str.split(opts).length - 1;
                 if (n > 0) {
                     //@ts-ignore
-                    str = str.replace(new RegExp(search_key, 'mg'), replacement);
-                    logReplace(n, search_key, replacement, file);
+                    str = str.replace(new RegExp(opts, 'mg'), replacement);
+                    logReplace(n, opts, replacement, file);
                 }
 
             }

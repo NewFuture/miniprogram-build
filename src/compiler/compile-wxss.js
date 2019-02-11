@@ -10,6 +10,8 @@ var postcss = require('gulp-postcss');
 var inline = require('../lib/inline');
 var empty = require('../lib/empty');
 var size = require('gulp-size');
+var wxssImporter = require('../lib/wxss-importer');
+var replace = require('../lib/multi-replace');
 
 var TITLE = 'wxss:';
 /**
@@ -23,6 +25,8 @@ function compileScss(config, scssFile) {
         .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(debug({ title: TITLE }))
         .pipe(sass({
+            ///@ts-ignore
+            importer: wxssImporter,
             errLogToConsole: true,
             outputStyle: config.release ? 'compressed' : 'expanded',
             includePaths: ['node_modules'],
@@ -32,6 +36,9 @@ function compileScss(config, scssFile) {
             sass.logError.call(this, err);
             this.emit('end');
         })
+        .pipe(replace(/@import url\(__(.*)__\)\;/g, ($1, $2) => {
+            return '@import "' + $2 + '";';
+        }))
         .pipe(inline())
         .pipe(config.release ? postcss([cssnano()]) : empty())
         .pipe(config.release ? empty() : sourcemaps.write())

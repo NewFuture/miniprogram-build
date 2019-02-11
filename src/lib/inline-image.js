@@ -141,7 +141,7 @@ module.exports = (function () {
                             console.error('in ' + loc + ' file doesn\'t exist');
                             // }
                             loc = path.join(file.cwd, img);
-                            complete(new Error(loc + ' file doesn\'t exist'))
+                            // return complete(new Error(loc + ' file doesn\'t exist'))
                         }
                         // }
 
