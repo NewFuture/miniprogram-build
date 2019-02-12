@@ -10,7 +10,7 @@ var TITLE = 'replace:'
 /**
  * 
  * @param {number} n 
- * @param {string} key 
+ * @param {string|RegExp} key
  * @param {*} value 
  * @param {object} file 
  */
@@ -18,6 +18,7 @@ function logReplace(n, key, value, file) {
     log.info(
         TITLE,
         n > 1 ? colors.green(n + '*') : '',
+        ///@ts-ignore
         colors.blue.italic(key),
         colors.dim('→'),
         typeof value === 'function' ? colors.magenta.italic('Function') : colors.cyan.underline(value),
@@ -50,21 +51,24 @@ function multiReplace(opts, replacement, prefix, suffix) {
                         logReplace(sp.length - 1, search_key, opts[key], file);
                     }
                 }
-            } else if (typeof opts === 'function') {
+            } else if (opts instanceof RegExp) {
+                //正则表达式
                 /**
                  * @type {number}
                  */
-                var n = (str.match(opts) || []).length || 0;
+                var n = (str.match(opts) || []).length;
                 if (n > 0) {
                     str = str.replace(opts, replacement);
-                    logReplace(n, search_key, replacement, file);
+                    logReplace(n, opts, replacement, file);
                 }
             } else {
-                var n = str.split(opts).length - 1;
+                // 字符串
+                var search_key = prefix + opts + suffix;
+                var n = str.split(search_key).length - 1;
                 if (n > 0) {
                     //@ts-ignore
-                    str = str.replace(new RegExp(opts, 'mg'), replacement);
-                    logReplace(n, opts, replacement, file);
+                    str = str.replace(new RegExp(search_key, 'mg'), replacement);
+                    logReplace(n, search_key, replacement, file);
                 }
 
             }
