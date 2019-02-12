@@ -43,6 +43,7 @@ A command line tool to build & watch MiniProgram.
 * resource
     * [x] copy/src
     * [x] image compress
+    * [x] error report
 * console verbose
     * [x] all files
     * [x] file size
@@ -53,7 +54,7 @@ A command line tool to build & watch MiniProgram.
 * [x] multi watcher
 * [ ] ~~init~~
 * [x] config
-* [ ] 显示报错位置
+* [x] 显示报错位置
 * [ ] break errors
 * [ ] ~~pages config~~
 * [ ] template project
