@@ -4,6 +4,7 @@
 var config = require('../src/load-config');
 var tasks = require('../src/task');
 var argv = require('yargs')
+    .scriptName('miniprogram-build')
     .usage('\nMiniProgram build tools <小程序编译打包工具>')
     .usage('Usage <用法>:\n  $0 [command...] [--option]')
     .example('$0 dev', '编译并监测文件变化')
@@ -25,12 +26,12 @@ var argv = require('yargs')
     })
     .option('src', {
         describe: 'source folder <源文件目录>',
-        default: './src',
+        default: 'src',
         type: 'string',
     })
     .option('dist', {
         describe: 'output folder <编译输出目录>',
-        default: './dist',
+        default: 'dist',
         type: 'string',
     })
     .option('exclude', {
