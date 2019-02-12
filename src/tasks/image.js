@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var extToGlob = require('../lib/ext-to-glob');
 var unlink = require('../lib/unlink');
 var compileImage = require('../compiler/compress-image');
+var watchLog = require('../log/watch');
 
 var IMAGE_EXTS = ['png', 'jpg', 'jpeg', 'svg', 'gif',];
 
@@ -31,7 +32,9 @@ exports.build = function (config) {
  */
 exports.watch = function (config) {
     return function (cb) {
-        gulp.watch(extToGlob(config, IMAGE_EXTS), {})
+        var glob = extToGlob(config, IMAGE_EXTS);
+        watchLog('image', glob)
+        gulp.watch(glob)
             .on('change', compress(config))
             .on('add', compress(config))
             .on('unlink', unlink(config.src, config.dist));

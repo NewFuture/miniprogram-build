@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var extToGlob = require('../lib/ext-to-glob');
 var unlink = require('../lib/unlink');
 var compileWxml = require('../compiler/compress-wxml');
+var watchLog = require('../log/watch');
 
 var WXML_EXTS = ['wxml', 'html'];
 
@@ -20,7 +21,9 @@ exports.build = function (config) {
  */
 exports.watch = function (config) {
     return function (cb) {
-        gulp.watch(extToGlob(config, WXML_EXTS))
+        var glob = extToGlob(config, WXML_EXTS);
+        watchLog('wxml', glob)
+        gulp.watch(glob)
             .on('change', function (file) { return compileWxml(config, file); })
             .on('add', function (file) { return compileWxml(config, file); })
             .on('unlink', unlink(config.src, config.dist, '.wxml'));

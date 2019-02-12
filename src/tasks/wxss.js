@@ -6,6 +6,7 @@ var gulp = require('gulp');
 var extToSrc = require('../lib/ext-to-glob');
 var unlink = require('../lib/unlink');
 var compileWxss = require('../compiler/compile-wxss');
+var watchLog = require('../log/watch');
 
 var WXSS_EXTS = ['scss', 'sass', 'css', 'wxss'];
 
@@ -45,6 +46,7 @@ exports.watch = function (config) {
 
     return function (cb) {
         var glob = extToSrc(config, WXSS_EXTS, true);
+        watchLog('wxss', glob)
         gulp.watch(glob, {})
             .on('change', update)
             .on('add', update)

@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var extToGlob = require('../lib/ext-to-glob');
 var unlink = require('../lib/unlink');
 var copy = require('../compiler/copy');
+var watchLog = require('../log/watch');
 
 /**
  * @param {object} config
@@ -35,6 +36,7 @@ exports.build = function (config) {
 exports.watch = function (config) {
     return function (cb) {
         if (config.copy) {
+            watchLog('copy', config.copy);
             gulp.watch(extToGlob(config, config.copy), {})
                 .on('change', copyTo(config))
                 .on('add', copyTo(config))

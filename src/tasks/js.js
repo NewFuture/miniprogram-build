@@ -7,7 +7,7 @@ var compileTs = require('../compiler/compile-typescript');
 var compileJs = require('../compiler/compile-javascript');
 var unlink = require('../lib/unlink');
 var extToGlob = require('../lib/ext-to-glob');
-
+var watchLog = require('../log/watch');
 
 var TS_EXTS = ['ts', 'js'];
 
@@ -39,7 +39,9 @@ function update(config, file) {
  */
 exports.watch = function (config) {
     return function (cb) {
-        gulp.watch(extToGlob(config, TS_EXTS), {
+        var glob = extToGlob(config, TS_EXTS);
+        watchLog('js', glob)
+        gulp.watch(glob, {
             ignored: config.src + '/*/**.d.ts',
         }).on('change', function (file) {
             return update(config, file);

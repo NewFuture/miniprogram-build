@@ -71,7 +71,7 @@ gulp.task('build', gulp.series('clean', 'compile'));
 // 监测文件修改
 gulp.task('watch', gulp.series(
     gulp.parallel('js-watch', 'wxss-watch', 'wxml-watch', 'json-watch', 'image-watch', 'copy-watch', 'npm-watch'),
-    taskLog(colors.cyanBright('start watching in folder'), colors.magenta.underline(exports.$config.src), colors.cyanBright('...')))
+    taskLog(colors.cyanBright('All watching tasks started ...')))
 );
 
 //开发模式

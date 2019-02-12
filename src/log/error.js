@@ -2,15 +2,7 @@
 'use strict';
 var log = require('fancy-log');
 var colors = require('ansi-colors');
-var gulp = require('gulp');
 
-/**
- * 
- * @param {string} name 
- */
-function isWatchTask(name) {
-    return name && name.indexOf('watch') >= 0;
-}
 
 /**
  * @param {string} TITLE
@@ -26,8 +18,7 @@ module.exports = function (TITLE) {
             colors.red.underline(err.fileName),
             '\n'
         );
-        var args = (process.argv.slice(2) || []);
-        if (args.length > 0 && args.every(isWatchTask)) {
+        if (process.env.SKIP_ERROR) {
             return this.emit('end', err);
         } else {
             process.exit(1);

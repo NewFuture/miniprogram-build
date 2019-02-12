@@ -8,6 +8,7 @@ var colors = require('ansi-colors');
 var unlink = require('../lib/unlink');
 var buildNpm = require('../compiler/build-npm');
 var copy = require('../compiler/copy');
+var watchLog = require('../log/watch');
 
 var PACKAGE_JSON = 'package.json';
 /**
@@ -41,6 +42,7 @@ exports.build = function (config) {
  */
 exports.watch = function (config) {
     return function (cb) {
+        watchLog('npm', PACKAGE_JSON);
         gulp.watch(PACKAGE_JSON, {})
             .on('change', function (file) { return copy(config.dist, file, config.src); })
             .on('add', function () { exports.build(config)(); })
