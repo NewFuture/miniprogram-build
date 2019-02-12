@@ -23,7 +23,8 @@ function replaceJson(config, jsonFile) {
         .on('error', err(TITLE))
         .pipe(multiReplace(config.var, undefined, '{{', '}}'))
         .pipe(size({ title: TITLE, showFiles: true }))
-        .pipe(gulp.dest(config.dist));
+        .pipe(gulp.dest(config.dist))
+        ;
 }
 
 module.exports = replaceJson;

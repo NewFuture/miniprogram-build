@@ -55,9 +55,10 @@ A command line tool to build & watch MiniProgram.
 * [ ] ~~init~~
 * [x] config
 * [x] 显示报错位置
-* [ ] break errors
+* [x] break errors
 * [ ] ~~pages config~~
 * [ ] template project
+* [ ] cache
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
     * [ ] build wxss
