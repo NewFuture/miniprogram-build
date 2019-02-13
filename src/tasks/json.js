@@ -6,7 +6,7 @@ var unlink = require('../lib/unlink');
 var compileJson = require('../compiler/compile-json');
 var watchLog = require('../log/watch');
 
-var JSON_EXTS = ['json', 'jsonc', 'cjson'];
+var JSON_EXTS = ['json', 'jsonc', 'cjson', 'json5'];
 
 /**
  * @param {object} config
