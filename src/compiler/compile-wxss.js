@@ -39,12 +39,11 @@ function compileScss(config, scssFile) {
                 ///@ts-ignore
                 importer: wxssImporter,
                 errLogToConsole: true,
-                outputStyle: config.release ? "compressed" : "expanded",
-                includePaths: ["node_modules"],
-                sourceMapEmbed: !config.release,
+                outputStyle: "expanded",
+                includePaths: ["node_modules"]
             }),
         )
-        .on("error", function(err) {
+        .on("error", function (err) {
             sass.logError.call(this, err);
             this.emit("end");
         })
