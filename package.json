@@ -1,6 +1,6 @@
 {
   "name": "miniprogram-build",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "build miniprogram with typescript & scss ",
   "main": "src/task.js",
   "bin": {
