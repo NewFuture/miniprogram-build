@@ -13,6 +13,7 @@ var inline = require("../lib/inline");
 var empty = require("../lib/empty");
 var wxssImporter = require("../lib/wxss-importer");
 var replace = require("../lib/multi-replace");
+var error = require("../log/error");
 
 var TITLE = "wxss:";
 /**
@@ -48,10 +49,7 @@ function compileScss(config, scssFile) {
                 includePaths: ["node_modules"],
             }),
         )
-        .on("error", function(err) {
-            sass.logError.call(this, err);
-            this.emit("end");
-        })
+        .on("error", error("wxss"))
         .pipe(
             replace(/@import url\(["']?([\w\/\.\-\_]*)["']?\)/g, ($1, $2) => {
                 return '@import "' + $2 + '"';
