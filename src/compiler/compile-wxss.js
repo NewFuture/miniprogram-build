@@ -24,7 +24,12 @@ var TITLE = "wxss:";
 function compileScss(config, scssFile) {
     var postCssPlgins = [
         autoprefixer({
-            browsers: ["iOS >= 8", "Android >= 4.1"],
+            browsers: [
+                // ios
+                "iOS >= 8",
+                // android
+                "ChromeAndroid >= 53",
+            ],
         }),
     ];
     if (config.release) {
@@ -40,10 +45,10 @@ function compileScss(config, scssFile) {
                 importer: wxssImporter,
                 errLogToConsole: true,
                 outputStyle: "expanded",
-                includePaths: ["node_modules"]
+                includePaths: ["node_modules"],
             }),
         )
-        .on("error", function (err) {
+        .on("error", function(err) {
             sass.logError.call(this, err);
             this.emit("end");
         })
