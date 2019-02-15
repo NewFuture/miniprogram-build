@@ -22,7 +22,9 @@ A command line tool to build & watch MiniProgram.
     * [x] minify (release) / expanded (debug)
     * [x] inline image
     * [x] inline svg
-    * [x] PostCSS & cssnano & inline svg compress
+    * [x] PostCSS 
+        * autoprefixeer
+        * cssnano & inline svg compress
     * [x] keep import wxss (MUST start with `/` and end with `.wxss`)
     * [x] build break when Invalid
     * [ ] ~~skip local scss `_`~~
