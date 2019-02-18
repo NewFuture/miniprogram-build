@@ -1,8 +1,8 @@
 ///@ts-check
-'use strict';
-var gulp = require('gulp');
-var debug = require('gulp-debug');
-var merge = require('merge-stream');
+"use strict";
+var gulp = require("gulp");
+var debug = require("gulp-debug");
+var merge = require("merge-stream");
 
 /**
  * NPM创建 符号链接
@@ -10,14 +10,21 @@ var merge = require('merge-stream');
  */
 function link(config) {
     return merge(
-        gulp.src('package.json')
+        gulp
+            .src("package.json")
             ///@ts-ignore
-            .pipe(debug({ title: 'npm-copy:', showCount: false }))
+            .pipe(debug({ title: "npm-copy:", showCount: false }))
             .pipe(gulp.dest(config.dist)),
-        gulp.src(['./node_modules'], { resolveSymlinks: false })
+        gulp
+            .src(["./node_modules"], { resolveSymlinks: false })
             ///@ts-ignore
-            .pipe(debug({ title: 'npm-link:', showCount: false }))
-            .pipe(gulp.symlink(config.dist)),
+            .pipe(debug({ title: "npm-link:", showCount: false }))
+            .pipe(
+                gulp.symlink(config.dist, {
+                    ///@ts-ignore
+                    useJunctions: false, // windows 是dirmode 防止未识别
+                }),
+            ),
     );
 }
 module.exports = link;
