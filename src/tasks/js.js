@@ -3,12 +3,12 @@
 var gulp = require("gulp");
 var fs = require("fs");
 var path = require("path");
+var merge = require("merge-stream");
 var compileTs = require("../compiler/compile-typescript");
 var compileJs = require("../compiler/compile-javascript");
 var unlink = require("../lib/unlink");
 var extToGlob = require("../lib/ext-to-glob");
 var watchLog = require("../log/watch");
-var merge = require("merge-stream");
 
 var TS_EXTS = ["ts"];
 var JS_EXTS = ["js", "wxs"];
