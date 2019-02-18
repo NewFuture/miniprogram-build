@@ -22,8 +22,8 @@ function replaceJson(config, jsonFile) {
         .pipe(jsonMini(!config.release))
         .on('error', err(TITLE))
         .pipe(multiReplace(config.var, undefined, '{{', '}}'))
-        .pipe(size({ title: TITLE, showFiles: true }))
         .pipe(gulp.dest(config.dist))
+        .pipe(size({ title: TITLE, showFiles: true }))
         ;
 }
 

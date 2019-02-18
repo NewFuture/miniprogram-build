@@ -14,8 +14,9 @@ var TITLE = 'copy:';
  */
 function copy(dist, file, src) {
     return gulp.src(file, src ? { base: src } : undefined)
+        .pipe(gulp.dest(dist))
         .pipe(size({ title: TITLE, showFiles: true }))
-        .pipe(gulp.dest(dist));
+        ;
 }
 
 module.exports = copy;

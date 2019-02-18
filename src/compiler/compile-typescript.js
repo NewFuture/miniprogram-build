@@ -27,8 +27,8 @@ function compileTS(config, tsFile) {
         .pipe(tsProject(ts.reporter.fullReporter(true)))
         .js
         .pipe(config.release ? empty() : sourcemaps.write())
-        .pipe(size({ title: TITLE, showFiles: true }))
         .pipe(gulp.dest(config.dist))
+        .pipe(size({ title: TITLE, showFiles: true }))
         ;
 }
 module.exports = compileTS

@@ -20,7 +20,8 @@ function compilejs(config, jsFile) {
         .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(replace(config.var, undefined, "{{", "}}"))
         .pipe(config.release ? empty() : sourcemaps.write())
+        .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }))
-        .pipe(gulp.dest(config.dist));
+
 }
 module.exports = compilejs

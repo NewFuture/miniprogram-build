@@ -35,8 +35,9 @@ function compress(config, wxmlsrc) {
         )
         .on("error", err(TITLE))
         .pipe(rename({ extname: ".wxml" }))
+        .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }))
-        .pipe(gulp.dest(config.dist));
+        ;
 }
 
 module.exports = compress;

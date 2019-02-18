@@ -5,11 +5,11 @@ var path = require("path");
 var debug = require("gulp-debug");
 // var exec = require("gulp-exec");
 var error = require("../log/error");
-var exec = require("child_process").exec;
+
+// var exec = require("child_process").exec;
 // var merge = require("merge-stream");
 // var npmDist = require("../lib/npm-dist");
 var npmInstall = require("../lib/npm-install");
-
 /**
  * NPM创建 符号链接
  * 文件在windows需要管理员权限，所以package.json 为拷贝
@@ -72,14 +72,14 @@ function link(config) {
     //         }))
     // ;
 
-    return (
-        gulp
-            .src("package.json")
-            ///@ts-ignore
-            .pipe(debug({ title: "npm:", showCount: false }))
-            .pipe(npmInstall({ cwd: config.dist }))
-            .on("error", error("npm:"))
-            .pipe(gulp.dest(config.dist))
-    );
+    return gulp
+        .src("package.json")
+        ///@ts-ignore
+        .pipe(debug({ title: "npm:", showCount: false }))
+        .pipe(gulp.dest(config.dist), false)
+        .pipe(npmInstall({ cwd: path.join(process.cwd(), config.dist) }), false)
+        .on("error", error("npm:"))
+        .pipe(gulp.dest(config.dist), true)
+        ;
 }
 module.exports = link;
