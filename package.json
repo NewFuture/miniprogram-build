@@ -39,7 +39,7 @@
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "gulp-size": "^3.0.0",
-    "gulp-sourcemaps": "^2.6.4",
+    "gulp-sourcemaps": "^2.6.5",
     "gulp-typescript": "^5.0.0",
     "json5": "^2.1.0",
     "merge-stream": "^1.0.1",
