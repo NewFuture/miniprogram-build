@@ -88,7 +88,7 @@ mp-build build --config=./config.prod.json --release
 
 ### tips
 
-* npm dependences need admin permission & build npm (安装外部npm依赖需要 admin权限,并点击构建npm)
+* npm dependences need build npm via devtools (安装外部npm依赖需要开发工具并点击构建npm)
 * CSS npm packags install as devDependences with `npm i -D` (CSS的 npm 依赖使用`npm i -D`方式安装)
 
 ## Features

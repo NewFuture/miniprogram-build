@@ -1,56 +1,60 @@
 {
-  "name": "miniprogram-build",
-  "version": "3.3.7",
-  "description": "build miniprogram with typescript & scss ",
-  "main": "src/task.js",
-  "bin": {
-    "miniprogram-build": "bin/mp-build.js",
-    "mp-build": "bin/mp-build.js",
-    "mp": "bin/mp-build.js"
-  },
-  "files": [
-    "src/",
-    "bin/"
-  ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/NewFuture/miniprogram-build.git"
-  },
-  "author": "New Future",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/NewFuture/miniprogram-build/issues"
-  },
-  "homepage": "https://github.com/NewFuture/miniprogram-build#readme",
-  "dependencies": {
-    "ansi-colors": "^3.2.3",
-    "async": "^2.6.2",
-    "autoprefixer": "^9.4.7",
-    "cssnano": "^4.1.10",
-    "del": "^3.0.0",
-    "gulp": "^4.0.0",
-    "gulp-debug": "^4.0.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^5.0.3",
-    "gulp-postcss": "^8.0.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-size": "^3.0.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-typescript": "^5.0.0",
-    "json5": "^2.1.0",
-    "merge-stream": "^1.0.1",
-    "mime": "^2.4.0",
-    "through2": "^3.0.0",
-    "yargs": "^13.2.1"
-  },
-  "peerDependencies": {
-    "typescript": "*"
-  },
-  "devDependencies": {
-    "typescript": "^3.2.4"
-  }
+    "name": "miniprogram-build",
+    "version": "3.3.8",
+    "description": "build miniprogram with typescript & scss ",
+    "main": "src/task.js",
+    "bin": {
+        "miniprogram-build": "bin/mp-build.js",
+        "mp-build": "bin/mp-build.js",
+        "mp": "bin/mp-build.js"
+    },
+    "files": [
+        "src/",
+        "bin/"
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/NewFuture/miniprogram-build.git"
+    },
+    "author": {
+        "name": "NewFuture",
+        "email": "npm@newfuture.cc",
+        "url": "https://newfuture.cc"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/NewFuture/miniprogram-build/issues"
+    },
+    "homepage": "https://github.com/NewFuture/miniprogram-build#readme",
+    "dependencies": {
+        "ansi-colors": "^3.2.3",
+        "async": "^2.6.2",
+        "autoprefixer": "^9.4.7",
+        "cssnano": "^4.1.10",
+        "del": "^3.0.0",
+        "gulp": "^4.0.0",
+        "gulp-debug": "^4.0.0",
+        "gulp-htmlmin": "^5.0.1",
+        "gulp-imagemin": "^5.0.3",
+        "gulp-postcss": "^8.0.0",
+        "gulp-rename": "^1.4.0",
+        "gulp-sass": "^4.0.2",
+        "gulp-size": "^3.0.0",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-typescript": "^5.0.0",
+        "json5": "^2.1.0",
+        "merge-stream": "^1.0.1",
+        "mime": "^2.4.0",
+        "through2": "^3.0.0",
+        "yargs": "^13.2.1"
+    },
+    "peerDependencies": {
+        "typescript": "*"
+    },
+    "devDependencies": {
+        "typescript": "^3.2.4"
+    }
 }
