@@ -7,6 +7,7 @@ var debug = require("gulp-debug");
 var size = require('gulp-size');
 var empty = require('../lib/empty');
 var replace = require('../lib/multi-replace');
+var error = require("../log/error");
 
 var TITLE = 'javascript:';
 /**
@@ -19,6 +20,7 @@ function compilejs(config, jsFile) {
         .pipe(debug({ title: TITLE }))
         .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(replace(config.var, undefined, "{{", "}}"))
+        .on('error',error(TITLE))
         .pipe(config.release ? empty() : sourcemaps.write())
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }))
