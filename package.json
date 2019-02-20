@@ -1,6 +1,6 @@
 {
     "name": "miniprogram-build",
-    "version": "3.3.8",
+    "version": "3.3.9",
     "description": "build miniprogram with typescript & scss ",
     "main": "src/task.js",
     "bin": {
@@ -52,7 +52,7 @@
         "yargs": "^13.2.1"
     },
     "peerDependencies": {
-        "typescript": "*"
+        "typescript": ">=2.7.1"
     },
     "devDependencies": {
         "typescript": "^3.2.4"
