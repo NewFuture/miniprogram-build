@@ -150,7 +150,7 @@ mp-build build --config=./config.prod.json --release
 * [x] 显示报错位置
 * [x] break errors
 * [ ] ~~pages config~~
-* [ ] template project
+* [x] [template project](https://github.com/NewFuture/miniprogram-template)
 * [ ] cache
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
