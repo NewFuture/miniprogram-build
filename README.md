@@ -1,4 +1,4 @@
-# miniprogram-build
+# miniprogram-build[![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build)
 
 A command line tool to build & watch MiniProgram.
 
