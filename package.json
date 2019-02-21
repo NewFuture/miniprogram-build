@@ -1,7 +1,14 @@
 {
     "name": "miniprogram-build",
-    "version": "3.3.9",
-    "description": "build miniprogram with typescript & scss ",
+    "version": "3.3.10",
+    "description": "A command line tool to build & watch MiniProgram.",
+    "keywords": [
+        "MiniProgram",
+        "build",
+        "typescript",
+        "wechat",
+        "scss"
+    ],
     "main": "src/task.js",
     "bin": {
         "miniprogram-build": "bin/mp-build.js",
