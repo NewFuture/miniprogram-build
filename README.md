@@ -88,10 +88,15 @@ mp-build build --config=./config.prod.json --release
 }
 ```
 
+### commands & options
+
+![commands & options](https://user-images.githubusercontent.com/6290356/53218418-07c7b180-3697-11e9-986b-acac08871bdc.png)
+
 ### tips
 
 * npm dependences need build npm via devtools (安装外部npm依赖需要开发工具并点击构建npm)
 * CSS npm packags install as devDependences with `npm i -D` (CSS的 npm 依赖使用`npm i -D`方式安装)
+
 
 ## Features
 
