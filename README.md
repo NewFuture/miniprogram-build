@@ -1,6 +1,8 @@
-# miniprogram-build
+# miniprogram-build[![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build)
 
 A command line tool to build & watch MiniProgram.
+
+![task flow](https://user-images.githubusercontent.com/6290356/53175609-4a51a580-3627-11e9-8f8f-e523e71333fd.png)
 
 ## Usage
 
@@ -148,7 +150,7 @@ mp-build build --config=./config.prod.json --release
 * [x] 显示报错位置
 * [x] break errors
 * [ ] ~~pages config~~
-* [ ] template project
+* [x] [template project](https://github.com/NewFuture/miniprogram-template)
 * [ ] cache
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
