@@ -11,5 +11,8 @@
     "license": "ISC",
     "dependencies": {
         "miniprogram-network": "^3.2.0"
+    },
+    "devDependencies": {
+        "typescript": "^3.2.4"
     }
 }
