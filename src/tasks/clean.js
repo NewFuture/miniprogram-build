@@ -2,7 +2,7 @@
 'use strict';
 var del = require('del');
 var log = require('fancy-log');
-var colors = require('ansi-colors');
+var colors = require('colors/safe');
 
 
 exports.build = function (config) {

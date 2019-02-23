@@ -5,7 +5,7 @@ var fs = require("fs");
 var path = require("path");
 var mime = require("mime");
 var async = require("async");
-var colors = require('ansi-colors');
+var colors = require('colors/safe');
 var fancyLog = require('fancy-log');
 
 // Cache regex's

@@ -1,7 +1,7 @@
 ///@ts-check
 "use strict";
 var log = require("fancy-log");
-var colors = require("ansi-colors");
+var colors = require("colors");
 
 /**
  * @param {string} TITLE

@@ -4,7 +4,7 @@ var gulp = require("gulp");
 var fs = require("fs");
 
 var log = require('fancy-log');
-var colors = require('ansi-colors');
+var colors = require('colors/safe');
 
 var compileTs = require("../compiler/compile-typescript");
 var unlink = require("../lib/unlink");

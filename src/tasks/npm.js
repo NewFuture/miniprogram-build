@@ -5,7 +5,7 @@ var path = require('path');
 var gulp = require('gulp');
 var fs = require('fs');
 var log = require('fancy-log');
-var colors = require('ansi-colors');
+var colors = require('colors/safe');
 
 var unlink = require('../lib/unlink');
 var buildNpm = require('../compiler/build-npm');
