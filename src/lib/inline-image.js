@@ -21,7 +21,7 @@ function log(img, file) {
         // path.relative(path.join(file.cwd, file.base), img)
         colors.cyan.underline(path.relative(file.base, img)),
         colors.gray("→"),
-        colors.gray('(' + colors.underline(path.relative(file.base, file.path)) + ')'),
+        colors.gray('(' + colors.underline(path.relative(file.base, file.path)) + ')')
     );
 }
 

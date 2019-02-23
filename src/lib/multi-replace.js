@@ -24,7 +24,7 @@ function logReplace(n, key, value, file) {
         typeof value === 'function' ? colors.magenta.italic('Function') : colors.cyan.underline(value),
         colors.gray('(' + colors.underline(
             path.relative(file.base, file.path)
-        ) + ')'),
+        ) + ')')
     )
 }
 
