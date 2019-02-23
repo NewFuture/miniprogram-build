@@ -23,8 +23,8 @@ exports.build = function (config) {
         }
     } else {
         log(
-            colors.cyan('npm:'),
-            colors.gray('`tsconfig.json` was found. Skip typescript compilation!'),
+            colors.cyan('typescript:'),
+            colors.gray('`tsconfig.json` was found. Skip typescript compilation!')
         );
         return function (cb) {
             cb && cb();
