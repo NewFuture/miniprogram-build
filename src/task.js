@@ -6,8 +6,12 @@ var colors = require('ansi-colors');
 var path = require('path');
 
 var taskLog = require('./log/task-log');
+var error = require('./log/error');
 
-var js = require('./tasks/js');
+
+var typescript = require('./tasks/typescript');
+var javascript = require('./tasks/javascript');
+
 var wxss = require('./tasks/wxss');
 var json = require('./tasks/json');
 var wxml = require('./tasks/wxml');
@@ -41,8 +45,9 @@ exports.$execute = function (tasks) {
         }
     });
 }
-
-gulp.task('js', js.build(exports.$config));
+gulp.task('typescript', typescript.build(exports.$config));
+gulp.task('javascript', javascript.build(exports.$config));
+gulp.task('js', gulp.parallel('typescript', 'javascript'));
 gulp.task('wxss', wxss.build(exports.$config));
 gulp.task('wxml', wxml.build(exports.$config));
 gulp.task('json', json.build(exports.$config));
@@ -50,7 +55,9 @@ gulp.task('image', image.build(exports.$config));
 gulp.task('copy', copy.build(exports.$config));
 gulp.task('npm', npm.build(exports.$config));
 
-gulp.task('js-watch', js.watch(exports.$config));
+gulp.task('typescript-watch', typescript.watch(exports.$config));
+gulp.task('javascript-watch', javascript.watch(exports.$config));
+gulp.task('js-watch', gulp.parallel('typescript-watch', 'javascript-watch'));
 gulp.task('wxss-watch', wxss.watch(exports.$config));
 gulp.task('wxml-watch', wxml.watch(exports.$config));
 gulp.task('json-watch', json.watch(exports.$config));
@@ -76,3 +83,5 @@ gulp.task('watch', gulp.series(
 
 //开发模式
 gulp.task('dev', gulp.series('build', 'watch'));
+
+gulp.on('error', error('gulp'));

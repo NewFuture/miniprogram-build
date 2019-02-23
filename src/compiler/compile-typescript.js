@@ -20,6 +20,7 @@ function compileTS(config, tsFile) {
     var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: !config.release }) : tsProject.src();
     //    console.log(tsFile,src)
     return src
+        .on("error", error(TITLE))
         .pipe(debug({ title: TITLE }))
         .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(replace(config.var, undefined, "{{", "}}"))

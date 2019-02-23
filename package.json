@@ -20,7 +20,7 @@
         "bin/"
     ],
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "npm test --prefix=test"
     },
     "repository": {
         "type": "git",
@@ -53,7 +53,6 @@
         "gulp-sourcemaps": "^2.6.5",
         "gulp-typescript": "^5.0.0",
         "json5": "^2.1.0",
-        "merge-stream": "^1.0.1",
         "mime": "^2.4.0",
         "through2": "^3.0.0",
         "yargs": "^13.2.1"

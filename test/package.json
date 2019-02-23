@@ -3,8 +3,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "node ../bin/mp-build.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "node ../bin/mp-build.js",
+        "test": "npm start build"
     },
     "keywords": [],
     "author": "",

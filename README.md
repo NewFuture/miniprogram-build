@@ -8,6 +8,8 @@ A command line tool to build & watch MiniProgram.
 
 ### quick start
 
+show all commands
+
 ```
 npx miniprogram-build -h
 ```
@@ -44,8 +46,8 @@ Options:
 ```
   --version     show version number <查看本版号>                       [boolean]
   --release     production mode <发布模式会优化压缩>  [boolean] [default: false]
-  --src         source folder <源文件目录>           [string] [default: "./src"]
-  --dist        output folder <编译输出目录>        [string] [default: "./dist"]
+  --src         source folder <源文件目录>           [string] [default: "src"]
+  --dist        output folder <编译输出目录>        [string] [default: "dist"]
   --exclude     ignored files <编译忽略文件(夹)>                         [array]
   --tsconfig    typescript config file <TS配置,未设置会自动查找tsconfig.json>
   --copy        files to copy <复制的文件>
@@ -79,7 +81,7 @@ mp-build build --config=./config.prod.json --release
     "src": "src",
     "dist": "dist",
     "assets": "assets",
-    "copy": "copy",
+    "copy": "",
     "exclude": [],
     "tsconfig": "tsconfig.json",
     "var": {
