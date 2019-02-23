@@ -47,13 +47,13 @@ function compileScss(config, scssFile) {
                 errLogToConsole: true,
                 outputStyle: "expanded",
                 includePaths: ["node_modules"],
-            }),
+            })
         )
         .on("error", error("wxss"))
         .pipe(
             replace(/@import url\(["']?([\w\/\.\-\_]*)["']?\)/g, ($1, $2) => {
                 return '@import "' + $2 + '"';
-            }),
+            })
         )
         .pipe(inline())
         .pipe(postcss(postCssPlgins))

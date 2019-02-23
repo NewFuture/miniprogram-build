@@ -40,7 +40,7 @@ function compress(config, wxmlsrc) {
                 // ignoreCustomFragments: [/\{{2,}[\s\S]*?\}{2,}/],
                 // trimCustomFragments: false
                 customEventAttributes: [/^bind:?[a-z]+/, /^catch:?[a-z]+/, /^wx:[a-z]+/],
-            }),
+            })
         )
         .on("error", err(TITLE))
         .pipe(rename({ extname: ".wxml" }))
