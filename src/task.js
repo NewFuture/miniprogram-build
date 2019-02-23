@@ -71,7 +71,7 @@ gulp.task('clean', clean.build(exports.$config));
 gulp.task('compile', gulp.series(
     taskLog(colors.rainbow("↓↓↓↓↓↓"), colors.blue('compiling ' + colors.underline(exports.$config.src) + ' → ' + colors.underline(exports.$config.dist)), colors.rainbow("↓↓↓↓↓↓")),
     gulp.parallel('js', 'wxss', 'wxml', 'json', 'image', 'copy', 'npm'),
-    taskLog(colors.rainbow("↑↑↑↑↑↑"), colors.green('√ finished compiling'), colors.rainbow("↑↑↑↑↑↑")),
+    taskLog(colors.rainbow("↑↑↑↑↑↑"), colors.green('√ finished compiling'), colors.rainbow("↑↑↑↑↑↑"))
 ))
 // 重新生成文件
 gulp.task('build', gulp.series('clean', 'compile'));
