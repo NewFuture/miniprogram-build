@@ -11,7 +11,7 @@ var error = require('./log/error');
 
 var typescript = require('./tasks/typescript');
 var javascript = require('./tasks/javascript');
-
+var wxts = require('./tasks/wxts');
 var wxss = require('./tasks/wxss');
 var json = require('./tasks/json');
 var wxml = require('./tasks/wxml');
@@ -47,6 +47,7 @@ exports.$execute = function (tasks) {
 }
 gulp.task('typescript', typescript.build(exports.$config));
 gulp.task('javascript', javascript.build(exports.$config));
+gulp.task('wxts', wxts.build(exports.$config));
 gulp.task('js', gulp.parallel('typescript', 'javascript'));
 gulp.task('wxss', wxss.build(exports.$config));
 gulp.task('wxml', wxml.build(exports.$config));
@@ -58,6 +59,7 @@ gulp.task('npm', npm.build(exports.$config));
 gulp.task('typescript-watch', typescript.watch(exports.$config));
 gulp.task('javascript-watch', javascript.watch(exports.$config));
 gulp.task('js-watch', gulp.parallel('typescript-watch', 'javascript-watch'));
+gulp.task('wxts-watch', wxts.watch(exports.$config));
 gulp.task('wxss-watch', wxss.watch(exports.$config));
 gulp.task('wxml-watch', wxml.watch(exports.$config));
 gulp.task('json-watch', json.watch(exports.$config));
@@ -70,14 +72,14 @@ gulp.task('clean', clean.build(exports.$config));
 //编译项目
 gulp.task('compile', gulp.series(
     taskLog(colors.rainbow("↓↓↓↓↓↓"), colors.blue('compiling ' + colors.underline(exports.$config.src) + ' → ' + colors.underline(exports.$config.dist)), colors.rainbow("↓↓↓↓↓↓")),
-    gulp.parallel('js', 'wxss', 'wxml', 'json', 'image', 'copy', 'npm'),
+    gulp.parallel('js', 'wxts', 'wxss', 'wxml', 'json', 'image', 'copy', 'npm'),
     taskLog(colors.rainbow("↑↑↑↑↑↑"), colors.green('√ finished compiling'), colors.rainbow("↑↑↑↑↑↑"))
 ))
 // 重新生成文件
 gulp.task('build', gulp.series('clean', 'compile'));
 // 监测文件修改
 gulp.task('watch', gulp.series(
-    gulp.parallel('js-watch', 'wxss-watch', 'wxml-watch', 'json-watch', 'image-watch', 'copy-watch', 'npm-watch'),
+    gulp.parallel('js-watch', 'wxts-watch', 'wxss-watch', 'wxml-watch', 'json-watch', 'image-watch', 'copy-watch', 'npm-watch'),
     taskLog(colors.rainbow('All watching tasks started ...')))
 );
 
