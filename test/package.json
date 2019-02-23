@@ -4,7 +4,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node ../bin/mp-build.js",
-        "test": "npm start js wxss wxml json npm"
+        "test": "npm start javascript wxss wxml json npm"
     },
     "keywords": [],
     "author": "",
