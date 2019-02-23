@@ -15,7 +15,7 @@ module.exports = function(TITLE) {
             colors.bgRed(err.message),
             "\n",
             colors.red.underline(err.relativePath || err.fileName),
-            "\n",
+            "\n"
         );
         if (process.env.SKIP_ERROR) {
             return this.emit("end", err);
