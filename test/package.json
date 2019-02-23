@@ -4,15 +4,12 @@
     "main": "index.js",
     "scripts": {
         "start": "node ../bin/mp-build.js",
-        "test": "npm start build"
+        "test": "npm start build && npm start build --release"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
         "miniprogram-network": "^3.2.0"
-    },
-    "devDependencies": {
-        "typescript": "^3.2.4"
     }
 }
