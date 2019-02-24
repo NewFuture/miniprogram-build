@@ -15,6 +15,9 @@
         "mp-build": "bin/mp-build.js",
         "mp": "bin/mp-build.js"
     },
+    "engines": {
+        "node": ">=8"
+    },
     "files": [
         "src/",
         "bin/"
