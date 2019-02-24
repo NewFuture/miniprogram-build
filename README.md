@@ -24,6 +24,8 @@ npm i miniprogram-build -D
 
 > `miniprogram-build [command...] [--option]`
 
+Short Alias [短命称]: `mp` 或 `mp-build`
+
 Commands:
 
 ```
@@ -93,7 +95,7 @@ mp-build build --config=./config.prod.json --release
 
 ### commands & options
 
-![commands & options](https://user-images.githubusercontent.com/6290356/53218418-07c7b180-3697-11e9-986b-acac08871bdc.png)
+![commands & options](https://user-images.githubusercontent.com/6290356/53295185-f4504e00-3830-11e9-8bb0-31a533c8da7c.png)
 
 ### tips
 
@@ -112,6 +114,9 @@ mp-build build --config=./config.prod.json --release
     * [x] error report
     * [ ] tree shaking
     * [ ] one tslib
+* `wxs`
+    * [x] compile `TS` (.wxts)
+    * the same as js
 * `wxss`
     * [x] compile
         * `scss`/`sass`
