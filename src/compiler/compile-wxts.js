@@ -9,13 +9,16 @@ var empty = require("../lib/empty");
 var replace = require("../lib/multi-replace");
 var error = require("../log/error");
 
-const defaultConfig =
-{
+const wxtsConfig = {
     target: "es5",
     downlevelIteration: true,//Provide full support for iterables in for..of, spread and destructuring when targeting ES5 or ES3.
     isolatedModules: true,//Transpile each file as a separate module (similar to “ts.transpileModule”).
-    lib: ['es5'],
     noLib: true,
+    lib: ['es5']
+}
+
+const defaultConfig =
+{
     allowJs: true,
     alwaysStrict: true,
     checkJs: true,
@@ -36,23 +39,9 @@ var TITLE = "wxts:";
  * @param {string|string[]} tsFile
  * @param {any} tsconfig 
  */
-function compileTS(config, tsFile, tsconfig) {
+function compileWxts(config, tsFile, tsconfig) {
     var ts = require("gulp-typescript");
-    var newConfig = {
-        target: "es5",
-        downlevelIteration: true,//Provide full support for iterables in for..of, spread and destructuring when targeting ES5 or ES3.
-        isolatedModules: true,//Transpile each file as a separate module (similar to “ts.transpileModule”).
-        lib: ['es5']
-    }
-    if (tsconfig && tsconfig.compilerOptions) {
-        for (const key in defaultConfig) {
-            newConfig[key] = tsconfig.compilerOptions.hasOwnProperty(key) ? tsconfig.compilerOptions[key] : defaultConfig[key];
-        }
-    } else {
-        for (const key in defaultConfig) {
-            newConfig[key] = defaultConfig[key];
-        }
-    }
+    var newConfig = Object.assign({}, defaultConfig, tsconfig, wxtsConfig);
     return gulp.src(tsFile, { base: config.src, sourcemaps: !config.release })
         .pipe(debug({ title: TITLE }))
         .pipe(config.release ? empty() : sourcemaps.init())
@@ -64,4 +53,4 @@ function compileTS(config, tsFile, tsconfig) {
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }));
 }
-module.exports = compileTS;
+module.exports = compileWxts;
