@@ -8,11 +8,12 @@ var unlink = require("../lib/unlink");
 var extToGlob = require("../lib/ext-to-glob");
 var watchLog = require("../log/watch");
 
-var JS_EXTS = ["js", "wxs"];
+// var JS_EXTS = ["js", "wxs"];
 /**
  * @param {object} config
+ * @param {string[]} JS_EXTS 
  */
-exports.build = function (config) {
+exports.build = function (config, JS_EXTS) {
     return function () {
         return compileJs(config, extToGlob(config, JS_EXTS));
     };
@@ -21,11 +22,12 @@ exports.build = function (config) {
 
 /**
  * @param {object} config
+ * @param {string[]} JS_EXTS 
  */
-exports.watch = function (config) {
+exports.watch = function (config, JS_EXTS) {
     return function (cb) {
         var glob = extToGlob(config, JS_EXTS);
-        watchLog("js", glob);
+        watchLog("javascript-" + JS_EXTS.join('-'), glob);
         gulp.watch(glob)
             .on("change", function (file) {
                 return compileJs(config, file);
