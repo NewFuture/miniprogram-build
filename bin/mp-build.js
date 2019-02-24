@@ -8,7 +8,7 @@ var argv = require("yargs")
     .usage("\nMiniProgram build tools <小程序编译打包工具>")
     .usage("Usage <用法>:\n  $0 [command...] [--option]")
     .usage("FullName <完整名称>:\n miniprogram-build [command...] [--option]")
-    .example("$0 dev", "编译并监测文件变化")
+    .example("$0 js js-watch", "编译并监测生成js文件")
     .example("$0 --config=mpconfig.json", "指定配置文件")
     .example("$0 --release --var.APP_ID=1234", "优化编译")
     // configuration

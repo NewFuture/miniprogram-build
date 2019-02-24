@@ -1,8 +1,8 @@
-# miniprogram-build[![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build) [![Greenkeeper badge](https://badges.greenkeeper.io/NewFuture/miniprogram-build.svg)](https://greenkeeper.io/)
+# miniprogram-build [![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build) [![Greenkeeper badge](https://badges.greenkeeper.io/NewFuture/miniprogram-build.svg)](https://greenkeeper.io/)
 
 A command line tool to build & watch MiniProgram.
 
-![task flow](https://user-images.githubusercontent.com/6290356/53175609-4a51a580-3627-11e9-8f8f-e523e71333fd.png)
+![task flow](https://user-images.githubusercontent.com/6290356/53295020-e13b7f00-382c-11e9-8662-5a5f5dcaeab9.png)
 
 ## Usage
 
@@ -33,6 +33,7 @@ build    clean and compile <清理和编译所有文件>
 clean    remove all files in dist <清理dist>
 compile  compile all source files to dist <编译所有源文件>
 js       compile ts/js files to `.js` <编译生成js>
+wxs      compile wxts/wxs files to `.wxs` <编译生成wxs>
 wxss     compile scss/sass/css/wxss to `.wxss` <编译生成wxss>
 wxml     compile html/wxml files to `.wxml` <编译生成wxml>
 json     compile all json/jsonc files to `.json` <编译生成json>

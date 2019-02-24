@@ -4,7 +4,7 @@
 
 var fs = require('fs');
 // var minify = require('node-json-minify');
-var colors = require('colors/safe');
+var colors = require('colors');
 var log = require('fancy-log');
 var json5 = require('json5');
 
@@ -24,7 +24,7 @@ var DEFAULT_CONFIG_FILES = [
 function loadConfig(configFile) {
     if (configFile) {
         if (!fs.existsSync(configFile)) {
-            log.error(TITLE, colors.red.underline(configFile), colors.redBright('does not exist'));
+            log.error(TITLE, colors.red.underline(configFile), colors.bgRed('does not exist'));
             throw new Error(configFile + 'does not exist');
         }
     }
@@ -34,7 +34,7 @@ function loadConfig(configFile) {
         log.info(TITLE, 'load configuration from', colors.blue.underline(configFile))
         return config;
     } catch (ex) {
-        log.error(TITLE, colors.red.underline(configFile), 'failed to load.', colors.redBright(ex));
+        log.error(TITLE, colors.red.underline(configFile), 'failed to load.', colors.red(ex));
         // process.exit(1);
         throw ex;
     }
