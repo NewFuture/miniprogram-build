@@ -78,9 +78,11 @@ var argv = require("yargs")
     .command("copy", "copy all files match `copy` <复制需要复制的文件>")
     .command("npm", "build npm dependencies to dist <编译npm依赖>")
     .command("js-watch", "watch changes of ts/js files <监测ts/js改动>")
+    .command("typescript-watch", false) //"watch changes of ts files <监测ts改动>"
+    .command("javascript-watch", false) // "watch changes of js files <监测js改动>"
     .command("wxs-watch", "watch changes of .wxs/.wxts <监测.wxs/.wxts>")
-    .command("wxts-watch", "watch changes of .wxts files <监测wxts改动>")
-    .command("wxjs-watch", "watch changes of .wxs files <监测wxs改动>")
+    .command("wxts-watch", false) //"watch changes of .wxts files <监测wxts改动>"
+    .command("wxjs-watch", false) //"watch changes of .wxs files <监测wxs改动>"
     .command("wxss-watch", "watch changes of scss/sass/css/wxss <实时生成wxss>")
     .command("wxml-watch", "watch changes of html/wxml files <实时生成wxml>")
     .command("json-watch", "watch changes of all json/jsonc files <实时生成json>")
