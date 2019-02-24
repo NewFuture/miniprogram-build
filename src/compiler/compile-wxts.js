@@ -19,9 +19,9 @@ const wxtsConfig = {
 
 const defaultConfig =
 {
-    allowJs: true,
+    // allowJs: true,
+    // checkJs: true,
     alwaysStrict: true,
-    checkJs: true,
     noImplicitAny: true,
     noImplicitReturns: true,
     noImplicitThis: true,
@@ -41,7 +41,7 @@ var TITLE = "wxts:";
  */
 function compileWxts(config, tsFile, tsconfig) {
     var ts = require("gulp-typescript");
-    var newConfig = Object.assign({}, defaultConfig, tsconfig, wxtsConfig);
+    var newConfig = Object.assign({}, defaultConfig, tsconfig ? tsconfig.compilerOptions : {}, wxtsConfig);
     return gulp.src(tsFile, { base: config.src, sourcemaps: !config.release })
         .pipe(debug({ title: TITLE }))
         .pipe(config.release ? empty() : sourcemaps.init())
