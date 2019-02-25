@@ -38,7 +38,7 @@ exports.build = function (config) {
 exports.watch = function (config) {
     return function (cb) {
         var glob = extToGlob(config, TS_EXTS);
-        watchLog("js", glob);
+        watchLog("typescript", glob);
         gulp.watch(glob, {
             ignored: config.src + "/*/**.d.ts",
         })
