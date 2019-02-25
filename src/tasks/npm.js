@@ -34,6 +34,7 @@ exports.build = function (config) {
                             colors.cyan('npm:'),
                             colors.gray('No `dependency` was found. Skips!')
                         );
+                        cb && cb();
                     }
                 } catch (error) {
                     cb(error);
