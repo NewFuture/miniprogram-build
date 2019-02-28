@@ -46,22 +46,21 @@ function compileScss(config, scssFile) {
                 importer: wxssImporter,
                 errLogToConsole: true,
                 outputStyle: "expanded",
-                includePaths: ["node_modules"],
-            })
+                includePaths: ["node_modules", config.src],
+            }),
         )
         .on("error", error("wxss"))
         .pipe(
             replace(/@import url\(["']?([\w\/\.\-\_]*)["']?\)/g, ($1, $2) => {
                 return '@import "' + $2 + '"';
-            })
+            }),
         )
         .pipe(inline())
         .pipe(postcss(postCssPlgins))
         .pipe(config.release ? empty() : sourcemaps.write())
         .pipe(rename({ extname: ".wxss" }))
         .pipe(gulp.dest(config.dist))
-        .pipe(size({ title: TITLE, showFiles: true }))
-        ;
+        .pipe(size({ title: TITLE, showFiles: true }));
 }
 
 module.exports = compileScss;
