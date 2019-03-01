@@ -17,7 +17,7 @@ var TITLE = "typescript:";
  */
 function compileTS(config, tsFile) {
     var ts = require("gulp-typescript");
-    var resolver = require("@taqtile/gulp-module-resolver");
+    // var resolver = require("@taqtile/gulp-module-resolver");
     var tsProject = ts.createProject(config.tsconfig);
 
     var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: true }) : tsProject.src();

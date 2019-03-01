@@ -65,7 +65,6 @@
         "typescript": ">=2.7.1"
     },
     "devDependencies": {
-        "@taqtile/gulp-module-resolver": "^0.3.3-alpha.1",
         "typescript": "^3.3.3333"
     }
 }
