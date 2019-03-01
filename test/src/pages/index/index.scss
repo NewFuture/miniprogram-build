@@ -1,0 +1,6 @@
+@import 't';
+@import 'mixins/f';
+
+.x{
+    @include f;
+}
