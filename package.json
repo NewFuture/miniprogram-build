@@ -1,6 +1,6 @@
 {
     "name": "miniprogram-build",
-    "version": "3.4.3",
+    "version": "3.5.0",
     "description": "A command line tool to build & watch MiniProgram.",
     "keywords": [
         "MiniProgram",
@@ -65,6 +65,7 @@
         "typescript": ">=2.7.1"
     },
     "devDependencies": {
+        "@taqtile/gulp-module-resolver": "^0.3.3-alpha.1",
         "typescript": "^3.3.3333"
     }
 }
