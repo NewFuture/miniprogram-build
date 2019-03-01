@@ -1,5 +1,6 @@
 ///@ts-check
 "use strict";
+var path = require("path");
 var gulp = require("gulp");
 var rename = require("gulp-rename");
 var sass = require("gulp-sass");
@@ -46,7 +47,7 @@ function compileScss(config, scssFile) {
                 importer: wxssImporter,
                 errLogToConsole: true,
                 outputStyle: "expanded",
-                includePaths: ["node_modules", config.src],
+                includePaths: [path.join(config.src, config.assets || "./"), "node_modules"],
             }),
         )
         .on("error", error("wxss"))

@@ -3,7 +3,7 @@
 var through = require('through2');
 var path = require('path');
 var log = require('fancy-log');
-var colors = require('colors/safe');
+var colors = require('colors');
 
 var TITLE = 'replace:'
 
