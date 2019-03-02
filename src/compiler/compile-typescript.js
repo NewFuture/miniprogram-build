@@ -18,10 +18,10 @@ var TITLE = "typescript:";
 function compileTS(config, tsFile) {
     var ts = require("gulp-typescript");
     // var resolver = require("@taqtile/gulp-module-resolver");
-    var tsProject = ts.createProject(config.tsconfig,{
-        getCustomTransformers:(program) => ({
-            before: [require("ts-transform-paths-slash").default(program)]
-          })
+    var tsProject = ts.createProject(config.tsconfig, {
+        getCustomTransformers: (program) => ({
+            before: [require("ts-transform-paths").default(program)]
+        })
     });
 
     var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: true }) : tsProject.src();

@@ -59,7 +59,7 @@
         "json5": "^2.1.0",
         "mime": "^2.4.0",
         "through2": "^3.0.0",
-        "ts-transform-paths-slash": "0.0.1",
+        "ts-transform-paths": "^1.1.1",
         "yargs": "^13.2.1"
     },
     "peerDependencies": {

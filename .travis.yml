@@ -8,3 +8,13 @@ node_js:
 
 git:
   depth: 1
+
+deploy:
+    - provider: npm
+      email: npmjs@newfututre.cc
+      api_key: "${NPM_TOKEN}"
+      skip_cleanup: true
+      on:
+          tags: true
+          branch: master
+          node_js: 'stable'
