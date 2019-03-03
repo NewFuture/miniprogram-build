@@ -1,7 +1,7 @@
 ///@ts-check
 "use strict";
-var log = require("fancy-log");
 var colors = require("colors");
+var log = require("./logger");
 
 /**
  * @param {string} TITLE
@@ -20,7 +20,7 @@ module.exports = function (TITLE) {
             "\n",
             //@ts-ignore
             colors.red.underline(err.relativePath || err.fileName),
-            "\n" + (skip ? '' : err.stack + '\n' + err)
+            "\n" + (skip ? '' : err.stack ? (err.stack + '\n' + err):JSON.stringify(err,null,2))
         );
         if (skip) {
             return this.emit("end", err);

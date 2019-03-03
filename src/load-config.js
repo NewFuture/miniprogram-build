@@ -5,10 +5,11 @@
 var fs = require('fs');
 // var minify = require('node-json-minify');
 var colors = require('colors');
-var log = require('fancy-log');
 var json5 = require('json5');
 
-var TITLE = colors.cyan('config:');
+var log = require('./log/logger');
+
+var TITLE = colors.gray('config:');
 
 var DEFAULT_CONFIG_FILES = [
     'mpconfig.json',
@@ -31,7 +32,7 @@ function loadConfig(configFile) {
     try {
         var json = fs.readFileSync(configFile, 'utf-8');
         var config = json5.parse(json);
-        log.info(TITLE, 'load configuration from', colors.blue.underline(configFile))
+        log.info(TITLE, colors.cyan(`v${require('../package.json').version}`), 'load config', colors.blue.underline(configFile))
         return config;
     } catch (ex) {
         log.error(TITLE, colors.red.underline(configFile), 'failed to load.', colors.red(ex));

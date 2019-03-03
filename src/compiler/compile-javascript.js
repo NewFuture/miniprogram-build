@@ -3,10 +3,10 @@
 'use strict';
 var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
-var debug = require("gulp-debug");
-var size = require('gulp-size');
 var empty = require('../lib/empty');
 var replace = require('../lib/multi-replace');
+const debug = require("../log/compile");
+const size = require('../log/size');
 var error = require("../log/error");
 
 var TITLE = 'javascript:';
@@ -17,13 +17,17 @@ var TITLE = 'javascript:';
  */
 function compilejs(config, jsFile) {
     return gulp.src(jsFile, { base: config.src, sourcemaps: !config.release })
-        .pipe(debug({ title: TITLE }))
+        .pipe(debug({
+            title: TITLE, 
+            // dist: config.dist,
+            distExt: '.js'
+        }))
         .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(replace(config.var, undefined, "{{", "}}"))
         .on('error',error(TITLE))
         .pipe(config.release ? empty() : sourcemaps.write())
         .pipe(gulp.dest(config.dist))
-        .pipe(size({ title: TITLE, showFiles: true }))
+        .pipe(size({ title: TITLE, showFiles: true,showTotal:false}))
 
 }
 module.exports = compilejs

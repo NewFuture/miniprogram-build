@@ -1,7 +1,7 @@
 ///@ts-check
 'use strict';
-var log = require('fancy-log');
 var colors = require('colors');
+var log = require('../log/logger');
 
 /**
  * @param {string} name

@@ -2,8 +2,8 @@
 "use strict";
 var gulp = require("gulp");
 var sourcemaps = require("gulp-sourcemaps");
-var debug = require("gulp-debug");
-var size = require("gulp-size");
+const debug = require("../log/compile");
+const size = require('../log/size');
 // var empty = require("../lib/empty");
 var replace = require("../lib/multi-replace");
 // var tsImport = require("../lib/tsimport");
@@ -28,7 +28,11 @@ function compileTS(config, tsFile) {
     //    console.log(tsFile,src)
     return src
         .on("error", error(TITLE))
-        .pipe(debug({ title: TITLE }))
+        .pipe(debug({
+            title: TITLE, 
+            // dist: config.dist,
+            distExt: '.js'
+        }))
         .pipe(sourcemaps.init())
         .pipe(replace(config.var, undefined, "{{", "}}"))
         .pipe(tsProject(ts.reporter.fullReporter(true)))

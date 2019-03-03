@@ -1,6 +1,7 @@
 ///@ts-check
 'use strict';
-var log = require('fancy-log');
+var log = require('../log/logger');
+
 
 module.exports = function () {
     var arg = arguments;

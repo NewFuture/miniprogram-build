@@ -6,7 +6,7 @@ var path = require("path");
 var mime = require("mime");
 var async = require("async");
 var colors = require('colors');
-var fancyLog = require('fancy-log');
+var fancyLog = require('../log/logger');
 
 // Cache regex's
 var rImages = /([\s\S]*?)(url\(([^)]+)\))(?!\s*[;,]?\s*\/\*\s*base64:skip\s*\*\/)|([\s\S]+)/img;
@@ -17,7 +17,7 @@ var rQuotes = /['"]/g;
 var rParams = /([?#].*)$/g;
 
 function log(img, file) {
-    fancyLog('inline:',
+    fancyLog(colors.gray('inline:'),
         // path.relative(path.join(file.cwd, file.base), img)
         colors.cyan.underline(path.relative(file.base, img)),
         colors.gray("→"),

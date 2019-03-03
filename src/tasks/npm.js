@@ -4,13 +4,15 @@ var path = require('path');
 
 var gulp = require('gulp');
 var fs = require('fs');
-var log = require('fancy-log');
 var colors = require('colors/safe');
+
+var log = require('../log/logger');
 
 var unlink = require('../lib/unlink');
 var buildNpm = require('../compiler/build-npm');
 // var npmInstall = require('../compiler/npm-install');
-var copy = require('../compiler/copy');
+// var copy = require('../compiler/copy');
+// var rollup = require('rollup')
 var watchLog = require('../log/watch');
 // var merge = require('merge-stream');
 
@@ -28,7 +30,7 @@ exports.build = function (config) {
                 try {
                     var PKG = require(path.join(process.cwd(), PACKAGE_JSON));
                     if (PKG.dependencies && Object.keys(PKG.dependencies).length > 0) {
-                        return buildNpm(config).end(cb);
+                        return buildNpm(process.cwd(),config.dist)(cb);
                     } else {
                         log(
                             colors.cyan('npm:'),
@@ -63,9 +65,9 @@ exports.watch = function (config) {
     return function (cb) {
         watchLog('npm', PACKAGE_JSON);
         gulp.watch(PACKAGE_JSON, {})
-            .on('change', function (file) { return copy(config.dist, file, config.src); })
+            .on('change', function () { exports.build(config)(); })
             .on('add', function () { exports.build(config)(); })
-            .on('unlink', unlink(config.src, config.dist));
+            .on('unlink', unlink("miniprogram_npm", config.dist));
         cb && cb();
     }
 }

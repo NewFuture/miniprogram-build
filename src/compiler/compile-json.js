@@ -2,8 +2,8 @@
 'use strict';
 var gulp = require('gulp');
 var rename = require('gulp-rename');
-var debug = require('gulp-debug');
-var size = require('gulp-size');
+const debug = require("../log/compile");
+const size = require('../log/size');
 var err = require('../log/error');
 var multiReplace = require('../lib/multi-replace');
 var jsonMini = require('../lib/json-mini');
@@ -17,13 +17,17 @@ var TITLE = 'json:';
 function replaceJson(config, jsonFile) {
     jsonFile = jsonFile || (config.src + '/**/*.{json,jsonc}');
     return gulp.src(jsonFile, { base: config.src })
-        .pipe(debug({ title: TITLE }))
+        .pipe(debug({
+            title: TITLE, 
+            // dist: config.dist,
+            distExt: '.json'
+        }))
         .pipe(rename({ 'extname': '.json' }))
         .pipe(jsonMini(!config.release))
         .on('error', err(TITLE))
         .pipe(multiReplace(config.var, undefined, '{{', '}}'))
         .pipe(gulp.dest(config.dist))
-        .pipe(size({ title: TITLE, showFiles: true }))
+        .pipe(size({ title: TITLE, showFiles: true, showTotal: false }))
         ;
 }
 

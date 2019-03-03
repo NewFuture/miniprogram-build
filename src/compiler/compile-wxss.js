@@ -5,17 +5,16 @@ var gulp = require("gulp");
 var rename = require("gulp-rename");
 var sass = require("gulp-sass");
 var sourcemaps = require("gulp-sourcemaps");
-var debug = require("gulp-debug");
 var cssnano = require("cssnano");
 var postcss = require("gulp-postcss");
 var autoprefixer = require("autoprefixer");
-var size = require("gulp-size");
 var inline = require("../lib/inline");
 var empty = require("../lib/empty");
 var wxssImporter = require("../lib/wxss-importer");
 var replace = require("../lib/multi-replace");
 var error = require("../log/error");
-
+const debug = require("../log/compile");
+const size = require('../log/size');
 var TITLE = "wxss:";
 /**
  * 编译scss
@@ -40,7 +39,11 @@ function compileScss(config, scssFile) {
     return gulp
         .src(scssFile, { base: config.src })
         .pipe(config.release ? empty() : sourcemaps.init())
-        .pipe(debug({ title: TITLE }))
+        .pipe(debug({
+            title: TITLE, 
+            // dist: config.dist,
+            distExt: '.wxss'
+        }))
         .pipe(
             sass({
                 ///@ts-ignore

@@ -3,13 +3,13 @@
 var gulp = require("gulp");
 var fs = require("fs");
 
-var log = require('fancy-log');
 var colors = require('colors/safe');
 
 var compileTs = require("../compiler/compile-typescript");
 var unlink = require("../lib/unlink");
 var extToGlob = require("../lib/ext-to-glob");
 var watchLog = require("../log/watch");
+var log = require('../log/logger');
 
 var TS_EXTS = ["ts"];
 /**

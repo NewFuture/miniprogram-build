@@ -2,9 +2,9 @@
 "use strict";
 var gulp = require("gulp");
 var sourcemaps = require("gulp-sourcemaps");
-var debug = require("gulp-debug");
-var size = require("gulp-size");
 var rename = require("gulp-rename");
+const debug = require("../log/compile");
+const size = require('../log/size');
 var empty = require("../lib/empty");
 var replace = require("../lib/multi-replace");
 var error = require("../log/error");
@@ -43,7 +43,11 @@ function compileWxts(config, tsFile, tsconfig) {
     var ts = require("gulp-typescript");
     var newConfig = Object.assign({}, defaultConfig, tsconfig ? tsconfig.compilerOptions : {}, wxtsConfig);
     return gulp.src(tsFile, { base: config.src, sourcemaps: !config.release })
-        .pipe(debug({ title: TITLE }))
+        .pipe(debug({
+            title: TITLE, 
+            // dist: config.dist,
+            distExt: '.wxs'
+        }))
         .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(replace(config.var, undefined, "{{", "}}"))
         .pipe(ts(newConfig, ts.reporter.fullReporter(false)))

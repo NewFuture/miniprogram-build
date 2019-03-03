@@ -3,9 +3,10 @@
 var gulp = require("gulp");
 var fs = require("fs");
 
-var log = require('fancy-log');
 var colors = require('colors/safe');
 var json5 = require('json5');
+
+var log = require('../log/logger');
 
 var compileWxts = require("../compiler/compile-wxts");
 var unlink = require("../lib/unlink");

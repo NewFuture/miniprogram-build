@@ -2,7 +2,7 @@
 ///@ts-check
 'use strict';
 var gulp = require('gulp');
-var size = require('gulp-size');
+var size = require('../log/size');
 
 var TITLE = 'copy:';
 

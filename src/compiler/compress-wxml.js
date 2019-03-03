@@ -3,8 +3,8 @@
 var gulp = require("gulp");
 var htmlmin = require("gulp-htmlmin");
 var rename = require("gulp-rename");
-var debug = require("gulp-debug");
-var size = require("gulp-size");
+const debug = require("../log/compile");
+const size = require('../log/size');
 var err = require("../log/error");
 // var minimize = require("gulp-minimize");
 
@@ -17,7 +17,11 @@ var TITLE = "wxml:";
 function compress(config, wxmlsrc) {
     return gulp
         .src(wxmlsrc, { base: config.src })
-        .pipe(debug({ title: TITLE }))
+        .pipe(debug({
+            title: TITLE, 
+            // dist: config.dist,
+            distExt: '.wxml'
+        }))
         .pipe(
             // minimize({
             //     // spare: true
