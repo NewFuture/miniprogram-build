@@ -99,7 +99,6 @@ mp-build build --config=./config.prod.json --release
 
 ### tips
 
-* npm dependences need build npm via devtools (安装外部npm依赖需要开发工具并点击构建npm)
 * CSS npm packags install as devDependences with `npm i -D` (CSS的 npm 依赖使用`npm i -D`方式安装)
 
 
@@ -146,6 +145,9 @@ mp-build build --config=./config.prod.json --release
     * [x] minify
     * [x] replace `{{var}}`
     * [x] error report
+*  miniprogram npm
+    * [x] rollup js lib
+    * [x] components
 * resource
     * [x] copy/src
     * [x] image compress
@@ -168,10 +170,6 @@ mp-build build --config=./config.prod.json --release
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
     * [ ] build wxss
-* miniprogram native npm
-    * [x] link node_modules
-    * [ ] rollup js lib
-    * [ ] components
 
 ## examples
 
