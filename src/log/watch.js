@@ -1,6 +1,6 @@
 ///@ts-check
 'use strict';
-var colors = require('colors');
+var colors = require('ansi-colors');
 var log = require('../log/logger');
 
 /**

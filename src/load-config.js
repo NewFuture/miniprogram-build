@@ -4,7 +4,7 @@
 
 var fs = require('fs');
 // var minify = require('node-json-minify');
-var colors = require('colors');
+var colors = require('ansi-colors');
 var json5 = require('json5');
 
 var log = require('./log/logger');

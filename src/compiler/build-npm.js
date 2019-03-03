@@ -98,7 +98,7 @@ module.exports =
                             // distName: destName
                         }))
                         .pipe(gulpRollup({
-                            rollup: rollup,
+                            // rollup: rollup,
                             external: dependencyNames,
                             plugins: [
                                 rollupNodeResolve({

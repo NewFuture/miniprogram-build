@@ -13,8 +13,12 @@ function colorize(exploded, letter, i) {
         return exploded + colors[rainbowColors[i++ % rainbowColors.length]](letter);
     }
 };
-
-
-exports = function (str) {
+module.exports = 
+/**
+ * 
+ * @param {string} str
+ * @returns {string} 
+ */
+function rainbow(str) {
     return Array.from(str).reduce(colorize, '');
 }

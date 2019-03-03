@@ -3,11 +3,11 @@
 const colors = require('ansi-colors');
 
 const availableColors = [
-    "greenBright",
-    "yellowBright",
-    "blueBright",
     "magentaBright",
     "cyanBright",
+    "greenBright",
+    "blueBright",
+    "yellowBright",
     "whiteBright",
     // "gray",
     "green",
@@ -37,6 +37,7 @@ function color(str) {
     str = str && str.trim();
     if (!maps[str]) {
         maps[str] = colors
+        .reset
         [availableStyle[index % availableStyle.length]]
         [availableColors[index++ % availableColors.length]]
             (str);

@@ -43,7 +43,7 @@ module.exports = options => {
 
     return through.obj((file, enc, cb) => {
         if (options.showFiles) {
-            let output = chalk.whiteBright('► ');
+            let output = chalk.bgBlack.whiteBright('[►]') + ' ';
             const name = path.relative(file.base, file.path);
             if (options.minimal) {
                 output += inputStyle(options.srcName || name);

@@ -3,7 +3,7 @@
 var gulp = require("gulp");
 var fs = require("fs");
 
-var colors = require('colors/safe');
+var colors = require('ansi-colors');
 
 var compileTs = require("../compiler/compile-typescript");
 var unlink = require("../lib/unlink");

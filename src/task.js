@@ -2,12 +2,12 @@
 'use strict';
 
 var gulp = require('gulp');
-var colors = require('colors/safe');
+var colors = require('ansi-colors');
 var path = require('path');
 
 var taskLog = require('./log/task-log');
 var error = require('./log/error');
-
+var rainbow = require('./log/rainbow');
 
 var typescript = require('./tasks/typescript');
 var javascript = require('./tasks/javascript');
@@ -82,16 +82,16 @@ gulp.task('clean', clean.build(exports.$config));
 
 //编译项目
 gulp.task('compile', gulp.series(
-    taskLog(colors.rainbow("↓↓↓↓↓↓"), colors.blue('compiling ' + colors.underline(exports.$config.src) + ' → ' + colors.underline(exports.$config.dist)), colors.rainbow("↓↓↓↓↓↓")),
+    taskLog(rainbow("↓↓↓↓↓↓"), colors.blue('compiling ' + colors.underline(exports.$config.src) + ' → ' + colors.underline(exports.$config.dist)), rainbow("↓↓↓↓↓↓")),
     gulp.parallel('js', 'wxs', 'wxss', 'wxml', 'json', 'image', 'copy', 'npm'),
-    taskLog(colors.rainbow("↑↑↑↑↑↑"), colors.green('√ finished compiling'), colors.rainbow("↑↑↑↑↑↑"))
+    taskLog(rainbow("↑↑↑↑↑↑"), colors.green('√ finished compiling'), rainbow("↑↑↑↑↑↑"))
 ))
 // 重新生成文件
 gulp.task('build', gulp.series('clean', 'compile'));
 // 监测文件修改
 gulp.task('watch', gulp.series(
     gulp.parallel('js-watch', 'wxs-watch', 'wxss-watch', 'wxml-watch', 'json-watch', 'image-watch', 'copy-watch', 'npm-watch'),
-    taskLog(colors.rainbow('All watching tasks started ...')))
+    taskLog(rainbow('All watching tasks started ...')))
 );
 
 //开发模式

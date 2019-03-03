@@ -2,7 +2,7 @@
 'use strict';
 var through = require('through2');
 var path = require('path');
-var colors = require('colors');
+var colors = require('ansi-colors');
 
 var log = require('../log/logger');
 var TITLE = 'replace:'
@@ -17,10 +17,8 @@ var TITLE = 'replace:'
 function logReplace(n, key, value, file) {
     log.info(
         colors.gray(TITLE),
-        n > 1 ? colors.green(n + '*') : '',
-        ///@ts-ignore
-        colors.blue.italic(key),
-        colors.dim.gray('→'),
+        (n > 1 ? colors.green(n + '*') : '')+colors.blue.italic(key.toString()),
+        colors.dim.italic.gray('→'),
         typeof value === 'function' ? colors.magenta.italic('Function') : colors.cyan.underline(value),
         colors.gray('(' + colors.underline(
             path.relative(file.base, file.path)

@@ -4,7 +4,7 @@
 const PluginError = require('plugin-error');
 const through = require('through2');
 const chalk = require('ansi-colors');
-const prettyBytes = require('pretty-bytes');
+// const prettyBytes = require('pretty-bytes');
 const StreamCounter = require('../lib/byte-counter');
 const titleColor = require('./color');
 const fancyLog = require('./logger');
@@ -20,14 +20,14 @@ module.exports = opts => {
     let totalSize = 0;
     let fileCount = 0;
 
-    function log(what, size) {
+    function log(sym, what, size) {
         let title = opts.title;
         title = title ? titleColor(title) : '';
         if (opts.sub) {
             title += ' ' + opts.sub;
         }
         size = opts.pretty ? prettyBytes(size) : (size + ' B');
-        fancyLog(title, what, chalk.gray('(') + chalk.magenta(size) + chalk.gray(')'));
+        fancyLog(title, sym, what, chalk.gray('(') + chalk.magenta(size) + chalk.gray(')'));
     }
 
     return through.obj((file, enc, cb) => {
@@ -45,7 +45,7 @@ module.exports = opts => {
             totalSize += size;
 
             if (opts.showFiles === true && size > 0) {
-                log(chalk.reset.whiteBright.dim.italic('√ ') + chalk.greenBright.underline.bold(file.relative), size);
+                log(chalk.reset.whiteBright.dim.italic('√'), chalk.greenBright.underline.bold(file.relative), size);
             }
 
             fileCount++;
@@ -74,8 +74,40 @@ module.exports = opts => {
         this.prettySize = prettyBytes(totalSize);
 
         if (!(fileCount === 1 && opts.showFiles) && totalSize > 0 && fileCount > 0 && opts.showTotal) {
-            log(chalk.reset.bold.greenBright.italic('√ ') + chalk.green(fileCount + (fileCount > 1 ? ' files' : ' file')), totalSize);
+            log(chalk.reset.bold.greenBright.italic('√'), chalk.green(fileCount + (fileCount > 1 ? ' files' : ' file')), totalSize);
         }
         cb();
     });
+};
+
+const UNITS = [
+    'B',
+    'kB',
+    'MB',
+    'GB',
+    'TB',
+    'PB',
+    'EB',
+    'ZB',
+    'YB'
+];
+
+
+function prettyBytes(number, options) {
+    if (!Number.isFinite(number)) {
+        return 'NAN';
+    }
+
+    if (number < 1) {
+        const numberString = number.toLocaleString(number, true);
+        return numberString + ' B';
+    }
+
+    const exponent = Math.min(Math.floor(Math.log10(number) / 3), UNITS.length - 1);
+    number = Number((number / (1000 ** exponent)).toPrecision(3));
+    const numberString = number.toLocaleString(number, true);
+
+    const unit = UNITS[exponent];
+
+    return numberString + ' ' + unit;
 };

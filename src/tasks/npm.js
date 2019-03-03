@@ -4,7 +4,7 @@ var path = require('path');
 
 var gulp = require('gulp');
 var fs = require('fs');
-var colors = require('colors/safe');
+var colors = require('ansi-colors');
 
 var log = require('../log/logger');
 
