@@ -1,8 +1,11 @@
-# miniprogram-build [![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build) [![Greenkeeper badge](https://badges.greenkeeper.io/NewFuture/miniprogram-build.svg)](https://greenkeeper.io/)
+# miniprogram-build [![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build) [![Build Status](https://travis-ci.com/NewFuture/miniprogram-build.svg?branch=master)](https://travis-ci.com/NewFuture/miniprogram-build) [![Greenkeeper badge](https://badges.greenkeeper.io/NewFuture/miniprogram-build.svg)](https://greenkeeper.io/)
 
 A command line tool to build & watch MiniProgram.
 
-![task flow](https://user-images.githubusercontent.com/6290356/53295020-e13b7f00-382c-11e9-8662-5a5f5dcaeab9.png)
+![task flow](https://user-images.githubusercontent.com/6290356/53698585-8ea82700-3e19-11e9-9062-af9ab11452c4.png)
+
+
+[template project](https://github.com/NewFuture/miniprogram-template)
 
 ## Usage
 
@@ -165,7 +168,6 @@ mp-build build --config=./config.prod.json --release
 * [x] 显示报错位置
 * [x] break errors
 * [ ] ~~pages config~~
-* [x] [template project](https://github.com/NewFuture/miniprogram-template)
 * [ ] cache
 * `svg` ==> `iconfonts`
     * [ ] svg ==> iconfont 
@@ -173,7 +175,7 @@ mp-build build --config=./config.prod.json --release
 
 ## examples
 
-[test](test/)
+ see [test](test/)
 
 ```
 npm i
