@@ -63,6 +63,12 @@
         "ts-transform-paths": "^1.1.1",
         "yargs": "^13.2.1"
     },
+    "optionalDependencies": {
+        "imagemin-gifsicle": "^6.0.1",
+        "imagemin-jpegtran": "^6.0.0",
+        "imagemin-optipng": "^6.0.0",
+        "imagemin-svgo": "^7.0.0"
+    },
     "peerDependencies": {
         "typescript": ">=2.7.1"
     },
