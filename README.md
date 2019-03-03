@@ -24,7 +24,7 @@ npm i miniprogram-build -D
 
 > `miniprogram-build [command...] [--option]`
 
-Short Alias [短命称]: `mp` 或 `mp-build`
+Short Alias [短名称]: `mp` 或 `mp-build`
 
 Commands:
 
