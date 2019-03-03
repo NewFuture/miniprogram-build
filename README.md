@@ -172,3 +172,73 @@ mp-build build --config=./config.prod.json --release
     * [x] link node_modules
     * [ ] rollup js lib
     * [ ] components
+
+## examples
+
+[test](test/)
+
+```
+npm i
+npm start
+
+[21:30:23] config: v4.0.0 load config .mpconfig.jsonc
+[21:30:23] clean: dist
+[21:30:23] ↓↓↓↓↓↓ compiling src → dist ↓↓↓↓↓↓
+[21:30:24] wxss: [►] app.scss → app.wxss
+[21:30:24] json: [►] app.jsonc → app.json
+[21:30:24] replace: {{APP_ID}} → 123456 (app.json)
+[21:30:24] typescript: [►] app.ts → app.js
+[21:30:24] replace: {{APP_ID}} → 123456 (app.ts)
+[21:30:24] inline: assets\images\arrow-up.svg → (app.css)
+[21:30:24] npm: [►] [miniprogram-image] → miniprogram_npm\miniprogram-image\
+[21:30:24] npm: [►] [miniprogram-network] → miniprogram_npm\miniprogram-network\index.js
+[21:30:24] npm: [►] [miniprogram-downloader] → miniprogram_npm\miniprogram-downloader\index.js
+[21:30:24] npm: [►] [miniprogram-network-life-cycle] → miniprogram_npm\miniprogram-network-life-cycle\index.js
+[21:30:24] npm: [►] [miniprogram-cancel-token] → miniprogram_npm\miniprogram-cancel-token\index.js
+[21:30:24] npm: [►] [miniprogram-network-utils] → miniprogram_npm\miniprogram-network-utils\index.js
+[21:30:24] npm: [►] [miniprogram-queue] → miniprogram_npm\miniprogram-queue\index.js
+[21:30:24] npm: [►] [miniprogram-network-cache] → miniprogram_npm\miniprogram-network-cache\index.js
+[21:30:24] npm: [►] [miniprogram-request] → miniprogram_npm\miniprogram-request\index.js
+[21:30:24] npm: [►] [miniprogram-uploader] → miniprogram_npm\miniprogram-uploader\index.js
+[21:30:25] image: icons\uEA01-arrow-down.svg  (saved 586 B - 76.8%)
+[21:30:25] wxts: [►] wxs\comm.wxts → wxs\comm.wxs
+[21:30:25] javascript: [►] lib\t.js → lib\t.js
+[21:30:25] replace: {{APP_ID}} → 123456 (lib\t.js)
+[21:30:25] wxml: [►] pages\index\index.html → pages\index\index.wxml
+[21:30:25] wxss: [►] pages\index\index.scss → pages\index\index.wxss
+[21:30:25] typescript: [►] lib\test.ts → lib\test.js
+[21:30:25] npm: [►] [miniprogram-image] → miniprogram_npm\miniprogram-image\
+[21:30:25] json: √ app.json (40 B)
+[21:30:25] image: Done √ 1 file (177 B)
+[21:30:25] wxss: √ app.wxss (3.5 kB)
+[21:30:25] typescript: [►] pages\index\index.ts → pages\index\index.js
+[21:30:28] npm: [►] [miniprogram-image] → miniprogram_npm\miniprogram-image\
+[21:30:28] javascript: √ lib\t.js (286 B)
+[21:30:28] npm: [miniprogram-image] √ index.js (2.72 kB)
+[21:30:28] npm: [►] [miniprogram-image] → miniprogram_npm\miniprogram-image\
+[21:30:28] wxml: √ pages\index\index.wxml (315 B)
+[21:30:28] wxts: √ wxs\comm.wxs (674 B)
+[21:30:28] typescript: √ app.js.map (431 B)
+[21:30:28] npm: [miniprogram-image] √ index.json (23 B)
+[21:30:28] wxss: √ pages\index\index.wxss (675 B)
+[21:30:28] wxss: Done √ 2 files (4.17 kB)
+[21:30:28] typescript: √ app.js (269 B)
+[21:30:28] npm: [miniprogram-image] √ index.wxml (1.03 kB)
+[21:30:28] typescript: √ lib\test.js.map (162 B)
+[21:30:28] npm: [miniprogram-image] √ index.wxss (3.21 kB)
+[21:30:29] npm: [miniprogram-image] Done √ 4 files (6.99 kB)
+[21:30:29] typescript: √ lib\test.js (130 B)
+[21:30:29] typescript: √ pages\index\index.js.map (235 B)
+[21:30:29] typescript: √ pages\index\index.js (178 B)
+[21:30:29] typescript: Done √ 6 files (1.41 kB)
+[21:30:29] npm: [miniprogram-cancel-token] Done √ 1 file (1.65 kB)
+[21:30:29] npm: [miniprogram-network] Done √ 1 file (4.39 kB)
+[21:30:29] npm: [miniprogram-downloader] Done √ 1 file (2.21 kB)
+[21:30:29] npm: [miniprogram-network-life-cycle] Done √ 1 file (6.47 kB)
+[21:30:29] npm: [miniprogram-queue] Done √ 1 file (4.73 kB)
+[21:30:29] npm: [miniprogram-uploader] Done √ 1 file (2.55 kB)
+[21:30:29] npm: [miniprogram-request] Done √ 1 file (5.39 kB)
+[21:30:29] npm: [miniprogram-network-cache] Done √ 1 file (4.99 kB)
+[21:30:29] npm: [miniprogram-network-utils] Done √ 1 file (1.77 kB)
+[21:30:29] ↑↑↑↑↑↑ √ finished compiling ↑↑↑↑↑↑
+```

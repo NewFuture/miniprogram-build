@@ -10,7 +10,7 @@ module.exports = function (TITLE) {
     /**
      * @param {Error} err
      */
-     function logError(err) {
+    function logError(err) {
         const skip = process.env.SKIP_ERROR;
         log.error(
             colors.cyan("<ERROR>" + TITLE),
@@ -20,7 +20,7 @@ module.exports = function (TITLE) {
             "\n",
             //@ts-ignore
             colors.red.underline(err.relativePath || err.fileName),
-            "\n" + (skip ? '' : err.stack ? (err.stack + '\n' + err):JSON.stringify(err,null,2))
+            "\n" + (skip ? '' : err.stack ? (err.stack + '\n' + err) : JSON.stringify(err, null, 2))
         );
         if (skip) {
             return this.emit("end", err);
