@@ -27,7 +27,7 @@ function replaceJson(config, jsonFile) {
         .on('error', err(TITLE))
         .pipe(multiReplace(config.var, undefined, '{{', '}}'))
         .pipe(gulp.dest(config.dist))
-        .pipe(size({ title: TITLE, showFiles: true, showTotal: false }))
+        .pipe(size({ title: TITLE, showFiles: true, showTotal: true }))
         ;
 }
 

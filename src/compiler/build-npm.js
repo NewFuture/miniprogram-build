@@ -6,10 +6,10 @@ const path = require('path')
 
 const gulp = require('gulp');
 // const gulpPlumber = require('gulp-plumber')
-const rollup = require('rollup')
+// const rollup = require('rollup')
 // const gulpBabel = require('gulp-babel')
 
-const gulpRollup = require('gulp-better-rollup')
+const gulpRollup = require('gulp-better-rollup');
 const rollupNodeResolve = require('rollup-plugin-node-resolve')
 const rollupCommonjs = require('rollup-plugin-commonjs')
 const gulpRename = require('gulp-rename')
@@ -58,16 +58,13 @@ module.exports =
         const npmTasks = dependencyNames.reduce((result, dependencyName) => {
             const modulePath = dependencies[dependencyName]
             if (!fs.existsSync(modulePath)) {
-
                 return result
             }
 
-            const taskName = `npm<${dependencyName}>:`
             const mpDistPath = getMiniprogramDistPath(modulePath)
+            const destName = path.join(distPath, 'miniprogram_npm', dependencyName);
             if (mpDistPath && fs.existsSync(mpDistPath)) {
-                gulp.task(taskName, () => {
-                    // console.log(`start compiling ${dependencyName} files...`)
-                    const destName = path.join(distPath, 'miniprogram_npm', dependencyName);
+                const task = () => {
                     return gulp.src(path.join(mpDistPath, '**/*'))
                         .pipe(debug({
                             title: TITLE,
@@ -75,20 +72,15 @@ module.exports =
                             distName: path.join('miniprogram_npm', dependencyName) + path.sep,
                             // distName: destName
                         }))
-                        .pipe(gulp.dest(path.join(distPath, 'miniprogram_npm', dependencyName)))
+                        .pipe(gulp.dest(destName))
+                        .on('error', error(`${TITLE}[${dependencyNames}]`))
                         .pipe(size({ title: TITLE, sub: `[${dependencyName}]`, showFiles: true, showTotal: true }))
-
-                    // .on('finish', () => console.log(`finish compiling ${dependencyName} package files.`))
-                })
-                result.push(taskName)
+                }
+                result.push(task)
             } else {
                 const dependencyConfig = require(path.resolve(modulePath, 'package.json'))
                 const entryFilePath = require.resolve(path.resolve(modulePath, dependencyConfig.module || dependencyConfig.main || 'index.js'))
-                // console.log(`${dependencyName} ${dependencyConfig} >${entryFilePath}`)
-
                 if (fs.existsSync(entryFilePath)) {
-                    // console.log(`start compiling ${dependencyName} files...`)
-                    const destName = path.join(distPath, 'miniprogram_npm', dependencyName);
                     const task = () => gulp.src(entryFilePath)
                         // .pipe(gulpPlumber())
                         .pipe(debug({
@@ -111,7 +103,7 @@ module.exports =
                                 esModule: false
                             })
                         )
-                        .on('error', error(taskName))
+                        .on('error', error(`${TITLE}[${dependencyNames}]`))
                         .pipe(gulpRename({
                             basename: 'index',
                             extname: '.js'

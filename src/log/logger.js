@@ -2,7 +2,7 @@
 ///@ts-check
 "use strict";
 
-const colors = require("colors/safe");
+const colors = require("ansi-colors");
 
 const noColor = process.argv.indexOf('--no-color') > 0;
 

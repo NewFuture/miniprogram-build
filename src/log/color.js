@@ -8,7 +8,7 @@ const availableColors = [
     "greenBright",
     "blueBright",
     "yellowBright",
-    "whiteBright",
+    // "whiteBright",
     // "gray",
     "green",
     "yellow",

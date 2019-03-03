@@ -3,8 +3,17 @@
 
 const colors = require('ansi-colors');
 
-const rainbowColors = ['red', 'yellow', 'green', 'blue', "cyan", 'magenta', "magentaBright", "redBright"];
-
+const rainbowColors = [
+    'red',
+    'yellow',
+    'green',
+    'blue',
+    "cyan",
+    'magenta',
+    "whiteBright",
+    "magentaBright",
+    "redBright"
+];
 
 function colorize(exploded, letter, i) {
     if (letter === ' ') {
@@ -13,12 +22,12 @@ function colorize(exploded, letter, i) {
         return exploded + colors[rainbowColors[i++ % rainbowColors.length]](letter);
     }
 };
-module.exports = 
-/**
- * 
- * @param {string} str
- * @returns {string} 
- */
-function rainbow(str) {
-    return Array.from(str).reduce(colorize, '');
-}
+module.exports =
+    /**
+     * 
+     * @param {string} str
+     * @returns {string} 
+     */
+    function rainbow(str) {
+        return Array.from(str).reduce(colorize, '');
+    }

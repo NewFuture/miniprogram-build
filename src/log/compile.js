@@ -11,7 +11,7 @@ const fancyLog = require('./logger');
 const inputStyle = chalk.cyanBright.bold.underline;
 function outputStyle(str) {
     if (str) {
-        return chalk.gray(" → ") + chalk.underline.italic(str);
+        return chalk.gray(" → ") + chalk.underline.bold.gray(str);
     }
     return '';
 }
@@ -69,7 +69,7 @@ module.exports = options => {
                 );
             }
 
-            options.logger(titleColor(options.title), output, chalk.bold.gray('...'));
+            options.logger(titleColor(options.title), output || chalk.gray('…'));
         }
 
         count++;
