@@ -7,6 +7,7 @@ var fs = require('fs');
 var colors = require('ansi-colors');
 
 var log = require('../log/logger');
+const color = require('../log/color');
 
 var unlink = require('../lib/unlink');
 var buildNpm = require('../compiler/build-npm');
@@ -30,10 +31,21 @@ exports.build = function (config) {
                 try {
                     var PKG = require(path.join(process.cwd(), PACKAGE_JSON));
                     if (PKG.dependencies && Object.keys(PKG.dependencies).length > 0) {
-                        return buildNpm(process.cwd(),config.dist)(cb);
+                        fs.exists('node_modules', function (is_modules_exists) {
+                            if (!is_modules_exists) {
+                                log.error(
+                                    color('npm:'),
+                                    colors.yellowBright('node_modules/ doesn\'t exist! please run `' + colors.bgRedBright('npm i') + '`'),
+                                );
+                                cb && cb(new Error("node_modules/ doesn't exist!"));
+
+                            } else {
+                                return buildNpm(process.cwd(), config.dist)(cb);
+                            }
+                        });
                     } else {
-                        log(
-                            colors.cyan('npm:'),
+                        log.info(
+                            color('npm:'),
                             colors.gray('No `dependency` was found. Skips!')
                         );
                         cb && cb();
@@ -41,18 +53,6 @@ exports.build = function (config) {
                 } catch (error) {
                     cb(error);
                 }
-                // fs.exists('node_modules', function (is_modules_exists) {
-                //     if (!is_modules_exists) {
-                //         log(
-                //             colors.red('npm:'),
-                //             colors.yellowBright('node_modules/ doesn\'t exist! please run `' + colors.bgRedBright('npm i') + '`'),
-                //         );
-                //         cb && cb();
-
-                //     } else {
-                //         return buildNpm(config).end(cb);
-                //     }
-                // });
             }
         })
     };

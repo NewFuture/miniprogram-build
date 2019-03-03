@@ -10,19 +10,19 @@ const availableColors = [
     "yellowBright",
     // "whiteBright",
     // "gray",
-    "green",
     "yellow",
-    "blue",
     "magenta",
     "cyan",
+    "green",
+    "blue",
 ];
 
 const availableStyle = [
+    "reset",
     "dim",
-    "bold",
+    // "bold",
     "italic",
     // "underline",
-    "reset",
 ]
 const maps = {}
 
@@ -40,7 +40,7 @@ function color(str) {
         .reset
         [availableStyle[index % availableStyle.length]]
         [availableColors[index++ % availableColors.length]]
-            (str);
+        .bold(str);
     }
     return maps[str];
 }

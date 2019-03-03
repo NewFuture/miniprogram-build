@@ -68,13 +68,13 @@ module.exports =
                     return gulp.src(path.join(mpDistPath, '**/*'))
                         .pipe(debug({
                             title: TITLE,
-                            srcName: `[${dependencyName}]`,
+                            srcName: `<${dependencyName}>`,
                             distName: path.join('miniprogram_npm', dependencyName) + path.sep,
                             // distName: destName
                         }))
                         .pipe(gulp.dest(destName))
-                        .on('error', error(`${TITLE}[${dependencyNames}]`))
-                        .pipe(size({ title: TITLE, sub: `[${dependencyName}]`, showFiles: true, showTotal: true }))
+                        .on('error', error(`${TITLE} <${dependencyName}>`))
+                        .pipe(size({ title: TITLE, sub: dependencyName, showFiles: true, showTotal: true }))
                 }
                 result.push(task)
             } else {
@@ -85,7 +85,7 @@ module.exports =
                         // .pipe(gulpPlumber())
                         .pipe(debug({
                             title: TITLE,
-                            srcName: `[${dependencyName}]`,
+                            srcName: `<${dependencyName}>`,
                             dist: path.join('miniprogram_npm', dependencyName),
                             // distName: destName
                         }))
@@ -103,13 +103,13 @@ module.exports =
                                 esModule: false
                             })
                         )
-                        .on('error', error(`${TITLE}[${dependencyNames}]`))
+                        .on('error', error(`${TITLE} <${dependencyName}>`))
                         .pipe(gulpRename({
                             basename: 'index',
                             extname: '.js'
                         }))
                         .pipe(gulp.dest(destName))
-                        .pipe(size({ title: TITLE, sub: `[${dependencyName}]`, showFiles: false, showTotal: true }))
+                        .pipe(size({ title: TITLE, sub: dependencyName, showFiles: false, showTotal: true }))
 
                     // .on('finish', () => console.log(`finish compiling ${dependencyName} package files.`))
 

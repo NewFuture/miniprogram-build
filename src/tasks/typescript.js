@@ -4,7 +4,7 @@ var gulp = require("gulp");
 var fs = require("fs");
 
 var colors = require('ansi-colors');
-
+const color = require('../log/color');
 var compileTs = require("../compiler/compile-typescript");
 var unlink = require("../lib/unlink");
 var extToGlob = require("../lib/ext-to-glob");
@@ -22,8 +22,8 @@ exports.build = function (config) {
             return compileTs(config);
         }
     } else {
-        log(
-            colors.cyan('typescript:'),
+        log.info(
+            color('typescript:'),
             colors.gray('`tsconfig.json` was found. Skip typescript compilation!')
         );
         return function (cb) {

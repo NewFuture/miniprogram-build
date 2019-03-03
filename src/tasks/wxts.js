@@ -7,6 +7,7 @@ var colors = require('ansi-colors');
 var json5 = require('json5');
 
 var log = require('../log/logger');
+const color = require('../log/color');
 
 var compileWxts = require("../compiler/compile-wxts");
 var unlink = require("../lib/unlink");
@@ -32,8 +33,8 @@ exports.build = function (config) {
             return compile(config, extToGlob(config, WXTS_EXTS))
         }
     } else {
-        log(
-            colors.cyan('wxts:'),
+        log.info(
+            color('wxts:'),
             colors.gray('`tsconfig.json` was found. Skip WXTS(WeiXin TypesSript) compilation!')
         );
         return function (cb) {

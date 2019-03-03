@@ -32,7 +32,7 @@ function loadConfig(configFile) {
     try {
         var json = fs.readFileSync(configFile, 'utf-8');
         var config = json5.parse(json);
-        log.info(TITLE, colors.cyan(`v${require('../package.json').version}`), 'load config', colors.blue.underline(configFile))
+        log.info(TITLE, colors.cyan.italic(`v${require('../package.json').version}`), 'load config', colors.blue.underline(configFile))
         return config;
     } catch (ex) {
         log.error(TITLE, colors.red.underline(configFile), 'failed to load.', colors.red(ex));
