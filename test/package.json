@@ -4,6 +4,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node ../bin/mp-build.js",
+        "pretest": "npm install --production --no-package-lock --no-bin-links --ignore-scripts --no-audit",
         "test": "npm start build --release"
     },
     "keywords": [],
