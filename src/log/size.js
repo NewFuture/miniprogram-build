@@ -24,7 +24,7 @@ module.exports = opts => {
         let title = opts.title;
         title = title ? titleColor(title) : '';
         if (opts.sub) {
-            title += ' ' + chalk.cyanBright(`<${chalk.bold.underline(opts.sub)}>`);
+            sym += chalk.cyanBright(`<${chalk.bold.underline(opts.sub)}>`);
         }
         size = opts.pretty ? prettyBytes(size) : (size + ' B');
         fancyLog(title, sym, what, chalk.gray('(') + chalk.magenta(size) + chalk.gray(')'));

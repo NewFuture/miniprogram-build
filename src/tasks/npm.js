@@ -10,6 +10,8 @@ var log = require('../log/logger');
 const color = require('../log/color');
 
 var unlink = require('../lib/unlink');
+const npm = require('../lib/npm-dependency');
+
 var buildNpm = require('../compiler/build-npm');
 // var npmInstall = require('../compiler/npm-install');
 // var copy = require('../compiler/copy');
@@ -29,8 +31,8 @@ exports.build = function (config) {
                 cb && cb();
             } else {
                 try {
-                    var PKG = require(path.join(process.cwd(), PACKAGE_JSON));
-                    if (PKG.dependencies && Object.keys(PKG.dependencies).length > 0) {
+                    const dependencies = npm.getDependencies(process.cwd());
+                    if (dependencies && Object.keys(dependencies).length > 0) {
                         fs.exists('node_modules', function (is_modules_exists) {
                             if (!is_modules_exists) {
                                 log.error(
@@ -40,7 +42,7 @@ exports.build = function (config) {
                                 cb && cb(new Error("node_modules/ doesn't exist!"));
 
                             } else {
-                                return buildNpm(process.cwd(), config.dist)(cb);
+                                return buildNpm(process.cwd(), config.dist, Object.keys(dependencies))(cb);
                             }
                         });
                     } else {
