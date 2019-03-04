@@ -9,11 +9,10 @@ const gulp = require("gulp");
 // const rollup = require('rollup')
 // const gulpBabel = require('gulp-babel')
 
-const gulpRollup = require("gulp-better-rollup");
-const rollupNodeResolve = require("rollup-plugin-node-resolve");
-const rollupCommonjs = require("rollup-plugin-commonjs");
+// const gulpRollup = require("gulp-better-rollup");
 const gulpRename = require("gulp-rename");
 const error = require("../log/error");
+const warn = require("../log/warn");
 const debug = require("../log/compile");
 const size = require("../log/size");
 
@@ -49,6 +48,39 @@ function getMiniprogramDistPath(cwd) {
     return path.resolve(cwd, packageConfig.miniprogram || "miniprogram_dist");
 }
 
+/**
+ *
+ */
+function loadPlugins() {
+    if (loadPlugins.PLUGINS) {
+        return loadPlugins.PLUGINS;
+    } else {
+        loadPlugins.PLUGINS = [];
+    }
+    const PLUGINS = loadPlugins.PLUGINS;
+
+    try {
+        const rollupNodeResolve = require("rollup-plugin-node-resolve");
+        PLUGINS.push(
+            //@ts-ignore
+            rollupNodeResolve({
+                modulesOnly: true,
+            }),
+        );
+    } catch (error) {}
+
+    try {
+        const rollupCommonjs = require("rollup-plugin-commonjs");
+        PLUGINS.push(
+            //@ts-ignore
+            rollupCommonjs({}),
+        );
+    } catch (error) {}
+
+    return PLUGINS;
+}
+loadPlugins.PLUGINS = undefined;
+
 module.exports =
     /**
      *
@@ -68,6 +100,7 @@ module.exports =
             const mpDistPath = getMiniprogramDistPath(modulePath);
             const destName = path.join(distPath, "miniprogram_npm", dependencyName);
             if (mpDistPath && fs.existsSync(mpDistPath)) {
+                //组件component
                 const task = () => {
                     return gulp
                         .src(path.join(mpDistPath, "**/*"))
@@ -93,6 +126,8 @@ module.exports =
                 };
                 result.push(task);
             } else {
+                const gulpRollup = require("gulp-better-rollup");
+                const rollup = require("rollup");
                 const dependencyConfig = require(path.resolve(modulePath, "package.json"));
                 const entryFilePath = require.resolve(
                     path.resolve(modulePath, dependencyConfig.module || dependencyConfig.main || "index.js"),
@@ -113,18 +148,13 @@ module.exports =
                             .pipe(
                                 gulpRollup(
                                     {
-                                        // rollup: rollup,
-                                        onwarn: require("../log/warn")(TITLE, dependencyName),
+                                        rollup: rollup,
+                                        onwarn: warn(TITLE, dependencyName),
                                         external: dependencyNames,
-                                        plugins: [
-                                            rollupNodeResolve({
-                                                modulesOnly: true,
-                                            }),
-                                            rollupCommonjs({}),
-                                        ],
+                                        plugins: loadPlugins(),
                                     },
                                     {
-                                        format: "cjs",
+                                        format: "es",
                                         esModule: false,
                                     },
                                 ),
