@@ -1,6 +1,6 @@
 {
     "name": "miniprogram-build",
-    "version": "4.0.1",
+    "version": "4.1.0",
     "description": "A command line tool to build & watch MiniProgram.",
     "keywords": [
         "MiniProgram",
@@ -47,7 +47,6 @@
         "del": "^4.0.0",
         "gulp": "^4.0.0",
         "gulp-better-rollup": "^3.4.0",
-        "gulp-htmlmin": "^5.0.1",
         "gulp-postcss": "^8.0.0",
         "gulp-rename": "^1.4.0",
         "gulp-sass": "^4.0.2",
