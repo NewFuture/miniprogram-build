@@ -8,7 +8,7 @@ const chalk = require('ansi-colors');
 const titleColor = require('./color');
 const fancyLog = require('./logger');
 
-const inputStyle = chalk.cyanBright.bold.underline;
+const inputStyle = chalk.cyan.bold.underline;
 function outputStyle(str) {
     if (str) {
         return chalk.gray(" → ") + chalk.underline.bold.gray(str);

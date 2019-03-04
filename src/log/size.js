@@ -24,7 +24,7 @@ module.exports = opts => {
         let title = opts.title;
         title = title ? titleColor(title) : '';
         if (opts.sub) {
-            title += ' ' + chalk.whiteBright(`<${chalk.bold.underline(opts.sub)}>`);
+            title += ' ' + chalk.cyanBright(`<${chalk.bold.underline(opts.sub)}>`);
         }
         size = opts.pretty ? prettyBytes(size) : (size + ' B');
         fancyLog(title, sym, what, chalk.gray('(') + chalk.magenta(size) + chalk.gray(')'));
@@ -45,7 +45,10 @@ module.exports = opts => {
             totalSize += size;
 
             if (opts.showFiles === true && size > 0) {
-                log(chalk.reset.whiteBright('[√]'), chalk.green.dim.underline.bold(file.relative), size);
+                log(
+                    chalk.reset.whiteBright('[√]'),
+                    chalk.green.underline.bold(opts.showTotal ? chalk.dim(file.relative) : file.relative),
+                    size);
             }
 
             fileCount++;

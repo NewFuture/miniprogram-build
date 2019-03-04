@@ -119,7 +119,7 @@ module.exports =
                             size({
                                 title: TITLE,
                                 sub: `${dependencyName}(component)`,
-                                showFiles: true,
+                                showFiles: false,
                                 showTotal: true,
                             }),
                         );

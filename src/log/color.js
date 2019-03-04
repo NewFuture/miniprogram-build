@@ -3,25 +3,25 @@
 const colors = require('ansi-colors');
 
 const availableColors = [
-    "magentaBright",
     "cyanBright",
+    "magentaBright",
     "greenBright",
     "blueBright",
     "yellowBright",
     // "whiteBright",
     // "gray",
     "yellow",
-    "magenta",
     "cyan",
     "green",
     "blue",
+    "magenta",
 ];
 
 const availableStyle = [
     "reset",
-    "dim",
     // "bold",
     "italic",
+    "dim",
     // "underline",
 ]
 const maps = {}
