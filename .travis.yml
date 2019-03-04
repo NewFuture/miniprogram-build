@@ -9,6 +9,10 @@ node_js:
 git:
   depth: 1
 
+before_deploy:
+  - "[[ $TRAVIS_TAG == v* ]] || [[ $TRAVIS_TAG == V* ]]"
+  - sed -i "s/^\(\W*version\W*\).*\(\W,\)$/\1${TRAVIS_TAG:1}\2/" package.json
+
 deploy:
     - provider: npm
       email: npmjs@newfututre.cc
