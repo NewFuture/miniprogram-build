@@ -44,7 +44,7 @@
         "async": "^2.6.2",
         "autoprefixer": "^9.4.9",
         "cssnano": "^4.1.10",
-        "del": "^3.0.0",
+        "del": "^4.0.0",
         "gulp": "^4.0.0",
         "gulp-better-rollup": "^3.4.0",
         "gulp-htmlmin": "^5.0.1",
