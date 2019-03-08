@@ -17,8 +17,9 @@ var TITLE = 'replace:'
 function logReplace(n, key, value, file) {
     log.info(
         colors.gray(TITLE),
-        (n > 1 ? colors.green(n + '*') : '')+colors.blue.italic(key.toString()),
-        colors.dim.italic.gray('→'),
+        colors.dim('√'.repeat(n)),
+        colors.dim.gray.italic(key.toString()),
+        colors.dim.gray('→'),
         typeof value === 'function' ? colors.magenta.italic('Function') : colors.cyan.underline(value),
         colors.gray('(' + colors.underline(
             path.relative(file.base, file.path)

@@ -21,7 +21,7 @@ function getTime(level) {
     } else {
         switch (level) {
             case 1:
-                return colors.yellow('[') + colors.gray(time) + colors.yellow(']');
+                return colors.yellowBright('[') + colors.gray(time) + colors.yellowBright(']');
             case 2:
                 return colors.red('[') + colors.gray(time) + colors.red(']');
             case -1:

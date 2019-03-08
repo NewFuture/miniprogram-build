@@ -7,14 +7,14 @@ const availableColors = [
     "magentaBright",
     "greenBright",
     "blueBright",
-    "yellowBright",
+    // "yellowBright",
     // "whiteBright",
     // "gray",
-    "yellow",
+    // "yellow",
     "cyan",
     "green",
     "blue",
-    "magenta",
+    // "magenta", // cannot display in power shell
 ];
 
 const availableStyle = [
@@ -36,7 +36,7 @@ let index = 0;
 function color(str) {
     str = str && str.trim();
     if (!maps[str]) {
-        maps[str] = colors
+        maps[str] = colors.gray.dim(index+'.')+colors
         .reset
         [availableStyle[index % availableStyle.length]]
         [availableColors[index++ % availableColors.length]]

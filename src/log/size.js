@@ -27,7 +27,7 @@ module.exports = opts => {
             sym += chalk.cyanBright(`<${chalk.bold.underline(opts.sub)}>`);
         }
         size = opts.pretty ? prettyBytes(size) : (size + ' B');
-        fancyLog(title, sym, what, chalk.gray('(') + chalk.magenta(size) + chalk.gray(')'));
+        fancyLog(title, sym, what, chalk.gray('(') + chalk.magentaBright(size) + chalk.gray(')'));
     }
 
     return through.obj((file, enc, cb) => {

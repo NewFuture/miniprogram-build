@@ -9,7 +9,7 @@ var log = require('../log/logger');
 module.exports = function (name, files) {
     process.env.SKIP_ERROR = 'true';
     return log.info(
-        colors.magenta(name + '-watch:'),
-        colors.underline.blue(files)
+        colors.magentaBright(name + '-watch:'),
+        colors.underline.blueBright(files)
     );
 }

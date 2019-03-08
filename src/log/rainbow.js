@@ -5,13 +5,13 @@ const colors = require('ansi-colors');
 
 const rainbowColors = [
     'red',
-    'yellow',
+    'yellowBright',
     'green',
     'blue',
     "cyan",
-    'magenta',
+    'magentaBright',
     "whiteBright",
-    "magentaBright",
+    // "magentaBright",
     "redBright"
 ];
 
