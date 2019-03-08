@@ -16,8 +16,9 @@ var rData = /^\W*data:/;
 var rQuotes = /['"]/g;
 var rParams = /([?#].*)$/g;
 
+const TITLE = colors.gray('inline:');
 function log(img, file) {
-    fancyLog.info(colors.gray('inline:'),
+    fancyLog.info(TITLE,
         // path.relative(path.join(file.cwd, file.base), img)
         colors.underline(path.relative(file.base, img)),
         colors.gray("→"),
@@ -104,14 +105,14 @@ module.exports = (function () {
                     }
                     if (!test) {
                         if (opts.debug) {
-                            console.log(img + ' skipped by extension or exclude filters');
+                            fancyLog(TITLE, img, ' skipped by extension or exclude filters');
                         }
                         result += group[2];
                         return complete();
                     }
                     if (!isLocalFile(rawUrl)) {
                         if (opts.debug) {
-                            console.log(img + ' skipped not local file');
+                            fancyLog(TITLE, img, ' skipped not local file');
                         }
                         result += group[2];
                         return complete();
@@ -138,11 +139,15 @@ module.exports = (function () {
                         // the current file instead.
                         if (!fs.existsSync(loc)) {
                             // if (opts.debug) {
-                            console.error('in ' + loc + ' file doesn\'t exist');
-                            // }
+                            // fancyLog.error(loc, ' file doesn\'t exist');
+                            // // }
                             loc = path.join(file.cwd, img);
-                            // return complete(new Error(loc + ' file doesn\'t exist'))
+                            if (!fs.existsSync(loc)) {
+                                fancyLog.warn(TITLE, loc, colors.red('file doesn\'t exist'));
+                            }
+                            complete();
                         }
+
                         // }
 
                         // Test for scheme less URLs => "//example.com/image.png"
@@ -220,7 +225,7 @@ module.exports = (function () {
             if (!fs.existsSync(img) || !fs.lstatSync(img).isFile()) {
                 // grunt.fail.warn("File " + img + " does not exist");
                 if (opts.debug) {
-                    console.warn("File " + img + " does not exist");
+                    fancyLog.warn("File " + img + " does not exist");
                 }
                 complete(true, img, false);
                 return;
@@ -228,7 +233,7 @@ module.exports = (function () {
 
             // grunt.log.writeln("Encoding file: " + img);
             if (opts.debug) {
-                console.info("Encoding file: " + img);
+                fancyLog.info("Encoding file: " + img);
             }
 
             // Read the file in and convert it.
