@@ -40,7 +40,7 @@ function compileScss(config, scssFile) {
         .src(scssFile, { base: config.src })
         .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(debug({
-            title: TITLE, 
+            title: TITLE,
             // dist: config.dist,
             distExt: '.wxss'
         }))
@@ -60,7 +60,7 @@ function compileScss(config, scssFile) {
             }),
         )
         .pipe(inline())
-        .pipe(postcss(postCssPlgins))
+        .pipe(postCssPlgins.length > 0 ? postcss(postCssPlgins) : empty())
         .pipe(config.release ? empty() : sourcemaps.write())
         .pipe(rename({ extname: ".wxss" }))
         .pipe(gulp.dest(config.dist))
