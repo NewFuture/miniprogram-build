@@ -7,10 +7,15 @@ const debug = require("../log/compile");
 const size = require('../log/size');
 var empty = require("../lib/empty");
 var replace = require("../lib/multi-replace");
+const loadPlugins = require("../lib/rollup-plugins");
 var error = require("../log/error");
+const warn = require("../log/warn");
+const npm = require('../lib/npm-dependency');
 
 const wxtsConfig = {
+    include: ["**/*.wxts", "**/*.ts"],
     target: "es5",
+    module: "ES6",
     downlevelIteration: true,//Provide full support for iterables in for..of, spread and destructuring when targeting ES5 or ES3.
     isolatedModules: true,//Transpile each file as a separate module (similar to “ts.transpileModule”).
     noLib: true,
@@ -40,19 +45,35 @@ var TITLE = "wxts:";
  * @param {any} tsconfig 
  */
 function compileWxts(config, tsFile, tsconfig) {
-    var ts = require("gulp-typescript");
+    var ts = require("rollup-plugin-typescript");
+    const gulpRollup = require("gulp-better-rollup");
+    const dependencies = Object.keys(npm.getDependencies(process.cwd()));
     var newConfig = Object.assign({}, defaultConfig, tsconfig ? tsconfig.compilerOptions : {}, wxtsConfig);
     return gulp.src(tsFile, { base: config.src, sourcemaps: !config.release })
         .pipe(debug({
-            title: TITLE, 
+            title: TITLE,
             // dist: config.dist,
             distExt: '.wxs'
         }))
         .pipe(config.release ? empty() : sourcemaps.init())
-        .pipe(replace(config.var, undefined, "{{", "}}"))
-        .pipe(ts(newConfig, ts.reporter.fullReporter(false)))
+        // .pipe(ts(newConfig, ts.reporter.fullReporter(false)))
+        // .on("error", error(TITLE))
+        // .js
+        .pipe(gulpRollup(
+            {
+                // rollup: require('rollup'),
+                onwarn: warn(TITLE),
+                external: (m) => m.endsWith(".wxs") && !dependencies.includes(m.split('/')[0])
+                , plugins: [ts(newConfig)].concat(loadPlugins()),
+            },
+            {
+                format: "cjs",
+                esModule: false,
+            }
+        ))
         .on("error", error(TITLE))
-        .js.pipe(config.release ? empty() : sourcemaps.write())
+        .pipe(replace(config.var, undefined, "{{", "}}"))
+        .pipe(config.release ? empty() : sourcemaps.write('./'))
         .pipe(rename({ extname: ".wxs" }))
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }));

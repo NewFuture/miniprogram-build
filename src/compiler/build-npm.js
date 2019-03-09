@@ -9,49 +9,13 @@ const gulpRename = require("gulp-rename");
 
 // const gulpRollup = require("gulp-better-rollup");
 const npm = require("../lib/npm-dependency");
-
+const loadPlugins = require("../lib/rollup-plugins");
 const error = require("../log/error");
 const warn = require("../log/warn");
 const debug = require("../log/compile");
 const size = require("../log/size");
 
 const TITLE = "npm:";
-
-
-/**
- * 加载插件
- */
-function loadPlugins() {
-    if (loadPlugins.PLUGINS) {
-        return loadPlugins.PLUGINS;
-    } else {
-        loadPlugins.PLUGINS = [];
-    }
-    const PLUGINS = loadPlugins.PLUGINS;
-    try {
-        const rollupNodeResolve = require("rollup-plugin-node-resolve");
-        PLUGINS.push(
-            //@ts-ignore
-            rollupNodeResolve({
-                // modulesOnly: true,
-            }),
-        );
-    } catch (error) {
-        warn(TITLE)(error);
-    }
-    try {
-        const rollupCommonjs = require("rollup-plugin-commonjs");
-        PLUGINS.push(
-            //@ts-ignore
-            rollupCommonjs({}),
-        );
-    } catch (error) {
-        warn(TITLE)(error);
-    }
-
-    return PLUGINS;
-}
-loadPlugins.PLUGINS = undefined;
 
 /**
  * 组件component
@@ -123,7 +87,7 @@ function createNpmTask(dependencyName, entryFilePath, destName, dependencyNames)
                     {
                         format: "es",
                         esModule: false,
-                    },
+                    }
                 ),
             )
             .on("error", error(`${TITLE} <${dependencyName}>`))
