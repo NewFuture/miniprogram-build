@@ -1,11 +1,14 @@
 # miniprogram-build [![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build) [![Build Status](https://travis-ci.com/NewFuture/miniprogram-build.svg?branch=master)](https://travis-ci.com/NewFuture/miniprogram-build) [![Greenkeeper badge](https://badges.greenkeeper.io/NewFuture/miniprogram-build.svg)](https://greenkeeper.io/)
 
-A command line tool to build & watch MiniProgram.
+> A command line tool to build & watch MiniProgram. Not a Framework, just a tool.
+>
+> 小程序命令行构建工具. 不是开发框架,只是自动化的增强工具和开发流程。
+
+[template project 模板项目](https://github.com/NewFuture/miniprogram-template)
 
 ![task flow](https://user-images.githubusercontent.com/6290356/53698585-8ea82700-3e19-11e9-9062-af9ab11452c4.png)
 
 
-[template project](https://github.com/NewFuture/miniprogram-template)
 
 ## Usage
 
@@ -111,14 +114,12 @@ mp-build build --config=./config.prod.json --release
     * [x] compile `TS`
     * [x] sourcemaps
     * [x] replace `{{var}}`
-    * [x] build break
-    * [x] JS support
-    * [x] error report
-    * [ ] tree shaking
-    * [ ] one tslib
+    * [x] tree shaking
 * `wxs`
-    * [x] compile `TS` (.wxts)
-    * the same as js
+    * [x] compile `TS` (`.wxts`)
+    * [x] replace `{{var}}`
+    * [x] npm support
+    * [x] tree shaking
 * `wxss`
     * [x] compile
         * `scss`/`sass`
@@ -126,16 +127,11 @@ mp-build build --config=./config.prod.json --release
     * [x] import `node_modules`
     * [x] sourcemaps
     * [x] minify (release) / expanded (debug)
-    * [x] inline image
-    * [x] inline svg
+    * [x] inline image / svg
     * [x] PostCSS 
-        * autoprefixeer
         * cssnano & inline svg compress
-    * [x] keep import wxss (MUST start with `/` and end with `.wxss`)
-    * [x] build break when Invalid
-    * [ ] ~~skip local scss `_`~~
+    * [x] keep import wxss
     * [x] assest folder
-    * [x] error report
 * `wxml`
     * [x] `wxml`
     * [x] `html`
@@ -147,8 +143,7 @@ mp-build build --config=./config.prod.json --release
     * [x] trailing comma
     * [x] minify
     * [x] replace `{{var}}`
-    * [x] error report
-*  miniprogram npm
+* miniprogram npm
     * [x] rollup js lib
     * [x] components
 * resource
@@ -169,9 +164,6 @@ mp-build build --config=./config.prod.json --release
 * [x] break errors
 * [ ] ~~pages config~~
 * [ ] cache
-* `svg` ==> `iconfonts`
-    * [ ] svg ==> iconfont 
-    * [ ] build wxss
 
 ## examples
 

@@ -1,13 +1,17 @@
 {
     "name": "miniprogram-build",
-    "version": "4.2.0",
+    "version": "0.0.0",
     "description": "A command line tool to build & watch MiniProgram.",
     "keywords": [
         "MiniProgram",
         "build",
         "typescript",
         "wechat",
-        "scss"
+        "scss",
+        "tools",
+        "gulp",
+        "npm",
+        "framework"
     ],
     "main": "src/task.js",
     "bin": {
