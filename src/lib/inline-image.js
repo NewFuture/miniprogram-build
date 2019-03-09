@@ -144,8 +144,8 @@ module.exports = (function () {
                             loc = path.join(file.cwd, img);
                             if (!fs.existsSync(loc)) {
                                 fancyLog.warn(TITLE, loc, colors.red('file doesn\'t exist'));
+                                return complete();
                             }
-                            complete();
                         }
 
                         // }
