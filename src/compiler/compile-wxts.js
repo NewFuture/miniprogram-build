@@ -49,6 +49,7 @@ function compileWxts(config, tsFile, tsconfig) {
     const gulpRollup = require("gulp-better-rollup");
     const dependencies = Object.keys(npm.getDependencies(process.cwd()));
     var newConfig = Object.assign({}, defaultConfig, tsconfig ? tsconfig.compilerOptions : {}, wxtsConfig);
+    const plugins = [ts(newConfig)].concat(loadPlugins());
     return gulp.src(tsFile, { base: config.src, sourcemaps: !config.release })
         .pipe(debug({
             title: TITLE,
@@ -56,15 +57,12 @@ function compileWxts(config, tsFile, tsconfig) {
             distExt: '.wxs'
         }))
         .pipe(config.release ? empty() : sourcemaps.init())
-        // .pipe(ts(newConfig, ts.reporter.fullReporter(false)))
-        // .on("error", error(TITLE))
-        // .js
         .pipe(gulpRollup(
             {
                 // rollup: require('rollup'),
                 onwarn: warn(TITLE),
                 external: (m) => m.endsWith(".wxs") && !dependencies.includes(m.split('/')[0])
-                , plugins: [ts(newConfig)].concat(loadPlugins()),
+                , plugins: plugins,
             },
             {
                 format: "cjs",
@@ -72,9 +70,9 @@ function compileWxts(config, tsFile, tsconfig) {
             }
         ))
         .on("error", error(TITLE))
+        .pipe(rename({ extname: ".wxs" }))
         .pipe(replace(config.var, undefined, "{{", "}}"))
         .pipe(config.release ? empty() : sourcemaps.write('./'))
-        .pipe(rename({ extname: ".wxs" }))
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }));
 }
