@@ -7,7 +7,7 @@ var sass = require("gulp-sass");
 var sourcemaps = require("gulp-sourcemaps");
 var cssnano = require("cssnano");
 var postcss = require("gulp-postcss");
-var autoprefixer = require("autoprefixer");
+// var autoprefixer = require("autoprefixer");
 var inline = require("../lib/inline");
 var empty = require("../lib/empty");
 var wxssImporter = require("../lib/wxss-importer");
@@ -24,14 +24,14 @@ var TITLE = "wxss:";
  */
 function compileScss(config, scssFile) {
     var postCssPlgins = [
-        autoprefixer({
-            browsers: [
-                // ios
-                "iOS >= 8",
-                // android
-                "ChromeAndroid >= 53",
-            ],
-        }),
+        // autoprefixer({
+        //     browsers: [
+        //         // ios
+        //         "iOS >= 8",
+        //         // android
+        //         "ChromeAndroid >= 53",
+        //     ],
+        // }),
     ];
     if (config.release) {
         postCssPlgins.push(cssnano());
