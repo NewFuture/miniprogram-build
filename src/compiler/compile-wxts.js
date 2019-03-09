@@ -61,8 +61,10 @@ function compileWxts(config, tsFile, tsconfig) {
             {
                 // rollup: require('rollup'),
                 onwarn: warn(TITLE),
+                treeshake: { propertyReadSideEffects: false },
                 external: (m) => m.endsWith(".wxs") && !dependencies.includes(m.split('/')[0])
                 , plugins: plugins,
+                // globals:{wx:'wx'}
             },
             {
                 format: "cjs",
@@ -72,7 +74,7 @@ function compileWxts(config, tsFile, tsconfig) {
         .on("error", error(TITLE))
         .pipe(rename({ extname: ".wxs" }))
         .pipe(replace(config.var, undefined, "{{", "}}"))
-        .pipe(config.release ? empty() : sourcemaps.write('./'))
+        .pipe(config.release ? empty() : sourcemaps.write())
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }));
 }

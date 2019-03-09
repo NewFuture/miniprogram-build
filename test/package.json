@@ -12,6 +12,6 @@
     "license": "ISC",
     "dependencies": {
         "miniprogram-image": "^1.7.1",
-        "miniprogram-network": "^3.3.1"
+        "miniprogram-network": "^4.0.2-alpha.0"
     }
 }

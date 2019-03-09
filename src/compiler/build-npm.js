@@ -82,6 +82,7 @@ function createNpmTask(dependencyName, entryFilePath, destName, dependencyNames)
                         rollup: rollup,
                         onwarn: warn(TITLE, dependencyName),
                         external: dependencyNames,
+                        treeshake: { propertyReadSideEffects: false },
                         plugins: loadPlugins(),
                     },
                     {
