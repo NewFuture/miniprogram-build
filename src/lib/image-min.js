@@ -2,8 +2,8 @@
 ///@ts-check
 "use strict";
 const path = require('path');
-const PluginError = require('plugin-error');
 const through = require('through2');
+const PluginError = require('../lib/error');
 const prettyBytes = require('./pretty-bytes');
 const chalk = require('ansi-colors');
 const imagemin = require('imagemin');

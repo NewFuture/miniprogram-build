@@ -1,9 +1,9 @@
 ///@ts-check
 "use strict";
 
-const PluginError = require('plugin-error');
 const through = require('through2');
 const chalk = require('ansi-colors');
+const PluginError = require('../lib/error');
 const prettyBytes = require('../lib/pretty-bytes');
 const StreamCounter = require('../lib/byte-counter');
 const titleColor = require('./color');
