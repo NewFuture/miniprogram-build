@@ -5,6 +5,8 @@ const through = require('through2');
 const chalk = require('ansi-colors');
 const PluginError = require('../lib/error');
 const prettyBytes = require('../lib/pretty-bytes');
+const prettyTime = require('../lib/pretty-time');
+
 const StreamCounter = require('../lib/byte-counter');
 const titleColor = require('./color');
 const fancyLog = require('./logger');
@@ -19,15 +21,17 @@ module.exports = opts => {
 
     let totalSize = 0;
     let fileCount = 0;
+    const time = process.hrtime();
 
-    function log(sym, what, size) {
+    function log(sym, what, size, duration) {
         let title = opts.title;
         title = title ? titleColor(title) : '';
         if (opts.sub) {
             sym += chalk.cyanBright(`<${chalk.bold.underline(opts.sub)}>`);
         }
         size = opts.pretty ? prettyBytes(size) : (size + ' B');
-        fancyLog(title, sym, what, chalk.gray('(') + chalk.magentaBright(size) + chalk.gray(')'));
+        duration = duration ? chalk.gray("[" + prettyTime(duration) + "]") : '';
+        fancyLog(title, sym, what, chalk.gray('(') + chalk.magentaBright(size) + chalk.gray(')') + duration);
     }
 
     return through.obj((file, enc, cb) => {
@@ -77,7 +81,9 @@ module.exports = opts => {
         this.prettySize = prettyBytes(totalSize);
 
         if (!(fileCount === 1 && opts.showFiles) && totalSize > 0 && fileCount > 0 && opts.showTotal) {
-            log(chalk.reset.bold.greenBright.italic('√'), chalk.green('All ' + fileCount + (fileCount > 1 ? ' files' : ' file') + ' done!'), totalSize);
+            const diff = process.hrtime(time);
+            const duration = diff[0] * 1e9 + diff[1]
+            log(chalk.reset.bold.greenBright.italic('√'), chalk.green('All ' + fileCount + (fileCount > 1 ? ' files' : ' file') + ' done!'), totalSize, duration);
         }
         cb();
     });
