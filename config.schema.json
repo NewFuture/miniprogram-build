@@ -1,89 +1,74 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://newfuture.github.io/miniprogram-build/config.schema.json",
-  "type": "object",
-  "title": "The Root Schema",
-  "properties": {
-    "release": {
-      "$id": "#/properties/release",
-      "type": "boolean",
-      "title": "Release Optimization Mode",
-      "description": "是否开启发布优化",
-      "default": false,
-      "examples": [
-        false
-      ]
-    },
-    "src": {
-      "$id": "#/properties/src",
-      "type": "string",
-      "title": "The source folder",
-      "default": "",
-      "examples": [
-        "src"
-      ],
-      "pattern": "^[^:'\"\\*?<>|]+$"
-    },
-    "dist": {
-      "$id": "#/properties/dist",
-      "type": "string",
-      "title": "the output folder",
-      "default": "",
-      "examples": [
-        "dist"
-      ],
-      "pattern": "^[^:'\"\\*?<>|]+$"
-    },
-    "assets": {
-      "$id": "#/properties/assets",
-      "type": "string",
-      "title": "The Assets folder",
-      "description": "检查文件变化和引用但不直接生成",
-      "default": "",
-      "examples": [
-        "assets"
-      ],
-      "pattern": "^[^:'\"\\*?<>|]*$"
-    },
-    "copy": {
-      "$id": "#/properties/copy",
-      "type": "string",
-      "title": "The copy glob (in `src`)",
-      "description": "符合条件的文件会进行复制",
-      "examples": [
-        "**/*.xxx"
-      ]
-    },
-    "exclude": {
-      "$id": "#/properties/exclude",
-      "type": [
-        "array",
-        "string"
-      ],
-      "title": "The exclude glob array",
-      "default": null,
-      "uniqueItems": true,
-      "items": {
-        "type": "string"
-      }
-    },
-    "tsconfig": {
-      "$id": "#/properties/tsconfig",
-      "type": "string",
-      "title": "The tsconfig.json path",
-      "default": "",
-      "examples": [
-        "tsconfig.json"
-      ],
-      "pattern": "^[^:'\"\\*?<>|]*$"
-    },
-    "var": {
-      "$id": "#/properties/var",
-      "type": "object",
-      "title": "The Var object",
-      "description": "{{key}} in js and json files will be replaced",
-      "default": null,
-      "properties": {}
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://newfuture.github.io/miniprogram-build/config.schema.json",
+    "type": "object",
+    "title": "The miniprogram-build config json schema",
+    "properties": {
+        "release": {
+            "$id": "#/properties/release",
+            "type": "boolean",
+            "title": "Release Optimization Mode",
+            "description": "是否开启发布优化",
+            "default": false,
+            "examples": [false, true]
+        },
+        "src": {
+            "$id": "#/properties/src",
+            "type": "string",
+            "title": "The source folder",
+            "default": "src",
+            "examples": ["src"],
+            "pattern": "^[^:'\"\\*?<>|]+$"
+        },
+        "dist": {
+            "$id": "#/properties/dist",
+            "type": "string",
+            "title": "the output folder",
+            "default": "dist",
+            "examples": ["dist"],
+            "pattern": "^[^:'\"\\*?<>|]+$"
+        },
+        "assets": {
+            "$id": "#/properties/assets",
+            "type": "string",
+            "title": "The Assets folder",
+            "description": "检查文件变化和引用但不直接生成",
+            "default": "",
+            "examples": ["assets"],
+            "pattern": "^[^:'\"\\*?<>|]*$"
+        },
+        "copy": {
+            "$id": "#/properties/copy",
+            "type": "string",
+            "title": "The copy glob (in `src`)",
+            "description": "符合条件的文件会进行复制",
+            "examples": ["**/*.xxx"]
+        },
+        "exclude": {
+            "$id": "#/properties/exclude",
+            "type": ["array", "string"],
+            "title": "The exclude glob array",
+            "default": [],
+            "uniqueItems": true,
+            "items": {
+                "type": "string"
+            }
+        },
+        "tsconfig": {
+            "$id": "#/properties/tsconfig",
+            "type": "string",
+            "title": "The tsconfig.json path",
+            "default": "",
+            "examples": ["tsconfig.json"],
+            "pattern": "^[^:'\"\\*?<>|]*$"
+        },
+        "var": {
+            "$id": "#/properties/var",
+            "type": "object",
+            "title": "The Var object",
+            "description": "{{key}} in js and json files will be replaced",
+            "default": {},
+            "properties": {}
+        }
     }
-  }
 }
