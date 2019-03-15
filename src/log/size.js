@@ -23,7 +23,7 @@ module.exports = opts => {
     let fileCount = 0;
     const time = process.hrtime();
 
-    function log(sym, what, size, duration) {
+    function log(sym, what, size, duration, highlightSize) {
         let title = opts.title;
         title = title ? titleColor(title) : '';
         if (opts.sub) {
@@ -31,7 +31,7 @@ module.exports = opts => {
         }
         size = opts.pretty ? prettyBytes(size) : (size + ' B');
         duration = duration ? chalk.gray("[" + prettyTime(duration) + "]") : '';
-        fancyLog(title, sym, what, chalk.gray('(') + chalk.magentaBright(size) + chalk.gray(')') + duration);
+        fancyLog(title, sym, what, chalk.gray('(') + chalk[highlightSize ? 'magentaBright' : 'gray'](size) + chalk.gray(')') + duration);
     }
 
     return through.obj((file, enc, cb) => {
@@ -52,7 +52,8 @@ module.exports = opts => {
                 log(
                     chalk.reset.whiteBright('[√]'),
                     chalk.green.underline.bold(opts.showTotal ? chalk.dim(file.relative) : file.relative),
-                    size);
+                    size,
+                    !opts.showTotal);
             }
 
             fileCount++;
@@ -66,8 +67,6 @@ module.exports = opts => {
                 .on('finish', function () {
                     finish(null, this.bytes);
                 });
-
-
             return;
         }
 
@@ -83,7 +82,7 @@ module.exports = opts => {
         if (!(fileCount === 1 && opts.showFiles) && totalSize > 0 && fileCount > 0 && opts.showTotal) {
             const diff = process.hrtime(time);
             const duration = diff[0] * 1e9 + diff[1]
-            log(chalk.reset.bold.greenBright.italic('√'), chalk.green('All ' + fileCount + (fileCount > 1 ? ' files' : ' file') + ' done!'), totalSize, duration);
+            log(chalk.reset.bold.greenBright.italic('√'), chalk.green('All ' + fileCount + (fileCount > 1 ? ' files' : ' file') + ' done!'), totalSize, duration, true);
         }
         cb();
     });
