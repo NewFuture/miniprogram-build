@@ -30,11 +30,11 @@ const defaultConfig =
     noImplicitAny: true,
     noImplicitReturns: true,
     noImplicitThis: true,
-    noUnusedLocals: true,
-    noUnusedParameters: true,
-    strictBindCallApply: true,
-    strictFunctionTypes: true,
-    strictPropertyInitialization: true,
+    // noUnusedLocals: true,
+    // noUnusedParameters: true,
+    // strictBindCallApply: true,
+    // strictFunctionTypes: true,
+    // strictPropertyInitialization: true,
     strictNullChecks: true,
 }
 var TITLE = "wxts:";
