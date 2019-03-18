@@ -34,6 +34,7 @@ const getDefaultPlugins = () =>
 		return plugins.concat(instance);
 	}, []);
 
+
 module.exports = (plugins, options) => {
 	if (typeof plugins === 'object' && !Array.isArray(plugins)) {
 		options = plugins;
@@ -76,7 +77,7 @@ module.exports = (plugins, options) => {
 
 		const use = plugins || getDefaultPlugins();
 
-		imagemin.buffer(file.contents, { use })
+		imagemin.buffer(file.contents, { plugins:use })
 			.then(data => {
 				const originalSize = file.contents.length;
 				const optimizedSize = data.length;
@@ -113,6 +114,7 @@ module.exports = (plugins, options) => {
 	});
 };
 
+module.exports.getDefaultPlugins = getDefaultPlugins;
 module.exports.gifsicle = exposePlugin('gifsicle');
 module.exports.jpegtran = exposePlugin('jpegtran');
 module.exports.optipng = exposePlugin('optipng');

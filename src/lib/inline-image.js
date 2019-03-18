@@ -1,28 +1,32 @@
 ///@ts-check
 // Node libs
-'use strict';
+"use strict";
 var fs = require("fs");
 var path = require("path");
 var mime = require("mime");
 var async = require("async");
-var colors = require('ansi-colors');
-var fancyLog = require('../log/logger');
+var colors = require("ansi-colors");
+const imagemin = require("imagemin");
+
+const getDefaultPlugins = require("./image-min").getDefaultPlugins;
+var fancyLog = require("../log/logger");
 
 // Cache regex's
-var rImages = /([\s\S]*?)(url\(([^)]+)\))(?!\s*[;,]?\s*\/\*\s*base64:skip\s*\*\/)|([\s\S]+)/img;
+var rImages = /([\s\S]*?)(url\(([^)]+)\))(?!\s*[;,]?\s*\/\*\s*base64:skip\s*\*\/)|([\s\S]+)/gim;
 var rExternal = /^\W*([a-zA-z]+:)?\/\//;
 // var rSchemeless = /^\/\//;
 var rData = /^\W*data:/;
 var rQuotes = /['"]/g;
 var rParams = /([?#].*)$/g;
 
-const TITLE = colors.gray('inline:');
+const TITLE = colors.gray("inline:");
 function log(img, file) {
-    fancyLog.info(TITLE,
+    fancyLog.info(
+        TITLE,
         // path.relative(path.join(file.cwd, file.base), img)
         colors.underline(path.relative(file.base, img)),
         colors.gray("→"),
-        colors.gray('(' + colors.underline(path.relative(file.base, file.path)) + ')')
+        colors.gray("(" + colors.underline(path.relative(file.base, file.path)) + ")"),
     );
 }
 
@@ -30,7 +34,7 @@ function isLocalFile(url) {
     return !rExternal.test(url) && !rData.test(url);
 }
 // Grunt export wrapper
-module.exports = (function () {
+module.exports = (function() {
     "use strict";
 
     var exports = {};
@@ -43,7 +47,7 @@ module.exports = (function () {
      * @param opts Options object
      * @param done Function to call once encoding has finished.
      */
-    exports.stylesheet = function (file, opts, done) {
+    exports.stylesheet = function(file, opts, done) {
         opts = opts || {};
 
         // Cache of already converted images
@@ -60,11 +64,12 @@ module.exports = (function () {
         var result = "";
         var match, img, line, tasks, group;
 
-        async.whilst(function () {
-            group = rImages.exec(src);
-            return group != null;
-        },
-            function (complete) {
+        async.whilst(
+            function() {
+                group = rImages.exec(src);
+                return group != null;
+            },
+            function(complete) {
                 // if there is another url to be processed, then:
                 //    group[1] will hold everything up to the url declaration
                 //    group[2] will hold the complete url declaration (useful if no encoding will take place)
@@ -79,40 +84,40 @@ module.exports = (function () {
                     result += group[1];
 
                     var rawUrl = group[3].trim();
-                    img = rawUrl
-                        .replace(rQuotes, "")
-                        .replace(rParams, ""); // remove query string/hash parmams in the filename, like foo.png?bar or foo.png#bar
+                    img = rawUrl.replace(rQuotes, "").replace(rParams, ""); // remove query string/hash parmams in the filename, like foo.png?bar or foo.png#bar
 
                     var test = true;
-                    if (opts.extensions) { //test for extensions if it provided
-                        var imgExt = img.split('.').pop();
-                        if (typeof opts.extensions === 'function') {
+                    if (opts.extensions) {
+                        //test for extensions if it provided
+                        var imgExt = img.split(".").pop();
+                        if (typeof opts.extensions === "function") {
                             test = opts.extensions(imgExt, rawUrl);
                         } else {
-                            test = opts.extensions.some(function (ext) {
-                                return (ext instanceof RegExp) ? ext.test(rawUrl) : (ext === imgExt);
+                            test = opts.extensions.some(function(ext) {
+                                return ext instanceof RegExp ? ext.test(rawUrl) : ext === imgExt;
                             });
                         }
                     }
-                    if (test && opts.exclude) { //test for extensions to exclude if it provided
-                        if (typeof opts.exclude === 'function') {
+                    if (test && opts.exclude) {
+                        //test for extensions to exclude if it provided
+                        if (typeof opts.exclude === "function") {
                             test = !opts.exclude(rawUrl);
                         } else {
-                            test = !opts.exclude.some(function (pattern) {
-                                return (pattern instanceof RegExp) ? pattern.test(rawUrl) : (rawUrl.indexOf(pattern) > -1);
+                            test = !opts.exclude.some(function(pattern) {
+                                return pattern instanceof RegExp ? pattern.test(rawUrl) : rawUrl.indexOf(pattern) > -1;
                             });
                         }
                     }
                     if (!test) {
                         if (opts.debug) {
-                            fancyLog(TITLE, img, ' skipped by extension or exclude filters');
+                            fancyLog(TITLE, img, " skipped by extension or exclude filters");
                         }
                         result += group[2];
                         return complete();
                     }
                     if (!isLocalFile(rawUrl)) {
                         if (opts.debug) {
-                            fancyLog(TITLE, img, ' skipped not local file');
+                            fancyLog(TITLE, img, " skipped not local file");
                         }
                         result += group[2];
                         return complete();
@@ -132,8 +137,7 @@ module.exports = (function () {
                         //     // local file system.. fix up the path
                         //     // loc = path.join(path.dirname(file.path), img);
 
-                        var loc = opts.baseDir ? path.join(opts.baseDir, img) :
-                            path.join(path.dirname(file.path), img);
+                        var loc = opts.baseDir ? path.join(opts.baseDir, img) : path.join(path.dirname(file.path), img);
 
                         // If that didn't work, try finding the image relative to
                         // the current file instead.
@@ -143,7 +147,7 @@ module.exports = (function () {
                             // // }
                             loc = path.join(file.cwd, img);
                             if (!fs.existsSync(loc)) {
-                                fancyLog.warn(TITLE, loc, colors.red('file doesn\'t exist'));
+                                fancyLog.warn(TITLE, loc, colors.red("file doesn't exist"));
                                 return complete();
                             }
                         }
@@ -155,8 +159,8 @@ module.exports = (function () {
                         //     loc = 'http:' + loc;
                         // }
 
-                        log(loc, file)
-                        exports.image(loc, opts, function (err, resp, cacheable) {
+                        log(loc, file);
+                        exports.image(loc, opts, function(err, resp, cacheable) {
                             if (err == null) {
                                 var url = "url(" + resp + ")";
                                 result += url;
@@ -183,11 +187,11 @@ module.exports = (function () {
                     complete();
                 }
             },
-            function () {
+            function() {
                 done(null, result);
-            });
+            },
+        );
     };
-
 
     /**
      * Takes an image (absolute path or remote) and base64 encodes it.
@@ -196,16 +200,14 @@ module.exports = (function () {
      * @param opts Options object
      * @return A data URI string (mime type, base64 img, etc.) that a browser can interpret as an image
      */
-    exports.image = function (img, opts, done) {
-
+    exports.image = function(img, opts, done) {
         // Shift args
         if (typeof opts === "function") {
             done = opts;
             opts = {};
         }
 
-        var complete = function (err, encoded, cacheable) {
-
+        var complete = function(err, encoded, cacheable) {
             // Return the original source if an error occurred
             if (err) {
                 // grunt.log.error(err);
@@ -236,35 +238,38 @@ module.exports = (function () {
                 fancyLog.info("Encoding file: " + img);
             }
 
-            // Read the file in and convert it.
-            var src = fs.readFileSync(img);
-            var type = mime.getType(img);
-            var encoded = exports.getDataURI(type, src);
-
-            complete(null, encoded, true);
+            exports.getDataURI(img).then(encoded => complete(null, encoded, true));
         }
     };
-
 
     /**
      * Base64 encodes an image and builds the data URI string
      *
-     * @param mimeType Mime type of the image
-     * @param img The source image
-     * @return Data URI string
+     * @param img The source image path
+     * @return {Promise<string>} Data URI string
      */
-    exports.getDataURI = function (mimeType, img) {
-        var ret = "data:";
-        ret += mimeType;
+    exports.getDataURI = function(img) {
+        const mimeType = mime.getType(img);
+        // let ret = "data:";
+        // ret += mimeType;
         if ("image/svg+xml" === mimeType) {
-            ret += ";charset=UTF-8,";
-            ret += encodeURI(img.toString());
+            // ret += ";charset=UTF-8,";
+            return imagemin([img], {
+                plugins: getDefaultPlugins(),
+            })
+                .then(f => f[0].data.toString())
+                .then(encodeURI)
+                .then(data => `"data:image/svg+xml;charset=UTF-8,${data}"`);
+            // ret += encodeURI(img.toString());
         } else {
-            ret += ";base64,";
-            ret += img.toString("base64");
+            // ret += ";base64,";
+            // ret += img.toString("base64");
+            return imagemin(img, {
+                plugins: getDefaultPlugins(),
+            })
+                .then(f => f[0].data.toString("base64"))
+                .then(data => `data:${mimeType};base64,${data}"`);
         }
-
-        return '\"' + ret + '\"';
     };
 
     return exports;

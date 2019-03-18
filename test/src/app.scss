@@ -1,9 +1,18 @@
+
+/*!
+app.scss
+*/
+//test
 .t{
     background: url(./assets/images/arrow-up.svg);
     width: 20rpx;
 }
 
 view{
-
+    width: calc(99% -5rpx);
     display: flex;
+}
+
+.x{
+    width: calc(99% -5rpx);
 }
