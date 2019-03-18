@@ -8,8 +8,6 @@
 
 ![task flow](https://user-images.githubusercontent.com/6290356/53698585-8ea82700-3e19-11e9-9062-af9ab11452c4.png)
 
-
-
 ## Usage
 
 ### quick start
@@ -105,132 +103,117 @@ mp-build build --config=./config.prod.json --release
 
 ### tips
 
-* CSS npm packags install as devDependences with `npm i -D` (CSS的 npm 依赖使用`npm i -D`方式安装)
-
+-   CSS npm packags install as devDependences with `npm i -D` (CSS 的 npm 依赖使用`npm i -D`方式安装)
 
 ## Features
 
-* `js`
-    * [x] compile `TS`
-    * [x] sourcemaps
-    * [x] replace `{{var}}`
-    * [x] tree shaking
-* `wxs`
-    * [x] compile `TS` (`.wxts`)
-    * [x] replace `{{var}}`
-    * [x] npm support
-    * [x] tree shaking
-* `wxss`
-    * [x] compile
-        * `scss`/`sass`
-        * `css`
-    * [x] import `node_modules`
-    * [x] sourcemaps
-    * [x] minify (release) / expanded (debug)
-    * [x] inline image / svg
-    * [x] PostCSS 
-        * cssnano & inline svg compress
-    * [x] keep import wxss
-    * [x] assest folder
-* `wxml`
-    * [x] `wxml`
-    * [x] `html`
-    * [x] copy rename
-    * [x] compress
-    * [x] error report
-* `JSON`
-    * [x] comments (添加注释)
-    * [x] trailing comma
-    * [x] minify
-    * [x] replace `{{var}}`
-* miniprogram npm
-    * [x] rollup js lib
-    * [x] components
-* resource
-    * [x] copy/src
-    * [x] image compress
-    * [x] error report
-* console verbose
-    * [x] all files
-    * [x] file size
-
+-   `js`
+    -   [x] compile `TS`
+    -   [x] sourcemaps
+    -   [x] replace `{{var}}`
+    -   [x] tree shaking
+-   `wxs`
+    -   [x] compile `TS` (`.wxts`)
+    -   [x] replace `{{var}}`
+    -   [x] npm support
+    -   [x] tree shaking
+-   `wxss`
+    -   [x] compile
+        -   `scss`/`sass`
+        -   `css`
+    -   [x] import `node_modules`
+    -   [x] sourcemaps
+    -   [x] minify (release) / expanded (debug)
+    -   [x] inline image
+        -   svg datauri
+        -   png/jpg base64
+        -   image compress
+    -   [x] clean-css
+    -   [x] keep import wxss
+    -   [x] assest folder
+-   `wxml`
+    -   [x] `wxml`
+    -   [x] `html`
+    -   [x] copy rename
+    -   [x] compress
+    -   [x] error report
+-   `JSON`
+    -   [x] comments (添加注释)
+    -   [x] trailing comma
+    -   [x] minify
+    -   [x] replace `{{var}}`
+-   miniprogram npm
+    -   [x] rollup js lib
+    -   [x] components
+-   resource
+    -   [x] copy/src
+    -   [x] image compress
+    -   [x] error report
+-   console verbose
+    -   [x] all files
+    -   [x] file size
 
 ## Todo
-* [x] exclude path
-* [x] multi watcher
-* [ ] ~~init~~
-* [x] config
-* [x] 显示报错位置
-* [x] break errors
-* [ ] ~~pages config~~
-* [ ] cache
+
+-   [x] exclude path
+-   [x] multi watcher
+-   [ ] ~~init~~
+-   [x] config
+-   [x] 显示报错位置
+-   [x] break errors
+-   [ ] ~~pages config~~
+-   [ ] cache
 
 ## examples
 
- see [test](test/)
+see [test](test/)
 
 ```
 npm i
 npm start
 
-[21:30:23] config: v4.0.0 load config .mpconfig.jsonc
-[21:30:23] clean: dist
-[21:30:23] ↓↓↓↓↓↓ compiling src → dist ↓↓↓↓↓↓
-[21:30:24] wxss: [►] app.scss → app.wxss
-[21:30:24] json: [►] app.jsonc → app.json
-[21:30:24] replace: {{APP_ID}} → 123456 (app.json)
-[21:30:24] typescript: [►] app.ts → app.js
-[21:30:24] replace: {{APP_ID}} → 123456 (app.ts)
-[21:30:24] inline: assets\images\arrow-up.svg → (app.css)
-[21:30:24] npm: [►] [miniprogram-image] → miniprogram_npm\miniprogram-image\
-[21:30:24] npm: [►] [miniprogram-network] → miniprogram_npm\miniprogram-network\index.js
-[21:30:24] npm: [►] [miniprogram-downloader] → miniprogram_npm\miniprogram-downloader\index.js
-[21:30:24] npm: [►] [miniprogram-network-life-cycle] → miniprogram_npm\miniprogram-network-life-cycle\index.js
-[21:30:24] npm: [►] [miniprogram-cancel-token] → miniprogram_npm\miniprogram-cancel-token\index.js
-[21:30:24] npm: [►] [miniprogram-network-utils] → miniprogram_npm\miniprogram-network-utils\index.js
-[21:30:24] npm: [►] [miniprogram-queue] → miniprogram_npm\miniprogram-queue\index.js
-[21:30:24] npm: [►] [miniprogram-network-cache] → miniprogram_npm\miniprogram-network-cache\index.js
-[21:30:24] npm: [►] [miniprogram-request] → miniprogram_npm\miniprogram-request\index.js
-[21:30:24] npm: [►] [miniprogram-uploader] → miniprogram_npm\miniprogram-uploader\index.js
-[21:30:25] image: icons\uEA01-arrow-down.svg  (saved 586 B - 76.8%)
-[21:30:25] wxts: [►] wxs\comm.wxts → wxs\comm.wxs
-[21:30:25] javascript: [►] lib\t.js → lib\t.js
-[21:30:25] replace: {{APP_ID}} → 123456 (lib\t.js)
-[21:30:25] wxml: [►] pages\index\index.html → pages\index\index.wxml
-[21:30:25] wxss: [►] pages\index\index.scss → pages\index\index.wxss
-[21:30:25] typescript: [►] lib\test.ts → lib\test.js
-[21:30:25] npm: [►] [miniprogram-image] → miniprogram_npm\miniprogram-image\
-[21:30:25] json: √ app.json (40 B)
-[21:30:25] image: Done √ 1 file (177 B)
-[21:30:25] wxss: √ app.wxss (3.5 kB)
-[21:30:25] typescript: [►] pages\index\index.ts → pages\index\index.js
-[21:30:28] npm: [►] [miniprogram-image] → miniprogram_npm\miniprogram-image\
-[21:30:28] javascript: √ lib\t.js (286 B)
-[21:30:28] npm: [miniprogram-image] √ index.js (2.72 kB)
-[21:30:28] npm: [►] [miniprogram-image] → miniprogram_npm\miniprogram-image\
-[21:30:28] wxml: √ pages\index\index.wxml (315 B)
-[21:30:28] wxts: √ wxs\comm.wxs (674 B)
-[21:30:28] typescript: √ app.js.map (431 B)
-[21:30:28] npm: [miniprogram-image] √ index.json (23 B)
-[21:30:28] wxss: √ pages\index\index.wxss (675 B)
-[21:30:28] wxss: Done √ 2 files (4.17 kB)
-[21:30:28] typescript: √ app.js (269 B)
-[21:30:28] npm: [miniprogram-image] √ index.wxml (1.03 kB)
-[21:30:28] typescript: √ lib\test.js.map (162 B)
-[21:30:28] npm: [miniprogram-image] √ index.wxss (3.21 kB)
-[21:30:29] npm: [miniprogram-image] Done √ 4 files (6.99 kB)
-[21:30:29] typescript: √ lib\test.js (130 B)
-[21:30:29] typescript: √ pages\index\index.js.map (235 B)
-[21:30:29] typescript: √ pages\index\index.js (178 B)
-[21:30:29] typescript: Done √ 6 files (1.41 kB)
-[21:30:29] npm: [miniprogram-cancel-token] Done √ 1 file (1.65 kB)
-[21:30:29] npm: [miniprogram-network] Done √ 1 file (4.39 kB)
-[21:30:29] npm: [miniprogram-downloader] Done √ 1 file (2.21 kB)
-[21:30:29] npm: [miniprogram-network-life-cycle] Done √ 1 file (6.47 kB)
-[21:30:29] npm: [miniprogram-queue] Done √ 1 file (4.73 kB)
-[21:30:29] npm: [miniprogram-uploader] Done √ 1 file (2.55 kB)
-[21:30:29] npm: [miniprogram-request] Done √ 1 file (5.39 kB)
-[21:30:29] npm: [miniprogram-network-cache] Done √ 1 file (4.99 kB)
-[21:30:29] npm: [miniprogram-network-utils] Done √ 1 file (1.77 kB)
-[21:30:29] ↑↑↑↑↑↑ √ finished compiling ↑↑↑↑↑↑
+[21:31:41] config: v0.0.0 load config .mpconfig.jsonc
+[21:31:41] 0.clean: dist
+[21:31:41] ↓↓↓↓↓↓ start compile: src → dist ↓↓↓↓↓↓
+[21:31:42] 3.wxss: [►] app.scss → app.wxss
+[21:31:42] 4.json: [►] app.jsonc → app.json
+[21:31:42] replace: √ {{APP_ID}} → 123456 (app.json)
+[21:31:42] 5.typescript: [►] app.ts → app.js
+[21:31:42] replace: √ {{APP_ID}} → 123456 (app.ts)
+[21:31:42] inline: assets\images\arrow-up.svg → (app.css)
+[21:31:42] 6.image: icons\uEA01-arrow-down.svg  (saved 586 B - 76.8%)
+[21:31:42] 2.npm: [►] <miniprogram-image(component)> → miniprogram_npm\miniprogram-image\index.js
+[21:31:42] 2.npm: [►] <miniprogram-network> → miniprogram_npm\miniprogram-network\index.js
+[21:31:42] 1.wxts: [►] wxs\comm.wxts → wxs\comm.wxs
+[21:31:42] 7.javascript: [►] lib\t.js → lib\t.js
+[21:31:42] replace: √ {{APP_ID}} → 123456 (lib\t.js)
+[21:31:42] 3.wxss: [►] pages\index\index.scss → pages\index\index.wxss
+[21:31:42] 5.typescript: [►] lib\test.ts → lib\test.js
+[21:31:42] 2.npm: [►] <miniprogram-image(component)> → miniprogram_npm\miniprogram-image\index.json
+[21:31:42] 1.wxts: [►] wxs\x.wxts → wxs\x.wxs
+[21:31:42] 4.json: [√] app.json (40 B)
+[21:31:42] 6.image: √ All 1 file done! (177 B)[1.06秒]
+[21:31:42] 5.typescript: [►] pages\index\index.ts → pages\index\index.js
+[21:31:44] 7.javascript: [√] lib\t.js (286 B)
+[21:31:44] 2.npm: [►] <miniprogram-image(component)> → miniprogram_npm\miniprogram-image\index.wxml
+[21:31:44] 3.wxss: [√] app.wxss (1.02 kB)
+[21:31:44] 8.wxml: [√] pages\index\index.wxml (360 B)
+[21:31:44] 2.npm: [►] <miniprogram-image(component)> → miniprogram_npm\miniprogram-image\index.wxss
+[21:31:44] 3.wxss: [√] pages\index\index.wxss (562 B)
+[21:31:44] 3.wxss: √ All 2 files done! (1.59 kB)[2.44秒]
+[21:31:44] 5.typescript: [√] app.js.map (431 B)
+[21:31:44] 5.typescript: [√] app.js (269 B)
+[21:31:44] 2.npm: √<miniprogram-image(component)> All 4 files done! (6.99 kB)[2.05秒]
+[21:31:44] 5.typescript: [√] lib\test.js.map (162 B)
+[21:31:44] 5.typescript: [√] lib\test.js (130 B)
+[21:31:44] 5.typescript: [√] pages\index\index.js.map (235 B)
+[21:31:44] 5.typescript: [√] pages\index\index.js (178 B)
+[21:31:44] 5.typescript: √ All 6 files done! (1.41 kB)[2.19秒]
+[21:31:44] replace: √ {{APP_ID}} → 123456 (wxs\comm.wxs)
+[21:31:44] 1.wxts: [√] wxs\comm.wxs (16.2 kB)
+[21:31:44] 2.npm: √<miniprogram-network> All 1 file done! (28.3 kB)[2.48秒]
+[21:31:44] 1.wxts: [√] wxs\x.wxs (66 B)
+[21:31:44] 1.wxts: √ All 2 files done! (16.3 kB)[2.52秒]
+[21:31:44] ↑↑↑↑↑↑ √ All compilation tasks done! ↑↑↑↑↑↑
+
 ```

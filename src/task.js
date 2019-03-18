@@ -82,7 +82,7 @@ gulp.task('clean', clean.build(exports.$config));
 
 //编译项目
 gulp.task('compile', gulp.series(
-    taskLog(rainbow("↓↓↓↓↓↓"), 'compiling', colors.cyan.bold.underline(exports.$config.src), '→', colors.green.bold.underline(exports.$config.dist), rainbow("↓↓↓↓↓↓")),
+    taskLog(rainbow("↓↓↓↓↓↓"), 'start compile:', colors.cyan.bold.underline(exports.$config.src), '→', colors.green.bold.underline(exports.$config.dist), rainbow("↓↓↓↓↓↓")),
     gulp.parallel('js', 'wxs', 'wxss', 'wxml', 'json', 'image', 'copy', 'npm'),
     taskLog(rainbow("↑↑↑↑↑↑"), colors.greenBright.bold('√ All compilation tasks done!'), rainbow("↑↑↑↑↑↑"))
 ))
