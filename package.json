@@ -48,19 +48,19 @@
         "async": "^2.6.2",
         "del": "^4.0.0",
         "gulp": "^4.0.0",
-        "gulp-better-rollup": "^4.0.0",
+        "gulp-better-rollup": "^4.0.1",
         "gulp-clean-css": "^4.0.0",
         "gulp-rename": "^1.4.0",
         "gulp-sass": "^4.0.2",
         "gulp-sourcemaps": "^2.6.5",
-        "gulp-typescript": "^5.0.0",
+        "gulp-typescript": "^5.0.1",
         "imagemin": "^6.1.0",
         "json5": "^2.1.0",
         "mime": "^2.4.0",
-        "rollup": "^1.4.1",
+        "rollup": "^1.7.0",
         "through2": "^3.0.1",
-        "ts-transform-paths": "^1.1.1",
-        "yargs": "^13.2.1"
+        "ts-transform-paths": "^1.2.0",
+        "yargs": "^13.2.2"
     },
     "optionalDependencies": {
         "rollup-plugin-typescript": "^1.0.0",
@@ -77,6 +77,6 @@
     },
     "devDependencies": {
         "tslib": "^1.9.3",
-        "typescript": "^3.3.3333"
+        "typescript": "^3.3.4000"
     }
 }
