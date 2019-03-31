@@ -264,11 +264,11 @@ module.exports = (function() {
         } else {
             // ret += ";base64,";
             // ret += img.toString("base64");
-            return imagemin(img, {
+            return imagemin([img], {
                 plugins: getDefaultPlugins(),
             })
                 .then(f => f[0].data.toString("base64"))
-                .then(data => `data:${mimeType};base64,${data}"`);
+                .then(data => `"data:${mimeType};base64,${data}"`);
         }
     };
 
