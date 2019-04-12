@@ -4,6 +4,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node ../bin/mp-build.js",
+        "release":"node ../bin/mp-build.js build -c .mpconfig.jsonc --release",
         "pretest": "npm install --production --no-package-lock --no-bin-links --ignore-scripts --no-audit",
         "test": "npm start build --release"
     },
@@ -12,6 +13,6 @@
     "license": "ISC",
     "dependencies": {
         "miniprogram-image": "^1.7.1",
-        "miniprogram-network": "^4.0.2-alpha.0"
+        "miniprogram-network": "latest"
     }
 }
