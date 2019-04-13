@@ -7,6 +7,7 @@ const debug = require("../log/compile");
 const size = require("../log/size");
 var empty = require("../lib/empty");
 var replace = require("../lib/multi-replace");
+const pkgVar = require('../lib/package-var');
 const loadPlugins = require("../lib/rollup-plugins");
 var error = require("../log/error");
 const warn = require("../log/warn");
@@ -78,7 +79,7 @@ function compileWxts(config, tsFile, tsconfig) {
         )
         .on("error", error(TITLE))
         .pipe(rename({ extname: ".wxs" }))
-        .pipe(replace(config.var, undefined, "{{", "}}"))
+        .pipe(replace(pkgVar(config.var), undefined, "{{", "}}"))
         .pipe(config.release ? empty() : sourcemaps.write())
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }));

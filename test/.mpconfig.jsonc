@@ -2,5 +2,7 @@
     // "a": "[1,2,3,]",
     "var": {
         "APP_ID": "123456", //APPID
+        "VERSION": "{{package.version}}",
+        "Vx": "{{packa}}"
     },
 }

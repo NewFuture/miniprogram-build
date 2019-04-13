@@ -97,4 +97,6 @@ gulp.task('watch', gulp.series(
 //开发模式
 gulp.task('dev', gulp.series('build', 'watch'));
 
+gulp.on('error', console.trace);
 gulp.on('error', error('gulp'));
+

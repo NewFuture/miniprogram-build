@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
 var empty = require('../lib/empty');
 var replace = require('../lib/multi-replace');
+const pkgVar = require('../lib/package-var');
 const debug = require("../log/compile");
 const size = require('../log/size');
 var error = require("../log/error");
@@ -23,7 +24,7 @@ function compilejs(config, jsFile) {
             distExt: '.js'
         }))
         .pipe(config.release ? empty() : sourcemaps.init())
-        .pipe(replace(config.var, undefined, "{{", "}}"))
+        .pipe(replace(pkgVar(config.var), undefined, "{{", "}}"))
         .on('error', error(TITLE))
         .pipe(config.release ? empty() : sourcemaps.write())
         .pipe(gulp.dest(config.dist))

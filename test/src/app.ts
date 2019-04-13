@@ -4,8 +4,9 @@ test
 //@ts-ignore
 App({
     onLoad(){
-        console.log(test);
+        console.log(test,"{{Vx}}");
     },
     
-    appId: "{{APP_ID}}"
+    appId: "{{APP_ID}}",
+    version: "{{VERSION}}",
 })

@@ -5,6 +5,7 @@ var sourcemaps = require("gulp-sourcemaps");
 const debug = require("../log/compile");
 const size = require('../log/size');
 // var empty = require("../lib/empty");
+const pkgVar = require('../lib/package-var');
 var replace = require("../lib/multi-replace");
 // var tsImport = require("../lib/tsimport");
 var error = require("../log/error");
@@ -35,7 +36,7 @@ function compileTS(config, tsFile) {
             distExt: '.js'
         }))
         .pipe(sourcemaps.init())
-        .pipe(replace(config.var, undefined, "{{", "}}"))
+        .pipe(replace(pkgVar(config.var), undefined, "{{", "}}"))
         .pipe(tsProject(ts.reporter.fullReporter(true)))
         .on("error", error(TITLE))
         .js
