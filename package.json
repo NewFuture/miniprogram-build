@@ -59,7 +59,7 @@
         "mime": "^2.4.2",
         "rollup": "^1.10.0",
         "through2": "^3.0.1",
-        "ts-transform-paths": "^1.2.0",
+        "ts-transform-paths": "^2.0.0",
         "yargs": "^13.2.2"
     },
     "optionalDependencies": {
