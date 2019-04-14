@@ -53,7 +53,7 @@ exports.build = function (config) {
                         cb && cb();
                     }
                 } catch (error) {
-                    cb(error);
+                   cb && cb(error);
                 }
             }
         })
