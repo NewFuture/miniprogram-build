@@ -6,7 +6,7 @@
 
 [template project 模板项目](https://github.com/NewFuture/miniprogram-template)
 
-![task flow](https://user-images.githubusercontent.com/6290356/53698585-8ea82700-3e19-11e9-9062-af9ab11452c4.png)
+![task flow](https://user-images.githubusercontent.com/6290356/56422894-43b87500-62dc-11e9-816c-24992b90f691.png)
 
 ## Usage
 
