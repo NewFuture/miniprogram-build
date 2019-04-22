@@ -2,35 +2,35 @@
 
 > A command line tool to build & watch MiniProgram. Not a Framework, just a tool.
 >
-> 小程序命令行构建工具. 不是开发框架,只是自动化的增强工具和开发流程。
+> 小程序命令行构建工具。 不是开发框架,只是自动化的增强工具和开发流程。
 
 [template project 模板项目](https://github.com/NewFuture/miniprogram-template)
 
 ![task flow](https://user-images.githubusercontent.com/6290356/56422894-43b87500-62dc-11e9-816c-24992b90f691.png)
 
-## Usage
+## 使用 Usage
 
-### quick start
+### 立即尝试 quick start
 
-show all commands
+查看全部命令 show all commands (需要npm >= 5.2)
 
 ```
 npx miniprogram-build -h
 ```
 
-### install as devDependence
+### 作为开发依赖项 install as devDependence
 
 ```
 npm i miniprogram-build -D
 ```
 
-### CLI
+### 命令参数 CLI
 
 > `miniprogram-build [command...] [--option]`
 
 Short Alias [短名称]: `mp` 或 `mp-build`
 
-Commands:
+#### 命令 Commands:
 
 ```
 dev      build and watch <构建和检测文件修改>
@@ -48,7 +48,7 @@ copy     copy all files match `copy` to dist <复制需要复制的文件>
 npm      build npm dependencies to dist <编译npm依赖>
 ```
 
-Options:
+#### 参数 Options:
 
 ```
   --version     show version number <查看本版号>                       [boolean]
@@ -66,21 +66,25 @@ Options:
   -h, --help    show help <显示帮助信息>                               [boolean]
 ```
 
-examples
+#### 例子 examples
 
--   dev in int env
-
-```
-mp-build dev --config=./config.int.json
-```
-
--   build for prod release
+- 使用配置`config.dev.json`开发调试, dev with `config.dev.json`
 
 ```
-mp-build build --config=./config.prod.json --release
+npx miniprogram-build dev --config=config.dev.json
 ```
 
-### default config
+-  使用`config.prod.json`开启生产环境优化编译,build for production release with `config.prod.json`
+
+```
+npx miniprogram-build build --config=./config.prod.json --release
+```
+
+- 替换`{{APP_ID}}`为1234567, replace template var `{{APP_ID}}` with 123456
+```
+npx miniprogram-build  --var.APP_ID=1234567
+```
+### 默认配置文件 default config
 
 ```json
 {
@@ -97,7 +101,7 @@ mp-build build --config=./config.prod.json --release
 }
 ```
 
-### commands & options
+### 完整命令和参数 commands & options
 
 ![commands & options](https://user-images.githubusercontent.com/6290356/53295185-f4504e00-3830-11e9-8bb0-31a533c8da7c.png)
 
@@ -157,14 +161,12 @@ mp-build build --config=./config.prod.json --release
 
 -   [x] exclude path
 -   [x] multi watcher
--   [ ] ~~init~~
 -   [x] config
 -   [x] 显示报错位置
 -   [x] break errors
--   [ ] ~~pages config~~
 -   [ ] cache
 
-## examples
+## test examples
 
 see [test](test/)
 
