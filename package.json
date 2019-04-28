@@ -11,7 +11,9 @@
         "tools",
         "gulp",
         "npm",
-        "framework"
+        "framework",
+        "小程序",
+        "微信"
     ],
     "main": "src/task.js",
     "bin": {

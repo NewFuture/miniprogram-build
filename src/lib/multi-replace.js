@@ -18,9 +18,9 @@ function logReplace(n, key, value, file) {
     log.info(
         colors.gray(TITLE),
         colors.dim('√'.repeat(n)),
-        colors.dim.gray.italic(key.toString()),
+        colors.gray.italic(key.toString()),
         colors.dim.gray('→'),
-        typeof value === 'function' ? colors.magenta.italic('Function') : colors.cyan.underline(value),
+        typeof value === 'function' ? colors.cyan(colors.italic('Function:') + (value.name || '')) : colors.underline(value),
         colors.gray('(' + colors.underline(
             path.relative(file.base, file.path)
         ) + ')')
