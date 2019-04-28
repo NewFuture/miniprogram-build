@@ -1,12 +1,15 @@
 import { test } from "/lib/test";
 
 test
-//@ts-ignore
-App({
-    onLoad(){
-        console.log(test,"{{Vx}}");
-    },
-    
+const data = {
+
+
     appId: "{{APP_ID}}",
     version: "{{VERSION}}",
+};
+App({
+
+    onLaunch() {
+        console.log(test, "{{Vx}}");
+    }
 })

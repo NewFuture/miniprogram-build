@@ -14,5 +14,8 @@
     "dependencies": {
         "miniprogram-image": "^1.7.1",
         "miniprogram-network": "latest"
+    },
+    "devDependencies": {
+        "@dragongate/miniprogram-api-typings": "^2.6.7"
     }
 }
