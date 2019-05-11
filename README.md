@@ -1,4 +1,9 @@
-# miniprogram-build [![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build) [![Build Status](https://travis-ci.com/NewFuture/miniprogram-build.svg?branch=master)](https://travis-ci.com/NewFuture/miniprogram-build) [![Greenkeeper badge](https://badges.greenkeeper.io/NewFuture/miniprogram-build.svg)](https://greenkeeper.io/)
+# [miniprogram-build](https://github.com/NewFuture/miniprogram-build)
+
+[![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build) 
+[![Build Status](https://travis-ci.com/NewFuture/miniprogram-build.svg?branch=master)](https://travis-ci.com/NewFuture/miniprogram-build) 
+[![Greenkeeper badge](https://badges.greenkeeper.io/NewFuture/miniprogram-build.svg)](https://greenkeeper.io/)
+[![cnpm version](https://npm.taobao.org/badge/v/miniprogram-build.svg)](https://npm.taobao.org/package/miniprogram-build)
 
 > A command line tool to build & watch MiniProgram. Not a Framework, just a tool.
 >
