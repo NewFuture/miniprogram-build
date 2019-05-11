@@ -51,7 +51,7 @@ function compileScss(config, scssFile) {
                 importer: wxssImporter,
                 errLogToConsole: true,
                 outputStyle: "expanded",
-                includePaths: [path.join(config.src, config.assets || "./"), "node_modules"],
+                includePaths: [path.join(config.src, config.assets || "./")],
             }),
         )
         .on("error", error("wxss"))
@@ -60,7 +60,7 @@ function compileScss(config, scssFile) {
                 return '@import "' + $2 + '"';
             }),
         )
-        .pipe(inline())
+        .pipe(inline(config))
         .pipe(
             cleanCSS({
                 format: config.release ? "minify" : "beautify",

@@ -19,15 +19,12 @@ var rQuotes = /['"]/g;
 var rParams = /([?#].*)$/g;
 
 function whilst(condition, action) {
-    return Promise.resolve(function loop(res) {
-        return Promise.resolve(() => {
-            if (condition()) {
-                return Promise.resolve(() => action()).then(loop);
-            } else {
-                return res;
-            }
-        });
-    });
+    const loop = actionResult => {
+        if (condition(actionResult)) {
+            return Promise.resolve(action()).then(loop);
+        }
+    };
+    return loop();
 }
 
 const TITLE = colors.gray("inline:");
@@ -80,8 +77,8 @@ module.exports = (function () {
                 group = rImages.exec(src);
                 return group != null;
             },
-            function (complete) {
-                return new Promise((complete,reject)=>{
+            function () {
+
                 // if there is another url to be processed, then:
                 //    group[1] will hold everything up to the url declaration
                 //    group[2] will hold the complete url declaration (useful if no encoding will take place)
@@ -110,6 +107,7 @@ module.exports = (function () {
                             });
                         }
                     }
+
                     if (test && opts.exclude) {
                         //test for extensions to exclude if it provided
                         if (typeof opts.exclude === "function") {
@@ -120,25 +118,29 @@ module.exports = (function () {
                             });
                         }
                     }
+
                     if (!test) {
                         if (opts.debug) {
                             fancyLog(TITLE, img, " skipped by extension or exclude filters");
                         }
-                        result += group[2];
-                        return complete();
+                        return result += group[2];
+                        // return complete();
+                        // resolve(result);
                     }
                     if (!isLocalFile(rawUrl)) {
                         if (opts.debug) {
                             fancyLog(TITLE, img, " skipped not local file");
                         }
-                        result += group[2];
-                        return complete();
+                        return result += group[2];
+                        // return complete();
+                        // resolve(result);
                     }
                     // see if this img was already processed before...
                     if (cache[img]) {
                         // grunt.log.error("The image " + img + " has already been encoded elsewhere in your stylesheet. I'm going to do it again, but it's going to make your stylesheet a lot larger than it needs to be.");
-                        result += cache[img];
-                        return;
+                        return result += cache[img];
+                        // resolve(result);
+                        // return;
                     } else {
 
                         var loc = opts.baseDir ? path.join(opts.baseDir, img) : path.join(path.dirname(file.path), img);
@@ -146,13 +148,20 @@ module.exports = (function () {
                         // If that didn't work, try finding the image relative to
                         // the current file instead.
                         if (!fs.existsSync(loc)) {
-                            // if (opts.debug) {
-                            // fancyLog.error(loc, ' file doesn\'t exist');
-                            // // }
+                            (opts.debug)  && fancyLog.info(loc, ' file doesn\'t exist');
                             loc = path.join(file.cwd, img);
                             if (!fs.existsSync(loc)) {
-                                fancyLog.warn(TITLE, loc, colors.red("file doesn't exist"));
-                                return complete();
+                                (opts.debug)  && fancyLog.info(loc, ' file doesn\'t exist');
+                                loc = path.join(opts.src, opts.assets, img)
+                                if (!fs.existsSync(loc)) {
+                                    (opts.debug)  && fancyLog.info(loc, ' file doesn\'t exist');                                
+                                    loc = path.join(opts.src, img);
+                                    if (!fs.existsSync(loc)) {
+                                        fancyLog.warn(TITLE, img, colors.red("file doesn't exist"));
+                                        return result;
+                                    }
+                                }
+                                // return complete();
                             }
                         }
 
@@ -164,38 +173,38 @@ module.exports = (function () {
                         // }
 
                         log(loc, file);
-                        exports.image(loc, opts, function (err, resp, cacheable) {
-                            if (err == null) {
-                                var url = "url(" + resp + ")";
-                                result += url;
+                        return new Promise(function (resolve, reject) {
+                            exports.image(loc, opts, function (err, resp, cacheable) {
+                                if (err == null) {
+                                    var url = "url(" + resp + ")";
+                                    result += url;
 
-                                if (cacheable !== false) {
-                                    cache[img] = url;
+                                    if (cacheable !== false) {
+                                        cache[img] = url;
+                                    }
+
+                                    // if (deleteAfterEncoding && is_local_file) {
+                                    //     if (opts.debug) {
+                                    //         console.info("Deleting file: " + loc);
+                                    //     }
+                                    //     fs.unlinkSync(loc);
+                                    // }
+                                } else {
+                                    result += group[2];
                                 }
 
-                                // if (deleteAfterEncoding && is_local_file) {
-                                //     if (opts.debug) {
-                                //         console.info("Deleting file: " + loc);
-                                //     }
-                                //     fs.unlinkSync(loc);
-                                // }
-                            } else {
-                                result += group[2];
-                            }
-
-                            complete();
-                        });
+                                // complete();
+                                resolve(result);
+                            });
+                        })
                     }
                 } else {
                     result += group[4];
-                    complete();
+                    return result;
                 }
-            })
-        },
-            function () {
-                done(null, result);
+
             },
-        );
+        ).then(() => done(null, result));
     };
 
     /**
