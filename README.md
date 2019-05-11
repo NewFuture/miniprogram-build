@@ -85,7 +85,7 @@ npx miniprogram-build --config=config.dev.json
 npx miniprogram-build build --config=./config.prod.json --release
 ```
 
-- 编译替换`{{`_`APP_ID`_`}}`为1234567, compile the source and replace template var `{{`_`APP_ID`_`}}` with 123456
+- 编译替换_{_*{*`APP_ID`*}*_}_为1234567, compile the source and replace template var _{_*{*`APP_ID`*}*_}_ with 123456
 ```
 npx miniprogram-build compile --var.APP_ID=1234567
 ```
@@ -119,11 +119,11 @@ npx miniprogram-build compile --var.APP_ID=1234567
 -   `js`
     -   [x] compile `TS`
     -   [x] sourcemaps
-    -   [x] replace `{{`_`VAR_NAME`_`}}`
+    -   [x] replace _{_*{*`VAR_NAME`*}*_}_
     -   [x] tree shaking
 -   `wxs`
     -   [x] compile `TS` (`.wxts`)
-    -   [x] replace `{{`_`VAR_NAME`_`}}`
+    -   [x] replace _{_*{*`VAR_NAME`*}*_}_
     -   [x] npm support
     -   [x] tree shaking
 -   `wxss`
@@ -150,7 +150,7 @@ npx miniprogram-build compile --var.APP_ID=1234567
     -   [x] comments (添加注释)
     -   [x] trailing comma
     -   [x] minify
-    -   [x] replace `{{`_`VAR_NAME`_`}}`
+    -   [x] replace _{_*{*`VAR_NAME`*}*_}_
 -   miniprogram npm
     -   [x] rollup js lib
     -   [x] components
