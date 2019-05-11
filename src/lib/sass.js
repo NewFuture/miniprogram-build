@@ -1,8 +1,6 @@
 ///@ts-check
 "use strict";
 const path = require('path');
-const _ = require('lodash');
-
 const chalk = require('ansi-colors');
 const through = require('through2');
 const applySourceMap = require('vinyl-sourcemaps-apply');
@@ -13,8 +11,8 @@ const PluginError = require('./error');
  * @param {string} file 
  * @param {string} ext 
  */
-function replaceExtension(file,ext){
-    return path.join(path.dirname(file), path.basename(file, path.extname(file)) + ext);
+function replaceExtension(file, ext) {
+  return path.join(path.dirname(file), path.basename(file, path.extname(file)) + ext);
 }
 const PLUGIN_NAME = 'sass';
 
@@ -39,7 +37,7 @@ const gulpSass = (options, sync) => through.obj((file, enc, cb) => { // eslint-d
     return cb(null, file);
   }
 
-  const opts = _.cloneDeep(options || {});
+  const opts = Object.assign({}, options || {});
   opts.data = file.contents.toString();
 
   // we set the file path here so that libsass can correctly resolve import paths
@@ -54,6 +52,8 @@ const gulpSass = (options, sync) => through.obj((file, enc, cb) => { // eslint-d
   if (opts.includePaths) {
     if (typeof opts.includePaths === 'string') {
       opts.includePaths = [opts.includePaths];
+    }else{
+      opts.includePaths = opts.includePaths.map(e=>e)
     }
   } else {
     opts.includePaths = [];

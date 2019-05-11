@@ -56,7 +56,6 @@
         "gulp-typescript": "^5.0.1",
         "imagemin": "^6.1.0",
         "json5": "^2.1.0",
-        "lodash": "^4.17.11",
         "mime": "^2.4.2",
         "rollup": "^1.10.0",
         "sass": "^1.20.1",

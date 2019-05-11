@@ -1,7 +1,6 @@
 ///@ts-check
 'use strict';
 var del = require('del');
-var colors = require('ansi-colors');
 var log = require('../log/logger');
 var color = require('../log/color');
 
