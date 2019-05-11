@@ -3,11 +3,9 @@
 var path = require("path");
 var gulp = require("gulp");
 var rename = require("gulp-rename");
-var sass = require("gulp-sass");
 var sourcemaps = require("gulp-sourcemaps");
-// var cssnano = require("cssnano");
-// var postcss = require("gulp-postcss");
-// var autoprefixer = require("autoprefixer");
+
+const sass = require("../lib/sass");
 const cleanCSS = require("gulp-clean-css");
 var inline = require("../lib/inline");
 var empty = require("../lib/empty");

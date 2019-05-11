@@ -53,15 +53,17 @@
         "gulp-better-rollup": "^4.0.1",
         "gulp-clean-css": "^4.0.0",
         "gulp-rename": "^1.4.0",
-        "gulp-sass": "^4.0.2",
         "gulp-sourcemaps": "^2.6.5",
         "gulp-typescript": "^5.0.1",
         "imagemin": "^6.1.0",
         "json5": "^2.1.0",
+        "lodash": "^4.17.11",
         "mime": "^2.4.2",
         "rollup": "^1.10.0",
+        "sass": "^1.20.1",
         "through2": "^3.0.1",
         "ts-transform-paths": "^2.0.0",
+        "vinyl-sourcemaps-apply": "^0.2.1",
         "yargs": "^13.2.2"
     },
     "optionalDependencies": {
