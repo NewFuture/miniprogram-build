@@ -4,7 +4,6 @@
 var fs = require("fs");
 var path = require("path");
 var mime = require("mime");
-var async = require("async");
 var colors = require("ansi-colors");
 const imagemin = require("imagemin");
 
@@ -18,6 +17,18 @@ var rExternal = /^\W*([a-zA-z]+:)?\/\//;
 var rData = /^\W*data:/;
 var rQuotes = /['"]/g;
 var rParams = /([?#].*)$/g;
+
+function whilst(condition, action) {
+    return Promise.resolve(function loop(res) {
+        return Promise.resolve(() => {
+            if (condition()) {
+                return Promise.resolve(() => action()).then(loop);
+            } else {
+                return res;
+            }
+        });
+    });
+}
 
 const TITLE = colors.gray("inline:");
 function log(img, file) {
@@ -34,7 +45,7 @@ function isLocalFile(url) {
     return !rExternal.test(url) && !rData.test(url);
 }
 // Grunt export wrapper
-module.exports = (function() {
+module.exports = (function () {
     "use strict";
 
     var exports = {};
@@ -47,7 +58,7 @@ module.exports = (function() {
      * @param opts Options object
      * @param done Function to call once encoding has finished.
      */
-    exports.stylesheet = function(file, opts, done) {
+    exports.stylesheet = function (file, opts, done) {
         opts = opts || {};
 
         // Cache of already converted images
@@ -64,12 +75,13 @@ module.exports = (function() {
         var result = "";
         var match, img, line, tasks, group;
 
-        async.whilst(
-            function() {
+        whilst(
+            function () {
                 group = rImages.exec(src);
                 return group != null;
             },
-            function(complete) {
+            function (complete) {
+                return new Promise((complete,reject)=>{
                 // if there is another url to be processed, then:
                 //    group[1] will hold everything up to the url declaration
                 //    group[2] will hold the complete url declaration (useful if no encoding will take place)
@@ -93,7 +105,7 @@ module.exports = (function() {
                         if (typeof opts.extensions === "function") {
                             test = opts.extensions(imgExt, rawUrl);
                         } else {
-                            test = opts.extensions.some(function(ext) {
+                            test = opts.extensions.some(function (ext) {
                                 return ext instanceof RegExp ? ext.test(rawUrl) : ext === imgExt;
                             });
                         }
@@ -103,7 +115,7 @@ module.exports = (function() {
                         if (typeof opts.exclude === "function") {
                             test = !opts.exclude(rawUrl);
                         } else {
-                            test = !opts.exclude.some(function(pattern) {
+                            test = !opts.exclude.some(function (pattern) {
                                 return pattern instanceof RegExp ? pattern.test(rawUrl) : rawUrl.indexOf(pattern) > -1;
                             });
                         }
@@ -125,17 +137,9 @@ module.exports = (function() {
                     // see if this img was already processed before...
                     if (cache[img]) {
                         // grunt.log.error("The image " + img + " has already been encoded elsewhere in your stylesheet. I'm going to do it again, but it's going to make your stylesheet a lot larger than it needs to be.");
-                        result = result += cache[img];
-                        complete();
+                        result += cache[img];
+                        return;
                     } else {
-                        // process it and put it into the cache
-                        // var loc = img;
-                        //     is_local_file = !rData.test(img) && !rExternal.test(img);
-
-                        // Resolve the image path relative to the CSS file
-                        // if (is_local_file) {
-                        //     // local file system.. fix up the path
-                        //     // loc = path.join(path.dirname(file.path), img);
 
                         var loc = opts.baseDir ? path.join(opts.baseDir, img) : path.join(path.dirname(file.path), img);
 
@@ -160,7 +164,7 @@ module.exports = (function() {
                         // }
 
                         log(loc, file);
-                        exports.image(loc, opts, function(err, resp, cacheable) {
+                        exports.image(loc, opts, function (err, resp, cacheable) {
                             if (err == null) {
                                 var url = "url(" + resp + ")";
                                 result += url;
@@ -186,8 +190,9 @@ module.exports = (function() {
                     result += group[4];
                     complete();
                 }
-            },
-            function() {
+            })
+        },
+            function () {
                 done(null, result);
             },
         );
@@ -200,14 +205,14 @@ module.exports = (function() {
      * @param opts Options object
      * @return A data URI string (mime type, base64 img, etc.) that a browser can interpret as an image
      */
-    exports.image = function(img, opts, done) {
+    exports.image = function (img, opts, done) {
         // Shift args
         if (typeof opts === "function") {
             done = opts;
             opts = {};
         }
 
-        var complete = function(err, encoded, cacheable) {
+        var complete = function (err, encoded, cacheable) {
             // Return the original source if an error occurred
             if (err) {
                 // grunt.log.error(err);
@@ -248,7 +253,7 @@ module.exports = (function() {
      * @param img The source image path
      * @return {Promise<string>} Data URI string
      */
-    exports.getDataURI = function(img) {
+    exports.getDataURI = function (img) {
         const mimeType = mime.getType(img);
         // let ret = "data:";
         // ret += mimeType;

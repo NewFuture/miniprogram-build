@@ -47,7 +47,6 @@
     "homepage": "https://github.com/NewFuture/miniprogram-build#readme",
     "dependencies": {
         "ansi-colors": "^3.2.4",
-        "async": "^2.6.2",
         "del": "^4.1.0",
         "gulp": "^4.0.0",
         "gulp-better-rollup": "^4.0.1",
