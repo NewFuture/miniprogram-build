@@ -75,18 +75,18 @@ npm      build npm dependencies to dist <编译npm依赖>
 
 - 使用配置`config.dev.json`开发调试, dev with `config.dev.json`
 
-```
+```bash
 npx miniprogram-build --config=config.dev.json
 ```
 
 - 使用`config.prod.json`生产环境开启优化重新编译,rebuild for production release with `config.prod.json`
 
-```
+```bash
 npx miniprogram-build build --config=./config.prod.json --release
 ```
 
-- 编译替换_{_*{*`APP_ID`*}*_}_为1234567, compile the source and replace template var _{_*{*`APP_ID`*}*_}_ with 123456
-```
+- 编译替换`{{APP_ID}}`为1234567, compile the source and replace template var _{_*{*`APP_ID`*}*_}_ with 123456
+```bash
 npx miniprogram-build compile --var.APP_ID=1234567
 ```
 ### 默认配置文件 default config
