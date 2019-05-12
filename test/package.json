@@ -16,6 +16,7 @@
         "miniprogram-network": "latest"
     },
     "devDependencies": {
-        "@dragongate/miniprogram-api-typings": "^2.6.7"
+        "@dragongate/miniprogram-api-typings": "^2.6.7",
+        "weui-wxss": "^2.0.0"
     }
 }

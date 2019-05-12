@@ -4,13 +4,14 @@ const path = require("path");
 const fs = require("fs");
 
 /**
- *
+ * 读取 包
  * @param {string} cwd
+ * @param {string} [name]
  * @returns {Record<string,object>} miniprogram components Dependencies
  * 
  */
-function loadPackage(cwd) {
-    return JSON.parse(fs.readFileSync(path.resolve(cwd, "package.json")).toString());
+function loadPackage(cwd, name) {
+    return JSON.parse(fs.readFileSync(path.resolve(cwd, name || "package.json")).toString());
 }
 /**
  *

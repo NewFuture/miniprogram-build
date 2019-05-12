@@ -1,7 +1,48 @@
 ///@ts-check
 'use strict';
 
-var path = require('path');
+const path = require('path');
+const fs = require('fs');
+const npm = require('./npm-dependency');
+
+/**
+ * 加载npm 默认导出 scss/css 样式
+ * @param {string} moduleName 
+ */
+function importNpmModule(moduleName) {
+    // 直接引用包名
+    const modulePath = path.join(process.cwd(), 'node_modules', moduleName);
+
+    // 自动提取 sass/wxss/style 字段
+    const pkg = npm.loadPackage(modulePath);
+    const key = ['sass', 'scss', 'wxss', 'style'].find(function (key) {
+        return typeof pkg[key] === "string";
+    });
+    if (key || (pkg.main && !pkg.main.endsWith('.js'))) {
+        return { file: path.join(modulePath, pkg[key || 'main']) }
+    }
+
+    // 无有效字段自动搜索 index|style.[scss|sass|wxss|csss]
+    const name = ['index.scss', 'index.sass', 'index.wxss', 'index.css', 'style.scss', 'style.sass', 'style.wxss', 'style.css',].find(
+        function (name) {
+            return fs.existsSync(path.join(modulePath, name));
+        }
+    )
+    if (name) {
+        return { file: path.join(modulePath, name) }
+    }
+
+    // 尝试搜索 bower.json
+    const bower = fs.existsSync(path.join(modulePath, 'bower.json')) && npm.loadPackage(modulePath, 'bower.json');
+    if (bower) {
+        const key = ['sass', 'scss', 'wxss', 'css', 'style'].find(function (key) {
+            return typeof bower[key] === "string";
+        });
+        if (key || (bower.main && !bower.main.endsWith('.js'))) {
+            return { file: path.join(modulePath, bower[key || 'main']) }
+        }
+    }
+}
 
 /**
  * @param {string} url,
@@ -10,7 +51,13 @@ var path = require('path');
  */
 module.exports = function importer(url, prev, done) {
     if (url[0] === '~') {
-        return { file: path.join(process.cwd(), 'node_modules', url.substr(1)) }
+        const npmModule = url.substr(1);
+        const n = npmModule.split('/').length;
+        if (n === 1 || (n === 2 && npmModule[0] === '@')) {
+            return importNpmModule(npmModule);
+        } else {
+            return { file: path.join(process.cwd(), 'node_modules', npmModule) }
+        }
     } else if (url.startsWith("/") && url.endsWith(".wxss")) {
         return { contents: "@import url(" + url.trim() + ");" }
     } else {
