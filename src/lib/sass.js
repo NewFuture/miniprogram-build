@@ -33,7 +33,7 @@ const gulpSass = (options, sync) => through.obj((file, enc, cb) => { // eslint-d
   }
 
   if (!file.contents.length) {
-    file.path = replaceExtension(file.path, '.css'); // eslint-disable-line no-param-reassign
+    file.path = replaceExtension(file.path, '.wxss'); // eslint-disable-line no-param-reassign
     return cb(null, file);
   }
 
@@ -100,13 +100,13 @@ const gulpSass = (options, sync) => through.obj((file, enc, cb) => { // eslint-d
       sassMap.sources = sassMap.sources.filter(src => src !== 'stdin' && src);
 
       // Replace the map file with the original file name (but new extension)
-      sassMap.file = replaceExtension(sassFileSrc, '.css');
+      sassMap.file = replaceExtension(sassFileSrc, '.wxss');
       // Apply the map
       applySourceMap(file, sassMap);
     }
 
     file.contents = sassObj.css; // eslint-disable-line no-param-reassign
-    file.path = replaceExtension(file.path, '.css'); // eslint-disable-line no-param-reassign
+    file.path = replaceExtension(file.path, '.wxss'); // eslint-disable-line no-param-reassign
 
     cb(null, file);
   };
