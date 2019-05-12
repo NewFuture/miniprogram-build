@@ -29,6 +29,8 @@
         "bin/"
     ],
     "scripts": {
+        "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+        "prepublishOnly":"conventional-changelog -p angular -i CHANGELOG.md -s",
         "test": "npm test --prefix=test"
     },
     "repository": {
@@ -78,6 +80,7 @@
         "tslib": ">=1.7"
     },
     "devDependencies": {
+        "conventional-changelog-cli": "^2.0.21",
         "tslib": "^1.9.3",
         "typescript": "^3.4.3"
     }
