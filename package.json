@@ -30,7 +30,7 @@
     ],
     "scripts": {
         "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-        "prepublishOnly":"conventional-changelog -p angular -i CHANGELOG.md -s",
+        "prepublishOnly": "conventional-changelog -p angular -i CHANGELOG.md -s",
         "test": "npm test --prefix=test"
     },
     "repository": {
@@ -49,8 +49,8 @@
     "homepage": "https://github.com/NewFuture/miniprogram-build#readme",
     "dependencies": {
         "ansi-colors": "^3.2.4",
-        "del": "^4.1.0",
-        "gulp": "^4.0.0",
+        "del": "^4.1.1",
+        "gulp": "^4.0.2",
         "gulp-better-rollup": "^4.0.1",
         "gulp-clean-css": "^4.0.0",
         "gulp-rename": "^1.4.0",
@@ -59,12 +59,12 @@
         "imagemin": "^6.1.0",
         "json5": "^2.1.0",
         "mime": "^2.4.2",
-        "rollup": "^1.10.0",
+        "rollup": "^1.11.3",
         "sass": "^1.20.1",
         "through2": "^3.0.1",
         "ts-transform-paths": "^2.0.0",
         "vinyl-sourcemaps-apply": "^0.2.1",
-        "yargs": "^13.2.2"
+        "yargs": "^13.2.4"
     },
     "optionalDependencies": {
         "rollup-plugin-typescript": "^1.0.0",
