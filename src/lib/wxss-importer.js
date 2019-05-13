@@ -51,6 +51,20 @@ function importNpmModule(moduleName) {
     }
 }
 
+function syncFile(file) {
+    // console.log(file);
+    if (
+        !['.css', '.scss', '.sass'].includes(path.extname(file)) &&
+        !fs.existsSync(file + '.scss') &&
+        !fs.existsSync(file + '.css') &&
+        !fs.existsSync(file + '.sass')
+    ) {
+        fs.copyFileSync(file, file + '.scss');
+    }
+    return file;
+
+}
+
 /**
  * @param {string} url,
  * @param {string} prev,
@@ -66,7 +80,7 @@ module.exports = function importer(url, prev, done) {
             const file = importNpmModule(npmModule);
             if (file) {
                 return {
-                    file : file,
+                    file: syncFile(file),
                 }
             }
             // console.log('file', file, fs.readFileSync(file).toString());
