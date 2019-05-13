@@ -78,7 +78,7 @@ module.exports = (function () {
                 return group != null;
             },
             function () {
-
+                // console.log( group[1],"\n", group[2],"\n",group[3],"\n",group[4])
                 // if there is another url to be processed, then:
                 //    group[1] will hold everything up to the url declaration
                 //    group[2] will hold the complete url declaration (useful if no encoding will take place)
@@ -132,8 +132,12 @@ module.exports = (function () {
                             fancyLog(TITLE, img, " skipped not local file");
                         }
                         return result += group[2];
-                        // return complete();
-                        // resolve(result);
+                    }
+                    if(!group[1].trim().endsWith(':')){
+                        if (opts.debug) {
+                            fancyLog(TITLE, img, " not inline image");
+                        }
+                        return result += group[2];
                     }
                     // see if this img was already processed before...
                     if (cache[img]) {

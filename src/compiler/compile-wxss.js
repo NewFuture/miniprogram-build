@@ -48,20 +48,24 @@ function compileScss(config, scssFile) {
             sass({
                 ///@ts-ignore
                 importer: wxssImporter,
+                // functions: {
+                //     'import-wxss($path)': function (path) { return '@import "' + path + '"' }
+                // },
                 errLogToConsole: true,
                 outputStyle: "expanded",
                 includePaths: [path.join(config.src, config.assets || "./")],
             }),
         )
         .on("error", error("wxss"))
-        .pipe(
-            replace(/@import url\(["']?([\w\/\.\-\_]*)["']?\)/g, ($1, $2) => {
-                return '@import "' + $2 + '"';
-            }),
-        )
+        // .pipe(
+        //     replace(/@import url\(["']?([\w\/\.\-\_]*)["']?\)/g, ($1, $2) => {
+        //         return '@import "' + $2 + '"';
+        //     }),
+        // )
         .pipe(inline(config))
         .pipe(
             cleanCSS({
+                inline: ['none'],
                 format: config.release ? "minify" : "beautify",
                 level: {
                     1: {
@@ -112,6 +116,11 @@ function compileScss(config, scssFile) {
                         rpx: true, // controls treating `vmin` as a supported unit
                     },
                 },
+            }),
+        )
+        .pipe(
+            replace(/@import url\(["']?([\w\/\.\-\_]*)["']?\)/g, ($1, $2) => {
+                return '@import "' + $2 + '"';
             }),
         )
         .pipe(config.release ? empty() : sourcemaps.write())
