@@ -3,10 +3,12 @@
 app.scss
 */
 //test
-// @import "~weui-wxss";
+@import "~weui-wxss";
+@import "~weui-wxss/dist/style/weui.wxss";
 @import "./assets/a";
 .t{
-    background: url(./assets/images/arrow-up.svg);
+    background: 
+        url(./assets/images/arrow-up.svg);
     width: 20rpx;
 }
 
