@@ -6,8 +6,8 @@ node_js:
   - "10"
   - "stable"
 
-git:
-  depth: 1
+# git:
+#   depth: 1
 
 before_deploy:
   - "[[ $TRAVIS_TAG == v* ]] || [[ $TRAVIS_TAG == V* ]]"
