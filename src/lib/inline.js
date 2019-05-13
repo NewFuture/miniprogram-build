@@ -12,7 +12,7 @@ module.exports = function (opts) {
             if (err) {
                 console.error(err);
             }
-            file.contents = new Buffer(src);
+            file.contents = Buffer.from(src);
 
             self.push(file);
             callback();

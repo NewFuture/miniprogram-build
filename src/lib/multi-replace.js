@@ -71,7 +71,7 @@ function multiReplace(opts, replacement, prefix, suffix) {
                 }
 
             }
-            file.contents = new Buffer(str);
+            file.contents = Buffer.from(str);
         } else if (file.isStream()) {
             console.error('Streaming not supported')
             this.emit('error', 'replace：Streaming not supported');

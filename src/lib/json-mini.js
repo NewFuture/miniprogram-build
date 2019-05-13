@@ -26,7 +26,7 @@ function jsonMinify(pretty) {
         }
         if (file.isBuffer()) {
             try {
-                file.contents = new Buffer(mini(file.contents.toString(), pretty));
+                file.contents = Buffer.from(mini(file.contents.toString(), pretty));
             } catch (error) {
                 err = error
                 err.fileName = file.path;
