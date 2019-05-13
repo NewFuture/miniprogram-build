@@ -3,6 +3,7 @@
 var path = require("path");
 var gulp = require("gulp");
 var sourcemaps = require("gulp-sourcemaps");
+const rename = require("gulp-rename");
 
 const sass = require("../lib/sass");
 const cleanCSS = require("gulp-clean-css");
@@ -124,6 +125,7 @@ function compileScss(config, scssFile) {
             }),
         )
         .pipe(config.release ? empty() : sourcemaps.write())
+        .pipe(rename({ extname: ".wxss" }))
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }));
 }

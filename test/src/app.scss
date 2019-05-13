@@ -3,8 +3,9 @@
 app.scss
 */
 //test
-@import "~weui-wxss";
-@import "~weui-wxss/dist/style/weui.wxss";
+@import "./wxss/a.wxss"; // keep as wxss
+@import "./wxss/npm.wxss"; // keep as wxss
+@import "./assets/b.wxss"; // import scss
 @import "./assets/a";
 .t{
     background: 
