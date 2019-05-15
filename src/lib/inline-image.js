@@ -22,6 +22,8 @@ function whilst(condition, action) {
     const loop = actionResult => {
         if (condition(actionResult)) {
             return Promise.resolve(action()).then(loop);
+        }else{
+            return Promise.resolve();
         }
     };
     return loop();
