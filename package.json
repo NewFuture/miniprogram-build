@@ -30,7 +30,7 @@
     ],
     "scripts": {
         "version": "conventional-changelog -r 0 -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-        "prepublishOnly": "conventional-changelog -r 0 -p angular -i CHANGELOG.md -s",
+        "prepublishOnly": "conventional-changelog -r 2 -p angular -i CHANGELOG.md -s",
         "test": "npm test --prefix=test"
     },
     "repository": {
