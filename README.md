@@ -144,7 +144,6 @@ npx miniprogram-build compile --var.APP_ID=1234567
     -   [x] `wxml`
     -   [x] `html`
     -   [x] copy rename
-    -   [x] compress
     -   [x] error report
 -   `JSON`
     -   [x] comments (添加注释)
