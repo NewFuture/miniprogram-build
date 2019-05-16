@@ -24,7 +24,7 @@ exports.build = function (config) {
     } else {
         log.info(
             color('typescript:'),
-            colors.gray('`tsconfig.json` was found. Skip typescript compilation!')
+            colors.gray('`tsconfig.json` was not found. Skip typescript compilation!')
         );
         return function (cb) {
             cb && cb();

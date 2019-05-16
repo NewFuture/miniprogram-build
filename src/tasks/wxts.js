@@ -35,7 +35,7 @@ exports.build = function (config) {
     } else {
         log.info(
             color('wxts:'),
-            colors.gray('`tsconfig.json` was found. Skip WXTS(WeiXin TypesSript) compilation!')
+            colors.gray('`tsconfig.json` was not found. Skip WXTS(WeiXin TypesSript) compilation!')
         );
         return function (cb) {
             cb && cb();
