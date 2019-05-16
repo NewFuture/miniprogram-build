@@ -68,8 +68,8 @@
     },
     "optionalDependencies": {
         "rollup-plugin-typescript": "^1.0.0",
-        "rollup-plugin-commonjs": "^9.2.1",
-        "rollup-plugin-node-resolve": "^4.0.1",
+        "rollup-plugin-commonjs": "^10.0.0",
+        "rollup-plugin-node-resolve": "^5.0.0",
         "imagemin-gifsicle": "^6.0.1",
         "imagemin-jpegtran": "^6.0.0",
         "imagemin-optipng": "^6.0.0",
