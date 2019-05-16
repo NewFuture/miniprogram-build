@@ -46,16 +46,18 @@ var TITLE = "wxts:";
  * @param {any} tsconfig
  */
 function compileWxts(config, tsFile, tsconfig) {
-    var ts = require("rollup-plugin-typescript");
+    const ts = require("rollup-plugin-typescript");
     const gulpRollup = require("gulp-better-rollup");
     let dependencies = []
+    const plugins = [].concat(loadPlugins())
+
     try {
         dependencies = Object.keys(npm.getDependencies(process.cwd()));
+        const newConfig = Object.assign({}, defaultConfig, tsconfig ? tsconfig.compilerOptions : {}, wxtsConfig);
+        plugins.unshift(ts(newConfig))
     } catch (error) {
         warn(TITLE)('' + error);
     }
-    var newConfig = Object.assign({}, defaultConfig, tsconfig ? tsconfig.compilerOptions : {}, wxtsConfig);
-    const plugins = [ts(newConfig)].concat(loadPlugins());
     return gulp
         .src(tsFile, { base: config.src, sourcemaps: !config.release })
         .pipe(
