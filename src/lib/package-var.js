@@ -1,6 +1,8 @@
 ///@ts-check
 'use strict';
 const npm = require('./npm-dependency');
+const logger = require('../log/logger');
+
 const REG_VAR = /\{\{package.([\w\d]*?)\}\}/g;
 
 /**
@@ -8,11 +10,16 @@ const REG_VAR = /\{\{package.([\w\d]*?)\}\}/g;
  * @param {object} obj 
  */
 function replaceVar(obj) {
-    const pkg = npm.loadPackage(process.cwd());
-    for (const k in obj) {
-        if (obj.hasOwnProperty(k) && typeof obj[k] === "string") {
-            obj[k] = obj[k].replace(REG_VAR, (m, key) => pkg[key]);
+    try {
+        const pkg = npm.loadPackage(process.cwd());
+        for (const k in obj) {
+            if (obj.hasOwnProperty(k) && typeof obj[k] === "string") {
+                obj[k] = obj[k].replace(REG_VAR, (m, key) => pkg[key]);
+            }
         }
+    } catch (e) {
+        logger.warn('package.json load fail:');
+        logger.warn(''+e);
     }
     return obj;
 }
