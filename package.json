@@ -32,8 +32,9 @@
         "version": "conventional-changelog -r 0 -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
         "prepublishOnly": "conventional-changelog -r 2 -p angular -i CHANGELOG.md -s",
         "test:empty": "cd test-empty && node ../bin/mp-build.js build && node ../bin/mp-build.js compile --release",
+        "test:empty-ts": "cd test-ts && node ../bin/mp-build.js build && node ../bin/mp-build.js compile --release",
         "test:full": "npm test --prefix=test",
-        "test": "npm run test:empty && npm run test:full"
+        "test": "npm run test:empty && npm run test:full && npm run test:empty-ts"
     },
     "repository": {
         "type": "git",

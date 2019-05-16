@@ -48,7 +48,12 @@ var TITLE = "wxts:";
 function compileWxts(config, tsFile, tsconfig) {
     var ts = require("rollup-plugin-typescript");
     const gulpRollup = require("gulp-better-rollup");
-    const dependencies = Object.keys(npm.getDependencies(process.cwd()));
+    let dependencies = []
+    try {
+        dependencies = Object.keys(npm.getDependencies(process.cwd()));
+    } catch (error) {
+        warn(TITLE)('' + error);
+    }
     var newConfig = Object.assign({}, defaultConfig, tsconfig ? tsconfig.compilerOptions : {}, wxtsConfig);
     const plugins = [ts(newConfig)].concat(loadPlugins());
     return gulp
