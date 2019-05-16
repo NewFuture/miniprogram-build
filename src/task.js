@@ -27,7 +27,7 @@ exports.$config = {
     assets: 'assets',
     exclude: '',
     copy: '',
-    tsconfig: 'tsconfig.json',
+    tsconfig: '',
     var: {
     }
 };
