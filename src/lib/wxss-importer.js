@@ -99,8 +99,12 @@ module.exports = function importer(url, prev, done) {
         // keep import 
         // console.log(url);
         // dart-sass not support
+        if (url.startsWith("file://")) {
+            // fixed dart-sass root file name
+            url = url.substr(7)
+        }
+        return { contents: '@import url("' + url.trim() + '");' };
 
-        return { contents: '@import url(' + url.trim() + ');' };
     } else {
         return null;
     }
