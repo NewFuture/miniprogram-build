@@ -18,11 +18,16 @@ var DEFAULT_CONFIG_FILES = [
     '.mpconfig.jsonc',
 ]
 
+const CACHE = {}
+
 /**
  * 读取配置
  * @param {string|any} configFile
  */
 function loadConfig(configFile) {
+    if (CACHE[configFile]) {
+        return CACHE[configFile];
+    }
     if (configFile) {
         if (!fs.existsSync(configFile)) {
             log.error(TITLE, colors.red.underline(configFile), colors.bgRed('does not exist'));
@@ -33,6 +38,7 @@ function loadConfig(configFile) {
         var json = fs.readFileSync(configFile, 'utf-8');
         var config = json5.parse(json);
         log.info(TITLE, colors.cyan.italic(`v${require('../package.json').version}`), 'load config', colors.blue.underline(configFile))
+        CACHE[configFile] = config;
         return config;
     } catch (ex) {
         log.error(TITLE, colors.red.underline(configFile), 'failed to load.', colors.red(ex));
