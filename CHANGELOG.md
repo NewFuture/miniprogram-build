@@ -1,3 +1,37 @@
+## [6.0.5](https://github.com/NewFuture/miniprogram-build/compare/v6.0.4...v6.0.5) (2019-05-17)
+
+
+### Bug Fixes
+
+* **wxss:** import wxss from root path ([25ab1f4](https://github.com/NewFuture/miniprogram-build/commit/25ab1f4))
+
+
+
+## [6.0.4](https://github.com/NewFuture/miniprogram-build/compare/v6.0.3...v6.0.4) (2019-05-16)
+
+
+### Bug Fixes
+
+* **ts:** warn messages ([e38bbb7](https://github.com/NewFuture/miniprogram-build/commit/e38bbb7))
+
+
+### Features
+
+* **empty:** work with no package.json ([5b3c0d6](https://github.com/NewFuture/miniprogram-build/commit/5b3c0d6))
+* **ts:** support no tsconfig ([b3819d7](https://github.com/NewFuture/miniprogram-build/commit/b3819d7))
+* **wxts:** support run without tslib ([a98c85e](https://github.com/NewFuture/miniprogram-build/commit/a98c85e))
+
+
+
+## [6.0.3](https://github.com/NewFuture/miniprogram-build/compare/v6.0.2...v6.0.3) (2019-05-15)
+
+
+### Bug Fixes
+
+* **inline-image:** whilst promise when empty ([998c492](https://github.com/NewFuture/miniprogram-build/commit/998c492)), closes [#22](https://github.com/NewFuture/miniprogram-build/issues/22)
+
+
+
 ## [6.0.2](https://github.com/NewFuture/miniprogram-build/compare/v6.0.1...v6.0.2) (2019-05-14)
 
 
@@ -113,11 +147,7 @@
 
 
 
-## [4.0.1](https://github.com/NewFuture/miniprogram-build/compare/v4.0.0...v4.0.1) (2019-03-03)
-
-
-
-# [4.0.0](https://github.com/NewFuture/miniprogram-build/compare/3.6.0...v4.0.0) (2019-03-03)
+## [4.0.1](https://github.com/NewFuture/miniprogram-build/compare/3.6.0...v4.0.1) (2019-03-03)
 
 
 
