@@ -2,11 +2,11 @@
 "use strict";
 var path = require("path");
 var gulp = require("gulp");
-var sourcemaps = require("gulp-sourcemaps");
+// var sourcemaps = require("gulp-sourcemaps");
 const rename = require("gulp-rename");
 
 const sass = require("../lib/sass");
-const cleanCSS = require("gulp-clean-css");
+const cleanCSS = require("../lib/clean-css");
 var inline = require("../lib/inline");
 var empty = require("../lib/empty");
 var wxssImporter = require("../lib/wxss-importer");
@@ -37,7 +37,7 @@ function compileScss(config, scssFile) {
     // }
     return gulp
         .src(scssFile, { base: config.src })
-        .pipe(config.release ? empty() : sourcemaps.init())
+        // .pipe(config.release ? empty() : sourcemaps.init())
         .pipe(
             debug({
                 title: TITLE,
@@ -66,6 +66,7 @@ function compileScss(config, scssFile) {
         .pipe(inline(config))
         .pipe(
             cleanCSS({
+                sourceMap: false,
                 inline: ['none'],
                 format: config.release ? "minify" : "beautify",
                 level: {
@@ -124,7 +125,7 @@ function compileScss(config, scssFile) {
                 return '@import "' + $2 + '"';
             }),
         )
-        .pipe(config.release ? empty() : sourcemaps.write())
+        // .pipe(config.release ? empty() : sourcemaps.write())
         .pipe(rename({ extname: ".wxss" }))
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }));

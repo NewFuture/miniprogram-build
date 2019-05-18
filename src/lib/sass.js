@@ -3,7 +3,7 @@
 const path = require('path');
 const chalk = require('ansi-colors');
 const through = require('through2');
-const applySourceMap = require('vinyl-sourcemaps-apply');
+// const applySourceMap = require('vinyl-sourcemaps-apply');
 const PluginError = require('./error');
 
 /**
@@ -102,7 +102,7 @@ const gulpSass = (options, sync) => through.obj((file, enc, cb) => { // eslint-d
       // Replace the map file with the original file name (but new extension)
       sassMap.file = replaceExtension(sassFileSrc, '.css');
       // Apply the map
-      applySourceMap(file, sassMap);
+      // applySourceMap(file, sassMap);
     }
 
     file.contents = sassObj.css; // eslint-disable-line no-param-reassign
