@@ -1,3 +1,13 @@
+# [6.1.0](https://github.com/NewFuture/miniprogram-build/compare/v6.0.5...v6.1.0) (2019-05-18)
+
+
+### Bug Fixes
+
+* **config:** load twice  yargs/yargs[#1346](https://github.com/NewFuture/miniprogram-build/issues/1346) ([ab5a53e](https://github.com/NewFuture/miniprogram-build/commit/ab5a53e))
+
+* **wxss:** `border rpx`
+
+
 ## [6.0.5](https://github.com/NewFuture/miniprogram-build/compare/v6.0.4...v6.0.5) (2019-05-17)
 
 
