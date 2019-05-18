@@ -26,6 +26,7 @@
     },
     "files": [
         "src/",
+        "vendor/",
         "bin/"
     ],
     "scripts": {
