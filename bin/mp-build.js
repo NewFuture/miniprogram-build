@@ -2,8 +2,7 @@
 ///@ts-check
 "use strict";
 const colors = require("ansi-colors");
-var config = require("../src/load-config");
-var tasks = require("../src/task");
+const config = require("../src/load-config");
 
 function cb(str) { return colors.cyanBright.bold(str) }
 function cw(str) { return colors.magentaBright.bold(str) }
@@ -69,6 +68,7 @@ var argv = require("yargs")
     })
     // .showHelpOnFail(true,'--help for available options')
     .command(["*", "dev"], cd(`build and watch ${odc("<构建和检测文件修改>")}`))
+    .command("init", cd(`create config file ${odc("<创建配置文件>")}`))
     .command(cb("build"), cd(`clean and compile ${odc("<清理和编译所有文件>")}`))
     .command(cw("watch"), cd(`watch file changes ${odc("<监测文件变化>")}`))
     .command(cb("clean"), cd(`remove all files in dist ${odc("<清理dist>")}`))
@@ -99,5 +99,6 @@ var argv = require("yargs")
     .command(cw("npm-watch"), cd(`watch changes of npm dependencies ${odc("<实时更新npm依赖>")}`))
     .strict().argv;
 
+const tasks = require("../src/task")
 Object.assign(tasks.$config, argv);
 tasks.$execute(argv._.length === 0 ? ["dev"] : argv._);
