@@ -37,7 +37,9 @@ function loadConfig(configFile) {
     try {
         var json = fs.readFileSync(configFile, 'utf-8');
         var config = json5.parse(json);
-        log.info(TITLE, colors.cyan.italic(`v${require('../package.json').version}`), 'load config', colors.blue.underline(configFile))
+        // @ts-ignore
+        const version = require('../package.json').version;
+        log.info(TITLE, colors.cyan.italic(`v${version}`), 'load config', colors.blue.underline(configFile))
         CACHE[configFile] = config;
         return config;
     } catch (ex) {
@@ -47,9 +49,10 @@ function loadConfig(configFile) {
     }
 }
 
-module.exports.load = loadConfig;
-
-module.exports.default = function () {
+/**
+ * 自动读取配置 
+ */
+function autoLoad() {
     // try load default configure file
     for (var index = 0; index < DEFAULT_CONFIG_FILES.length; index++) {
         if (fs.existsSync(DEFAULT_CONFIG_FILES[index])) {
@@ -57,4 +60,32 @@ module.exports.default = function () {
         }
     }
     return {}
+};
+/**
+ * 生成配置文件
+ * @param {object} conf 
+ */
+function saveConfig(conf) {
+    const str = json5.stringify(conf, { space: 4, quote: '"' });
+    fs.writeFileSync('.mpconfig.jsonc', str);
 }
+
+module.exports.load = loadConfig;
+module.exports.save = saveConfig;
+module.exports.auto = autoLoad;
+
+/**
+ * 全局配置
+ */
+module.exports.default = {
+    // debug: true,
+    release: false,
+    src: 'src',
+    dist: 'dist',
+    assets: 'assets',
+    exclude: '',
+    copy: '',
+    tsconfig: '',
+    var: {
+    }
+};

@@ -2,7 +2,7 @@
 ///@ts-check
 "use strict";
 const colors = require("ansi-colors");
-const config = require("../src/load-config");
+const config = require("../src/config");
 
 function cb(str) { return colors.cyanBright.bold(str) }
 function cw(str) { return colors.magentaBright.bold(str) }
@@ -21,7 +21,7 @@ var argv = require("yargs")
     .example(colors.green.italic("$0 --release --var.APP_ID=1234"), ed("优化编译,并替换变量{{APP_ID}}"))
     // configuration
     .pkgConf("mpconfig")
-    .config(config.default())
+    .config(config.auto())
     .config("config", od(`JSONC config file ${odc("<配置置文件,命令参数优先级高于配置>")}`), config.load)
     .alias("c", "config")
     .help("help", od(`show help ${odc("<显示帮助信息>")}`))
@@ -99,6 +99,7 @@ var argv = require("yargs")
     .command(cw("npm-watch"), cd(`watch changes of npm dependencies ${odc("<实时更新npm依赖>")}`))
     .strict().argv;
 
+Object.assign(config.default, argv, { $0: undefined, _: undefined });
+
 const tasks = require("../src/task")
-Object.assign(tasks.$config, argv);
 tasks.$execute(argv._.length === 0 ? ["dev"] : argv._);
