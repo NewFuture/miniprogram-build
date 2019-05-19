@@ -40,6 +40,11 @@ function loadConfig(configFile) {
         // @ts-ignore
         const version = require('../package.json').version;
         log.info(TITLE, colors.cyan.italic(`v${version}`), 'load config', colors.blue.underline(configFile))
+        const allowedKeys = Object.keys(exports.default);
+
+        config = Object.keys(config)
+            .filter(key => allowedKeys.indexOf(key) >= 0)
+            .reduce((obj, key) => { obj[key] = config[key]; return obj }, {})
         CACHE[configFile] = config;
         return config;
     } catch (ex) {
@@ -64,10 +69,20 @@ function autoLoad() {
 /**
  * 生成配置文件
  * @param {object} conf 
+ * @param {string} [file] 默认 '.mpconfig.jsonc'
  */
-function saveConfig(conf) {
-    const str = json5.stringify(conf, { space: 4, quote: '"' });
-    fs.writeFileSync('.mpconfig.jsonc', str);
+function saveConfig(conf, file) {
+    file = file || '.mpconfig.jsonc';
+    if (fs.existsSync(file)) {
+        log.error(TITLE, colors.red('file (' + file + ') already exists!'), 'Please delete it to regenerate.')
+        log.error(TITLE, colors.red('配置文件 (' + file + ') 已存在!'), '可删除后重新生成。')
+    } else {
+        conf.$schema = 'https://miniprogram-build.newfuture.cc/config.schema.json';
+        const str = JSON.stringify(conf, undefined, 4);
+        fs.writeFileSync(file, str);
+        log.info(TITLE, colors.green('file `' + file + '` is generated!'))
+        log.info(TITLE, colors.green('配置文件 `' + file + '` 已生成!'))
+    }
 }
 
 module.exports.load = loadConfig;
@@ -83,7 +98,7 @@ module.exports.default = {
     src: 'src',
     dist: 'dist',
     assets: 'assets',
-    exclude: '',
+    exclude: [],
     copy: '',
     tsconfig: '',
     var: {

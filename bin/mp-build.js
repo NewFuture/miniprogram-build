@@ -101,5 +101,11 @@ var argv = require("yargs")
 
 Object.assign(config.default, argv, { $0: undefined, _: undefined });
 
-const tasks = require("../src/task")
-tasks.$execute(argv._.length === 0 ? ["dev"] : argv._);
+// console.log(argv['config'])
+if (argv._.length === 1 && argv._[0] === "init") {
+    config.save(config.default);
+} else {
+    const tasks = require("../src/task")
+    tasks.$execute(argv._.length === 0 ? ["dev"] : argv._);
+}
+

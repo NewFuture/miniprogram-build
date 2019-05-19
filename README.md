@@ -39,6 +39,7 @@ Short Alias [短名称]: `mp` 或 `mp-build`
 
 ```
 dev      build and watch <构建和检测文件修改>
+init     create config file <创建配置文件>
 watch    watch file changes <监测文件变化>
 build    clean and compile <清理和编译所有文件>
 clean    remove all files in dist <清理dist>
@@ -104,6 +105,11 @@ npx miniprogram-build compile --var.APP_ID=1234567
         "APP_ID": "all {{APP_ID}} in json/ts files will replaced by this value"
     }
 }
+```
+
+可使用`init`命令生成配置文件
+```bash
+npx miniprogram-build init
 ```
 
 ### 完整命令和参数 commands & options
