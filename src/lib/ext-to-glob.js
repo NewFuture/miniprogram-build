@@ -30,5 +30,5 @@ module.exports = function (config, exts, includeAssets) {
         var a = path.join(config.src, config.assets).replace(/\\/g, '/') + '/**/*';
         glob.push(includeAssets ? a : '!' + a);
     }
-    return glob;
+    return glob.filter(v => v);
 }

@@ -3,12 +3,12 @@
 var path = require("path");
 var gulp = require("gulp");
 // var sourcemaps = require("gulp-sourcemaps");
-const rename = require("gulp-rename");
+// const rename = require("gulp-rename");
 
 const sass = require("../lib/sass");
 const cleanCSS = require("../lib/clean-css");
 var inline = require("../lib/inline");
-var empty = require("../lib/empty");
+// var empty = require("../lib/empty");
 var wxssImporter = require("../lib/wxss-importer");
 var replace = require("../lib/multi-replace");
 var error = require("../log/error");
