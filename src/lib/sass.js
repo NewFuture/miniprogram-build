@@ -6,6 +6,7 @@ const through = require('through2');
 // const applySourceMap = require('vinyl-sourcemaps-apply');
 const PluginError = require('./error');
 
+const EXT_NAME = ".wxss";
 /**
  * 替换后缀名
  * @param {string} file 
@@ -33,7 +34,7 @@ const gulpSass = (options, sync) => through.obj((file, enc, cb) => { // eslint-d
   }
 
   if (!file.contents.length) {
-    file.path = replaceExtension(file.path, '.css'); // eslint-disable-line no-param-reassign
+    file.path = replaceExtension(file.path, EXT_NAME); // eslint-disable-line no-param-reassign
     return cb(null, file);
   }
 
@@ -100,13 +101,13 @@ const gulpSass = (options, sync) => through.obj((file, enc, cb) => { // eslint-d
       sassMap.sources = sassMap.sources.filter(src => src !== 'stdin' && src);
 
       // Replace the map file with the original file name (but new extension)
-      sassMap.file = replaceExtension(sassFileSrc, '.css');
+      sassMap.file = replaceExtension(sassFileSrc, EXT_NAME);
       // Apply the map
       // applySourceMap(file, sassMap);
     }
 
     file.contents = sassObj.css; // eslint-disable-line no-param-reassign
-    file.path = replaceExtension(file.path, '.css'); // eslint-disable-line no-param-reassign
+    file.path = replaceExtension(file.path, EXT_NAME); // eslint-disable-line no-param-reassign
 
     cb(null, file);
   };

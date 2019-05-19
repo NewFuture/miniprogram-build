@@ -126,7 +126,7 @@ function compileScss(config, scssFile) {
             }),
         )
         // .pipe(config.release ? empty() : sourcemaps.write())
-        .pipe(rename({ extname: ".wxss" }))
+        // .pipe(rename({ extname: ".wxss" }))
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }));
 }
