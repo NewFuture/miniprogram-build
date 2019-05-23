@@ -1,0 +1,9 @@
+{
+    "description": "项目配置文件",
+    "packOptions": {
+        "ignore": [],
+    },
+    "compileType": "miniprogram",
+    "libVersion": "2.7.0",
+    "projectname": "{{PROJECT_NAME}}",
+}
