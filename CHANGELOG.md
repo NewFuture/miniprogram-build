@@ -1,3 +1,27 @@
+# [6.2.0-beta](https://github.com/NewFuture/miniprogram-build/compare/v6.1.1...v6.2.0-beta) (2019-05-23)
+
+
+### Features
+
+* **clean:** keep project.config.json when clean ([1095bd0](https://github.com/NewFuture/miniprogram-build/commit/1095bd0))
+
+
+
+## [6.1.1](https://github.com/NewFuture/miniprogram-build/compare/v6.1.0...v6.1.1) (2019-05-19)
+
+
+### Bug Fixes
+
+* **cli:** defer task ([969976a](https://github.com/NewFuture/miniprogram-build/commit/969976a))
+* **wxss:** empty glob ([f8ac579](https://github.com/NewFuture/miniprogram-build/commit/f8ac579))
+
+
+### Features
+
+* **init:** 生成配置文件命令 ([9a91f07](https://github.com/NewFuture/miniprogram-build/commit/9a91f07))
+
+
+
 # [6.1.0](https://github.com/NewFuture/miniprogram-build/compare/v6.0.5...v6.1.0) (2019-05-18)
 
 
@@ -5,7 +29,6 @@
 
 * **config:** load twice  yargs/yargs[#1346](https://github.com/NewFuture/miniprogram-build/issues/1346) ([ab5a53e](https://github.com/NewFuture/miniprogram-build/commit/ab5a53e))
 
-* **wxss:** `border rpx`
 
 
 ## [6.0.5](https://github.com/NewFuture/miniprogram-build/compare/v6.0.4...v6.0.5) (2019-05-17)
@@ -157,7 +180,11 @@
 
 
 
-## [4.0.1](https://github.com/NewFuture/miniprogram-build/compare/3.6.0...v4.0.1) (2019-03-03)
+## [4.0.1](https://github.com/NewFuture/miniprogram-build/compare/v4.0.0...v4.0.1) (2019-03-03)
+
+
+
+# [4.0.0](https://github.com/NewFuture/miniprogram-build/compare/3.6.0...v4.0.0) (2019-03-03)
 
 
 
