@@ -1,7 +1,7 @@
 ///@ts-check
 "use strict";
 
-const UNITS = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 
 /**
  * 
@@ -14,13 +14,13 @@ function prettyBytes(number) {
     }
 
     if (number < 1) {
-        const numberString = number.toLocaleString(number, true);
+        const numberString = number.toLocaleString();
         return numberString + ' B';
     }
 
     const exponent = Math.min(Math.floor(Math.log10(number) / 3), UNITS.length - 1);
     number = Number((number / (1000 ** exponent)).toPrecision(3));
-    const numberString = number.toLocaleString(number, true);
+    const numberString = number.toLocaleString();
 
     const unit = UNITS[exponent];
 
