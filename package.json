@@ -62,8 +62,8 @@
         "json5": "^2.1.0",
         "mime": "^2.4.3",
         "rimraf": "^2.6.3",
-        "rollup": "^1.12.2",
-        "sass": "^1.20.1",
+        "rollup": "^1.13.1",
+        "sass": "^1.20.3",
         "through2": "^3.0.1",
         "ts-transform-paths": "^2.0.0",
         "yargs": "^13.2.4"
@@ -84,6 +84,6 @@
     "devDependencies": {
         "conventional-changelog-cli": "^2.0.21",
         "tslib": "^1.9.3",
-        "typescript": "^3.4.3"
+        "typescript": "^3.5.1"
     }
 }
