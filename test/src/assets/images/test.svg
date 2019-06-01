@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<!--测试复杂的SVG格式-->
+    <path d="M10,10 H90 L50,70" fill="#0f0"/>
+    <text y='90' id="<>">
+       "  " '' # % # {}  “’ &quot; &quot; &apos;&apos; # % # {} xxx % &amp; ¿ 🔣
+    </text>
+</svg>
