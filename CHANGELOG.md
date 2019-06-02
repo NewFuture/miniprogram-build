@@ -1,3 +1,16 @@
+## [6.2.2](https://github.com/NewFuture/miniprogram-build/compare/v6.2.1...v6.2.2) (2019-05-25)
+
+
+
+## [6.2.1](https://github.com/NewFuture/miniprogram-build/compare/v6.2.0-beta...v6.2.1) (2019-05-24)
+
+
+### Features
+
+* **filezie:** fix uint ([20ff619](https://github.com/NewFuture/miniprogram-build/commit/20ff619))
+
+
+
 # [6.2.0-beta](https://github.com/NewFuture/miniprogram-build/compare/v6.1.1...v6.2.0-beta) (2019-05-23)
 
 
@@ -180,11 +193,7 @@
 
 
 
-## [4.0.1](https://github.com/NewFuture/miniprogram-build/compare/v4.0.0...v4.0.1) (2019-03-03)
-
-
-
-# [4.0.0](https://github.com/NewFuture/miniprogram-build/compare/3.6.0...v4.0.0) (2019-03-03)
+## [4.0.1](https://github.com/NewFuture/miniprogram-build/compare/3.6.0...v4.0.1) (2019-03-03)
 
 
 
