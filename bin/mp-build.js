@@ -79,7 +79,7 @@ var argv = require("yargs")
     .command(cb("wxs"), cd(`compile wxs/wxts to \`wxs\` ${odc("<编译生成wxs>")}`))
     .command(cb("wxts"), cd(`compile WeiXinTypeScript to \`wxs\` ${odc("<编译wxts>")}`))
     .command(cb("wxjs"), cd(`compile wxs as JavaScript ${odc("<编译wxs>")}`))
-    .command(cb("wxss"), cd(`compile scss/sass/css/wxss to \`.wxss\` ${odc("<编译生成wxss>")}`))
+    .command(cb("wxss"), cd(`compile scss/sass/css/wxss/stylus to \`.wxss\` ${odc("<编译生成wxss>")}`))
     .command(cb("wxml"), cd(`compile html/wxml files to \`.wxml\` ${odc("<编译生成wxml>")}`))
     .command(cb("json"), cd(`compile all json/jsonc files to json ${odc("<编译生成json>")}`))
     .command(cb("image"), cd(`compresse all images in source to dist ${odc("<压缩所有图片>")}`))
@@ -91,7 +91,7 @@ var argv = require("yargs")
     .command(cw("wxs-watch"), cd(`watch changes of .wxs/.wxts ${odc("<监测.wxs/.wxts>")}`))
     .command("wxts-watch", false) //"watch changes of .wxts files ${odc("<监测wxts改动>"
     .command("wxjs-watch", false) //"watch changes of .wxs files ${odc("<监测wxs改动>"
-    .command(cw("wxss-watch"), cd(`watch changes of scss/sass/css/wxss ${odc("<实时生成wxss>")}`))
+    .command(cw("wxss-watch"), cd(`watch changes of scss/sass/css/wxss/stylus ${odc("<实时生成wxss>")}`))
     .command(cw("wxml-watch"), cd(`watch changes of html/wxml files ${odc("<实时生成wxml>")}`))
     .command(cw("json-watch"), cd(`watch changes of all json/jsonc files ${odc("<实时生成json>")}`))
     .command(cw("image-watch"), cd(`watch changes of all images in source ${odc("<实时压缩图片>")}`))
@@ -108,4 +108,3 @@ if (argv._.length === 1 && argv._[0] === "init") {
     const tasks = require("../src/task")
     tasks.$execute(argv._.length === 0 ? ["dev"] : argv._);
 }
-

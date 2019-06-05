@@ -6,6 +6,7 @@ var gulp = require('gulp');
 var extToSrc = require('../lib/ext-to-glob');
 var unlink = require('../lib/unlink');
 var compileWxss = require('../compiler/compile-wxss');
+var compileStylus = require('../compiler/compile-stylus');
 var watchLog = require('../log/watch');
 
 var WXSS_EXTS = ['scss', 'sass', 'css', 'wxss'];
@@ -14,6 +15,7 @@ var WXSS_EXTS = ['scss', 'sass', 'css', 'wxss'];
  * @param {object} config
  */
 function compile(config) {
+    compileStylus(config, extToSrc(config, ['stylus', 'styl']))
     return compileWxss(config, extToSrc(config, WXSS_EXTS));
 }
 
@@ -40,6 +42,7 @@ exports.watch = function (config) {
         if (isAsset(file, config)) {
             return compile(config);//依赖资源文件更改全部编译
         } else {
+            compileStylus(config, file)
             return compileWxss(config, file);
         }
     };

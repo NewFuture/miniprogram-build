@@ -94,7 +94,7 @@ module.exports = function importer(url, prev, done) {
         // 引用的 node_modules 再次引用其他文件
         const file = path.resolve(path.dirname(prev), url);
         return { file: syncFile(file) }
-    } else if (url.endsWith(".wxss") && !fs.existsSync(url + '.scss') && !fs.existsSync(url + '.css') && !fs.existsSync(url + '.sass')) {
+    } else if (url.endsWith(".wxss") && !fs.existsSync(url + '.scss') && !fs.existsSync(url + '.css') && !fs.existsSync(url + '.sass') && !fs.existsSync(url + '.styl') && !fs.existsSync(url + '.stylus')) {
         // 引用本地wxss 并保持不变
         // keep import 
         // console.log(url);
