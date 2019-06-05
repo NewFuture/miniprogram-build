@@ -46,7 +46,7 @@ clean    remove all files in dist <清理dist>
 compile  compile all source files to dist <编译所有源文件>
 js       compile ts/js files to `.js` <编译生成js>
 wxs      compile wxts/wxs files to `.wxs` <编译生成wxs>
-wxss     compile scss/sass/css/wxss to `.wxss` <编译生成wxss>
+wxss     compile scss/sass/css/wxss/stylus to `.wxss` <编译生成wxss>
 wxml     compile html/wxml files to `.wxml` <编译生成wxml>
 json     compile all json/jsonc files to `.json` <编译生成json>
 image    compresse all images in source to dist <压缩所有图片>
@@ -175,6 +175,7 @@ npx miniprogram-build init
 -   [x] 显示报错位置
 -   [x] break errors
 -   [ ] cache
+-   [ ] compile stylus
 
 ## test examples
 
