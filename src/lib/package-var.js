@@ -1,7 +1,7 @@
 ///@ts-check
 'use strict';
 const npm = require('./npm-dependency');
-const logger = require('../log/logger');
+const logger = require('../common').logger;
 
 const REG_VAR = /\{\{package.([\w\d]*?)\}\}/g;
 

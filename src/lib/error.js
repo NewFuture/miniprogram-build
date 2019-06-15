@@ -2,7 +2,7 @@
 'use strict';
 
 var util = require('util');
-var colors = require('ansi-colors');
+const colors = require('../common').colors;
 
 /**
  * 

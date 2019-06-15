@@ -1,7 +1,7 @@
 ///@ts-check
 'use strict';
-var colors = require('ansi-colors');
-var log = require('../log/logger');
+var colors = require('../common').colors;
+var log = require('../common').logger;
 
 /**
  * @param {string} name

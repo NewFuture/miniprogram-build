@@ -1,6 +1,6 @@
 ///@ts-check
 'use strict';
-var log = require('../log/logger');
+var log = require('../common').logger;
 
 
 module.exports = function () {

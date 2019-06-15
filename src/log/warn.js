@@ -2,7 +2,7 @@
 "use strict";
 const colors = require("ansi-colors");
 const color = require("./color");
-const log = require("./logger");
+const log = require('../common').logger;
 
 /**
  * @param {string} TITLE

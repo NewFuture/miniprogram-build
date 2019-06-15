@@ -4,9 +4,9 @@ var path = require('path');
 
 var gulp = require('gulp');
 var fs = require('fs');
-var colors = require('ansi-colors');
+var colors = require('../common').colors;;
 
-var log = require('../log/logger');
+var log = require('../common').logger;
 const color = require('../log/color');
 
 var unlink = require('../lib/unlink');

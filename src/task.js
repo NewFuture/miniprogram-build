@@ -1,26 +1,38 @@
 ///@ts-check
 'use strict';
 
-var gulp = require('gulp');
-var colors = require('ansi-colors');
-var path = require('path');
+// import path from 'path';
+// import gulp from 'gulp';
+const path = require('path');
+const gulp = require('gulp');
 
-var taskLog = require('./log/task-log');
-var error = require('./log/error');
-var rainbow = require('./log/rainbow');
+// import { colors, defaultConfig as $config } from "./common";
+const colors = require('./common').colors;
+const $config = require('./common').defaultConfig;
 
-var typescript = require('./tasks/typescript');
-var javascript = require('./tasks/javascript');
-var wxts = require('./tasks/wxts');
-var wxss = require('./tasks/wxss');
-var json = require('./tasks/json');
-var wxml = require('./tasks/wxml');
-var image = require('./tasks/image');
-var npm = require('./tasks/npm');
-var copy = require('./tasks/copy');
-var clean = require('./tasks/clean');
 
-const $config = require('./config').default;
+// import taskLog from './log/task-log';
+// import error from './log/error';
+// import rainbow from './log/rainbow';
+
+
+const taskLog = require('./log/task-log');
+const error = require('./log/error');
+const rainbow = require('./log/rainbow');
+
+const typescript = require('./tasks/typescript');
+const javascript = require('./tasks/javascript');
+const wxts = require('./tasks/wxts');
+const wxss = require('./tasks/wxss');
+const json = require('./tasks/json');
+const wxml = require('./tasks/wxml');
+const image = require('./tasks/image');
+const npm = require('./tasks/npm');
+const copy = require('./tasks/copy');
+const clean = require('./tasks/clean');
+
+// const colors = common.colors;
+// const $config = common.config;
 
 exports.$gulp = gulp;
 /**

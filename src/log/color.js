@@ -1,6 +1,6 @@
 ///@ts-check
 "use strict";
-const colors = require('ansi-colors');
+const colors = require('../common').colors;
 
 const availableColors = [
     "cyanBright",

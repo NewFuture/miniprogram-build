@@ -1,7 +1,7 @@
 ///@ts-check
 "use strict";
-var colors = require("ansi-colors");
-var log = require("./logger");
+var colors = require('../common').colors;
+var log = require('../common').logger;
 const color = require("./color");
 
 /**
@@ -21,8 +21,8 @@ module.exports = function (TITLE) {
             colors.bgRed(err.message),
             "\n",
             //@ts-ignore
-            colors.red.underline(err.fileName||err.relativePath),
-            "\n" + (skip ? '' : err.stack ? (err.stack + '\n' + err) : JSON.stringify(err, null, 2).substring(0,2000))
+            colors.red.underline(err.fileName || err.relativePath),
+            "\n" + (skip ? '' : err.stack ? (err.stack + '\n' + err) : JSON.stringify(err, null, 2).substring(0, 2000))
         );
         if (skip) {
             return this.emit("end", err);

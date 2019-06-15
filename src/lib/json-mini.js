@@ -2,7 +2,7 @@
 'use strict';
 
 var through2 = require('through2');
-var json5 = require('json5');
+var json5 = require('../common').json5;
 
 /**
  * 

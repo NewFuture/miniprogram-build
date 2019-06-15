@@ -5,9 +5,9 @@ const path = require('path');
 const through = require('through2');
 const PluginError = require('../lib/error');
 const prettyBytes = require('./pretty-bytes');
-const chalk = require('ansi-colors');
 const imagemin = require('imagemin');
-const log = require('../log/logger');
+const chalk = require('../common').colors;
+const log = require('../common').logger;
 const color = require('../log/color');
 
 const PLUGIN_NAME = 'image';
@@ -68,7 +68,7 @@ module.exports = (plugins, options) => {
 
 		if (!validExts.includes(path.extname(file.path).toLowerCase())) {
 			if (options.verbose) {
-				log(`${PLUGIN_NAME}: Skipping unsupported image ${chalk.blue(file.relative)}`);
+				log.log(`${PLUGIN_NAME}: Skipping unsupported image ${chalk.blue(file.relative)}`);
 			}
 
 			cb(null, file);
@@ -92,7 +92,7 @@ module.exports = (plugins, options) => {
 				}
 
 				if (options.verbose) {
-					log(color(`${PLUGIN_NAME}:`), chalk.underline(file.relative), chalk.gray(` (${msg})`));
+					log.log(color(`${PLUGIN_NAME}:`), chalk.underline(file.relative), chalk.gray(` (${msg})`));
 				}
 
 				file.contents = data;
@@ -101,8 +101,8 @@ module.exports = (plugins, options) => {
 			.catch(error => {
 				cb(new PluginError(PLUGIN_NAME, error, { fileName: file.path }));
 			});
-	}, cb => {
-		this.percent = totalBytes > 0 ? (totalSavedBytes / totalBytes) * 100 : 0;
+	}, (cb)=>{
+		// this.percent = totalBytes > 0 ? (totalSavedBytes / totalBytes) * 100 : 0;
 		// let msg = `Minified ${totalFiles} ${plur('image', totalFiles)}`;
 
 		// if (totalFiles > 0) {

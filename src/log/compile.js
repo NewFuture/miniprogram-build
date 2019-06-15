@@ -4,9 +4,9 @@
 const path = require('path');
 const through = require('through2');
 // const stringifyObject = require('stringify-object');
-const chalk = require('ansi-colors');
+const chalk = require('../common').colors;
 const titleColor = require('./color');
-const fancyLog = require('./logger');
+const fancyLog = require('../common').logger;;
 
 const inputStyle = chalk.cyan.bold.underline;
 function outputStyle(str) {

@@ -2,9 +2,9 @@
 'use strict';
 var through = require('through2');
 var path = require('path');
-var colors = require('ansi-colors');
+var colors = require('../common').colors;
 
-var log = require('../log/logger');
+var log = require('../common').logger;
 var TITLE = 'replace:'
 
 /**

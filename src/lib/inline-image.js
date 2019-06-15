@@ -8,7 +8,7 @@ var colors = require("ansi-colors");
 const imagemin = require("imagemin");
 
 const imageminPlugin = require("./image-min");
-var fancyLog = require("../log/logger");
+var fancyLog = require('../common').logger;
 
 // Cache regex's
 var rImages = /([\s\S]*?)(url\(([^)]+)\))(?!\s*[;,]?\s*\/\*\s*base64:skip\s*\*\/)|([\s\S]+)/gim;

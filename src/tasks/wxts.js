@@ -3,10 +3,10 @@
 var gulp = require("gulp");
 var fs = require("fs");
 
-var colors = require('ansi-colors');
-var json5 = require('json5');
+var colors = require('../common').colors;;
+var json5 = require('../common').json5;
 
-var log = require('../log/logger');
+var log = require('../common').logger;
 const color = require('../log/color');
 
 var compileWxts = require("../compiler/compile-wxts");

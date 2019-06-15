@@ -2,14 +2,14 @@
 "use strict";
 
 const through = require('through2');
-const chalk = require('ansi-colors');
+const chalk = require('../common').colors;
 const PluginError = require('../lib/error');
 const prettyBytes = require('../lib/pretty-bytes');
 const prettyTime = require('../lib/pretty-time');
 
 const StreamCounter = require('../lib/byte-counter');
 const titleColor = require('./color');
-const fancyLog = require('./logger');
+const fancyLog = require('../common').logger;
 
 
 

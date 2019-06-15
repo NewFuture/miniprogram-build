@@ -15,11 +15,11 @@
         "小程序",
         "微信"
     ],
-    "main": "src/task.js",
+    "main": "dist/task.js",
     "bin": {
-        "miniprogram-build": "bin/mp-build.js",
-        "mp-build": "bin/mp-build.js",
-        "mp": "bin/mp-build.js"
+        "miniprogram-build": "dist/cli.js",
+        "mp-build": "dist/cli.js",
+        "mp": "dist/cli.js"
     },
     "engines": {
         "node": ">=8"
@@ -27,14 +27,19 @@
     "files": [
         "src/",
         "vendor/",
-        "bin/"
+        "dist/"
     ],
     "scripts": {
         "version": "conventional-changelog -r 0 -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
         "prepublishOnly": "conventional-changelog -r 2 -p angular -i CHANGELOG.md -s",
-        "test:empty": "cd test-empty && node ../bin/mp-build.js build && node ../bin/mp-build.js compile --release",
-        "test:empty-ts": "cd test-ts && node ../bin/mp-build.js build && node ../bin/mp-build.js compile --release",
+        "build:common": "rollup -c rollup/common.config.js",
+        "build:task": "rollup -c rollup/task.config.js",
+        "build:cli": "rollup -c rollup/cli.config.js",
+        "build": "npm run build:common && npm run build:task && npm run build:cli",
+        "test:empty": "cd test-empty && node ../dist/cli.js build && node ../dist/cli.js compile --release",
+        "test:empty-ts": "cd test-ts && node ../dist/cli.js build && node ../dist/cli.js compile --release",
         "test:full": "npm test --prefix=test",
+        "pretest": "npm run build",
         "test": "npm run test:empty && npm run test:full && npm run test:empty-ts"
     },
     "repository": {
@@ -52,38 +57,39 @@
     },
     "homepage": "https://github.com/NewFuture/miniprogram-build#readme",
     "dependencies": {
-        "ansi-colors": "^3.2.4",
         "gulp": "^4.0.2",
         "gulp-better-rollup": "^4.0.1",
-        "gulp-rename": "^1.4.0",
         "gulp-sourcemaps": "^2.6.5",
         "gulp-typescript": "^5.0.1",
-        "imagemin": "^6.1.0",
-        "json5": "^2.1.0",
-        "mime": "^2.4.4",
-        "rimraf": "^2.6.3",
-        "rollup": "^1.15.5",
-        "sass": "^1.21.0",
         "through2": "^3.0.1",
-        "ts-transform-paths": "^2.0.0",
-        "yargs": "^13.2.4"
+        "sass": "^1.21.0"
     },
     "optionalDependencies": {
-        "rollup-plugin-typescript": "^1.0.0",
         "rollup-plugin-commonjs": "^10.0.0",
-        "rollup-plugin-node-resolve": "^5.0.0",
         "imagemin-gifsicle": "^6.0.1",
         "imagemin-jpegtran": "^6.0.0",
         "imagemin-optipng": "^7.0.0",
         "imagemin-svgo": "^7.0.0"
     },
     "peerDependencies": {
-        "typescript": ">=2.7.1",
-        "tslib": ">=1.7"
+        "typescript": ">=2.7.1"
     },
     "devDependencies": {
+        "ansi-colors": "^3.2.4",
+        "builtin-modules": "^3.1.0",
         "conventional-changelog-cli": "^2.0.21",
+        "gulp-rename": "^1.4.0",
+        "imagemin": "^6.1.0",
+        "json5": "^2.1.0",
+        "mime": "^2.4.4",
+        "rimraf": "^2.6.3",
+        "rollup": "^1.15.5",
+        "rollup-plugin-json": "^4.0.0",
+        "rollup-plugin-node-resolve": "^5.0.2",
+        "rollup-plugin-typescript": "^1.0.0",
+        "ts-transform-paths": "^2.0.0",
         "tslib": "^1.10.0",
-        "typescript": "^3.5.2"
+        "typescript": "^3.5.2",
+        "yargs": "^13.2.4"
     }
 }

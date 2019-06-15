@@ -1,7 +1,7 @@
 ///@ts-check
 "use strict";
 const path = require('path');
-const chalk = require('ansi-colors');
+const chalk = require('../common').colors;
 const through = require('through2');
 // const applySourceMap = require('vinyl-sourcemaps-apply');
 const PluginError = require('./error');

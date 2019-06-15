@@ -22,9 +22,9 @@
 // }
 
 const rm = require('rimraf');
-const colors = require('ansi-colors');
+const colors = require('../common').colors;
 // var path = require('path');
-const log = require('../log/logger')
+const log = require('../common').logger;
 module.exports = function (src, dist, suffix) {
     /**
      * @param {string} file
