@@ -60,10 +60,10 @@
         "gulp-typescript": "^5.0.1",
         "imagemin": "^6.1.0",
         "json5": "^2.1.0",
-        "mime": "^2.4.3",
+        "mime": "^2.4.4",
         "rimraf": "^2.6.3",
-        "rollup": "^1.13.1",
-        "sass": "^1.20.3",
+        "rollup": "^1.15.5",
+        "sass": "^1.21.0",
         "through2": "^3.0.1",
         "ts-transform-paths": "^2.0.0",
         "yargs": "^13.2.4"
@@ -83,7 +83,7 @@
     },
     "devDependencies": {
         "conventional-changelog-cli": "^2.0.21",
-        "tslib": "^1.9.3",
-        "typescript": "^3.5.1"
+        "tslib": "^1.10.0",
+        "typescript": "^3.5.2"
     }
 }

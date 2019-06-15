@@ -1,3 +1,12 @@
+# [6.3.0](https://github.com/NewFuture/miniprogram-build/compare/v6.2.2...v6.3.0) (2019-06-02)
+
+
+### Performance Improvements
+
+* **wxss-svg:** reduce inline svg encoding size ([#30](https://github.com/NewFuture/miniprogram-build/issues/30)) ([442aae9](https://github.com/NewFuture/miniprogram-build/commit/442aae9))
+
+
+
 ## [6.2.2](https://github.com/NewFuture/miniprogram-build/compare/v6.2.1...v6.2.2) (2019-05-25)
 
 
