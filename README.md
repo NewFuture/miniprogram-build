@@ -58,7 +58,7 @@ npm      build npm dependencies to dist <编译npm依赖>
 
 ```
   --version     show version number <查看本版号>                       [boolean]
-  --release     production mode <发布模式会优化压缩>  [boolean] [default: false]
+  --production  production mode <发布模式会优化压缩>  [boolean] [default: false]
   --src         source folder <源文件目录>           [string] [default: "src"]
   --dist        output folder <编译输出目录>        [string] [default: "dist"]
   --exclude     ignored files <编译忽略文件(夹)>                         [array]
@@ -80,10 +80,11 @@ npm      build npm dependencies to dist <编译npm依赖>
 npx miniprogram-build --config=config.dev.json
 ```
 
-- 使用`config.prod.json`生产环境开启优化重新编译,rebuild for production release with `config.prod.json`
+- 使用`config.prod.json`生产环境开启优化重新编译,rebuild for production with `config.prod.json`
 
+> 如果 `production` 参数未指定, 环境变量中 NODE_ENV 为 `production`或`prod`时同样置为 `true`
 ```bash
-npx miniprogram-build build --config=./config.prod.json --release
+npx miniprogram-build build --config=./config.prod.json --production
 ```
 
 - 编译替换`{{APP_ID}}`为1234567, compile the source and replace template var _{_*{*`APP_ID`*}*_}_ with 123456
@@ -94,7 +95,7 @@ npx miniprogram-build compile --var.APP_ID=1234567
 
 ```json
 {
-    "release": false,
+    "production": false,
     "src": "src",
     "dist": "dist",
     "assets": "assets",

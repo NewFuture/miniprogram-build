@@ -94,7 +94,7 @@ module.exports.auto = autoLoad;
  */
 module.exports.default = {
     // debug: true,
-    release: false,
+    production: false,
     src: 'src',
     dist: 'dist',
     assets: 'assets',

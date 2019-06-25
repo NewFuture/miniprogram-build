@@ -28,11 +28,12 @@ var argv = require("yargs")
     .alias("h", "help")
     .describe("version", od(`show version number ${odc("<查看本版号>")}`))
     .epilog(colors.italic(colors.gray("2018 - " + new Date().getFullYear()) + " " + colors.cyan.dim("@ NewFuture")))
-    .option("release", {
+    .option("production", {
         describe: od(`production mode ${odc("<发布模式会优化压缩>")}`),
-        default: false,
+        default: process.env.NODE_ENV === "production" || process.env.NODE_ENV === "prod",
         boolean: true,
     })
+    .alias("production", "release")
     .option("src", {
         describe: od(`source folder ${odc("<源文件目录>")}`),
         default: "src",
@@ -101,10 +102,13 @@ var argv = require("yargs")
 
 Object.assign(config.default, argv, { $0: undefined, _: undefined });
 
-// console.log(argv['config'])
+console.log(argv['config'])
 if (argv._.length === 1 && argv._[0] === "init") {
     config.save(config.default);
 } else {
+    if (config.default.production) {
+        process.env.NODE_ENV = "production"
+    }
     const tasks = require("../src/task")
     tasks.$execute(argv._.length === 0 ? ["dev"] : argv._);
 }
