@@ -10,7 +10,7 @@ let PLUGINS = undefined;
  * @param {string} [name]
  * @returns {any[]}
  */
-module.exports= function loadPlugins(name) {
+module.exports = function loadPlugins(name) {
     if (PLUGINS) {
         return PLUGINS;
     } else {
@@ -19,10 +19,10 @@ module.exports= function loadPlugins(name) {
     try {
         const replace = require("rollup-plugin-replace");
         PLUGINS.push(replace({
-            'process.env.NODE_ENV': JSON.stringify( 'production' )
+            'process.env.NODE_ENV': process.env.NODE_ENV || 'development'
         }));
     } catch (error) {
-        warn(TITLE,name)(error);
+        warn(TITLE, name)(error);
     }
     try {
         const rollupNodeResolve = require("rollup-plugin-node-resolve");
@@ -33,7 +33,7 @@ module.exports= function loadPlugins(name) {
             }),
         );
     } catch (error) {
-        warn(TITLE,name)(error);
+        warn(TITLE, name)(error);
     }
     try {
         const rollupCommonjs = require("rollup-plugin-commonjs");
@@ -42,7 +42,7 @@ module.exports= function loadPlugins(name) {
             rollupCommonjs({}),
         );
     } catch (error) {
-        warn(TITLE,name)(error);
+        warn(TITLE, name)(error);
     }
 
     return PLUGINS;
