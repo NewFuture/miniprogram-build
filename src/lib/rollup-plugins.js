@@ -19,7 +19,9 @@ module.exports = function loadPlugins(name) {
     try {
         const replace = require("rollup-plugin-replace");
         PLUGINS.push(replace({
-            'process.env.NODE_ENV': process.env.NODE_ENV || 'development'
+            'process.env.NODE_ENV': JSON.stringify(
+                process.env.NODE_ENV || 'development',
+            )
         }));
     } catch (error) {
         warn(TITLE, name)(error);
