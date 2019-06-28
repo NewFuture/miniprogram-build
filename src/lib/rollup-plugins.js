@@ -17,7 +17,14 @@ module.exports = function loadPlugins(name) {
         PLUGINS = [];
     }
     try {
+        const json = require("rollup-plugin-json");
+        PLUGINS.push(json());
+    } catch (error) {
+        warn(TITLE, name)(error);
+    }
+    try {
         const replace = require("rollup-plugin-replace");
+        // @ts-ignore
         PLUGINS.push(replace({
             'process.env.NODE_ENV': JSON.stringify(
                 process.env.NODE_ENV || 'development',
