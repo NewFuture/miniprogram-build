@@ -102,7 +102,6 @@ var argv = require("yargs")
 
 Object.assign(config.default, argv, { $0: undefined, _: undefined });
 
-console.log(argv['config'])
 if (argv._.length === 1 && argv._[0] === "init") {
     config.save(config.default);
 } else {
