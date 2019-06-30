@@ -58,7 +58,7 @@
         "gulp-rename": "^1.4.0",
         "gulp-sourcemaps": "^2.6.5",
         "gulp-typescript": "^5.0.1",
-        "imagemin": "^6.1.0",
+        "imagemin": "^7.0.0",
         "json5": "^2.1.0",
         "mime": "^2.4.4",
         "rimraf": "^2.6.3",
