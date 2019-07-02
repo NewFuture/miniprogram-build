@@ -4,11 +4,11 @@
     "type": "object",
     "title": "The miniprogram-build config json schema",
     "properties": {
-        "release": {
-            "$id": "#/properties/release",
+        "production": {
+            "$id": "#/properties/production",
             "type": "boolean",
             "title": "Release Optimization Mode",
-            "description": "是否开启发布优化",
+            "description": "是否开启发布优化，等效 NODE_ENV=production",
             "default": false,
             "examples": [false, true]
         },
