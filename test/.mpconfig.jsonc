@@ -3,6 +3,7 @@
     "var": {
         "APP_ID": "123456", //APPID
         "VERSION": "{{package.version}}",
-        "Vx": "{{packa}}"
+        "Vx": "{{packa}}",
+        "THEME_COLOR": "#fcc",
     },
 }

@@ -7,17 +7,22 @@ app.scss
 @import "./wxss/npm.wxss"; // keep as wxss
 @import "./assets/b.wxss"; // import scss
 @import "./assets/a";
+
+$primary-color: {{THEME_COLOR}};
+
 .t{
-    background: 
+    background:
         url(./assets/images/arrow-up.svg);
     width: 20rpx;
 }
 
 view{
-    background: 
+    background:
     url('./assets/images/test.svg');
+    background-color: lighten($primary-color, 50%);
     width: calc(99% -5rpx);
     display: flex;
+    color: '{{THEME_COLOR}}';
 }
 
 .x{
