@@ -46,7 +46,8 @@ function compileScss(config, scssFile) {
                 distExt: ".wxss",
             }),
         )
-        .pipe(replace(pkgVar(config.var), undefined, "{{", "}}"))
+        .pipe(replace(pkgVar(config.var), undefined, "\"{{", "}}\""))
+        .pipe(replace(pkgVar(config.var), undefined, "'{{", "}}'"))
         .pipe(
             sass({
                 ///@ts-ignore
