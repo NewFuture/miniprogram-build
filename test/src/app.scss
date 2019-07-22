@@ -7,17 +7,24 @@ app.scss
 @import "./wxss/npm.wxss"; // keep as wxss
 @import "./assets/b.wxss"; // import scss
 @import "./assets/a";
+
+
 .t{
-    background: 
-        url(./assets/images/arrow-up.svg);
+    background:
+    url(./assets/images/arrow-up.svg);
     width: 20rpx;
 }
 
+$primary-color: '{{THEME_COLOR}}';
+$secondary-color: "{{THEME_COLOR}}";
+
 view{
-    background: 
-    url('./assets/images/test.svg');
+    background: lighten($secondary-color, 90%)
+      url('./assets/images/test.svg');
+    background-color: mix($primary-color, #000);
     width: calc(99% -5rpx);
     display: flex;
+    color: '{{THEME_COLOR}}';
 }
 
 .x{

@@ -11,6 +11,7 @@ var inline = require("../lib/inline");
 // var empty = require("../lib/empty");
 var wxssImporter = require("../lib/wxss-importer");
 var replace = require("../lib/multi-replace");
+const pkgVar = require('../lib/package-var');
 var error = require("../log/error");
 const debug = require("../log/compile");
 const size = require("../log/size");
@@ -45,6 +46,8 @@ function compileScss(config, scssFile) {
                 distExt: ".wxss",
             }),
         )
+        .pipe(replace(pkgVar(config.var), undefined, "\"{{", "}}\""))
+        .pipe(replace(pkgVar(config.var), undefined, "'{{", "}}'"))
         .pipe(
             sass({
                 ///@ts-ignore

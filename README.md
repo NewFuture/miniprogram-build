@@ -137,6 +137,7 @@ npx miniprogram-build init
     -   [x] compile
         -   `scss`/`sass`
         -   `css`
+    -   [x] replace _{_*{*`VAR_NAME`*}*_}_ (注意: 为了防止 stylelint 报错, 需要将变量用引号包裹起来, 内部会自动去除)
     -   [x] import `node_modules`
     -   [x] sourcemaps
     -   [x] minify (release) / expanded (debug)
