@@ -62,7 +62,7 @@
         "json5": "^2.1.0",
         "mime": "^2.4.4",
         "rimraf": "^2.6.3",
-        "rollup": "^1.15.5",
+        "rollup": "^1.19.4",
         "sass": "^1.21.0",
         "through2": "^3.0.1",
         "ts-transform-paths": "^2.0.0",
