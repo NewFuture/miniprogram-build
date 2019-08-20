@@ -1,6 +1,7 @@
 
 ///@ts-check
 "use strict";
+const fs = require('fs');
 const path = require('path');
 const through = require('through2');
 const PluginError = require('../lib/error');
@@ -13,9 +14,27 @@ const color = require('../log/color');
 const PLUGIN_NAME = 'image';
 const defaultPlugins = ['gifsicle', 'jpegtran', 'optipng', 'svgo'];
 
+function loadDefaultSvgoConfig() {
+	const yaml = require('js-yaml');
+	const FILE = '.svgo.yml';
+	if (fs.existsSync(FILE)) {
+		return yaml.safeLoad(fs.readFileSync(FILE, 'utf8'));
+	}
+	return undefined
+}
 const loadPlugin = (plugin, ...args) => {
 	try {
-		return require(`imagemin-${plugin}`)(...args);
+		const pluginModule = require(`imagemin-${plugin}`);
+		var svgconfig;
+		if (plugin === "svgo" && (svgconfig = loadDefaultSvgoConfig())) {
+			const config = args[0] || {};
+			const svgplugins = svgconfig.plugins || [];
+			return pluginModule(Object.assign({}, svgconfig, config, {
+				plugins: svgplugins.concat(config.plugins || [])
+			}))
+		}
+		return pluginModule(...args);
+
 	} catch (error) {
 		log.error(`${PLUGIN_NAME}: Couldn't load default plugin "${plugin}"`);
 	}
@@ -52,66 +71,66 @@ module.exports = (plugins, options) => {
 	let totalSavedBytes = 0;
 
 	return through.obj(
-	// 	{
-	// 	maxConcurrency: 8
-	// }, 
-	(file, enc, cb) => {
-		if (file.isNull()) {
-			cb(null, file);
-			return;
-		}
-
-		if (file.isStream()) {
-			cb(new PluginError(PLUGIN_NAME, 'Streaming not supported'));
-			return;
-		}
-
-		if (!validExts.includes(path.extname(file.path).toLowerCase())) {
-			if (options.verbose) {
-				log(`${PLUGIN_NAME}: Skipping unsupported image ${chalk.blue(file.relative)}`);
+		// 	{
+		// 	maxConcurrency: 8
+		// },
+		(file, enc, cb) => {
+			if (file.isNull()) {
+				cb(null, file);
+				return;
 			}
 
-			cb(null, file);
-			return;
-		}
+			if (file.isStream()) {
+				cb(new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+				return;
+			}
 
-		const use = plugins || getDefaultPlugins();
-
-		imagemin.buffer(file.contents, { plugins:use })
-			.then(data => {
-				const originalSize = file.contents.length;
-				const optimizedSize = data.length;
-				const saved = originalSize - optimizedSize;
-				const percent = originalSize > 0 ? (saved / originalSize) * 100 : 0;
-				const savedMsg = `saved ${prettyBytes(saved)} - ${percent.toFixed(1).replace(/\.0$/, '')}%`;
-				const msg = saved > 0 ? savedMsg : 'already optimized';
-
-				if (saved > 0) {
-					totalBytes += originalSize;
-					totalSavedBytes += saved;
-				}
-
+			if (!validExts.includes(path.extname(file.path).toLowerCase())) {
 				if (options.verbose) {
-					log(color(`${PLUGIN_NAME}:`), chalk.underline(file.relative), chalk.gray(` (${msg})`));
+					log(`${PLUGIN_NAME}: Skipping unsupported image ${chalk.blue(file.relative)}`);
 				}
 
-				file.contents = data;
 				cb(null, file);
-			})
-			.catch(error => {
-				cb(new PluginError(PLUGIN_NAME, error, { fileName: file.path }));
-			});
-	}, cb => {
-		this.percent = totalBytes > 0 ? (totalSavedBytes / totalBytes) * 100 : 0;
-		// let msg = `Minified ${totalFiles} ${plur('image', totalFiles)}`;
+				return;
+			}
 
-		// if (totalFiles > 0) {
-		// 	msg += chalk.gray(` (saved ${prettyBytes(totalSavedBytes)} - ${percent.toFixed(1).replace(/\.0$/, '')}%)`);
-		// }
+			const use = plugins || getDefaultPlugins();
 
-		// log(`${PLUGIN_NAME}:`, msg);
-		cb();
-	});
+			imagemin.buffer(file.contents, { plugins: use })
+				.then(data => {
+					const originalSize = file.contents.length;
+					const optimizedSize = data.length;
+					const saved = originalSize - optimizedSize;
+					const percent = originalSize > 0 ? (saved / originalSize) * 100 : 0;
+					const savedMsg = `saved ${prettyBytes(saved)} - ${percent.toFixed(1).replace(/\.0$/, '')}%`;
+					const msg = saved > 0 ? savedMsg : 'already optimized';
+
+					if (saved > 0) {
+						totalBytes += originalSize;
+						totalSavedBytes += saved;
+					}
+
+					if (options.verbose) {
+						log(color(`${PLUGIN_NAME}:`), chalk.underline(file.relative), chalk.gray(` (${msg})`));
+					}
+
+					file.contents = data;
+					cb(null, file);
+				})
+				.catch(error => {
+					cb(new PluginError(PLUGIN_NAME, error, { fileName: file.path }));
+				});
+		}, cb => {
+			this.percent = totalBytes > 0 ? (totalSavedBytes / totalBytes) * 100 : 0;
+			// let msg = `Minified ${totalFiles} ${plur('image', totalFiles)}`;
+
+			// if (totalFiles > 0) {
+			// 	msg += chalk.gray(` (saved ${prettyBytes(totalSavedBytes)} - ${percent.toFixed(1).replace(/\.0$/, '')}%)`);
+			// }
+
+			// log(`${PLUGIN_NAME}:`, msg);
+			cb();
+		});
 };
 
 module.exports.getDefaultPlugins = getDefaultPlugins;
