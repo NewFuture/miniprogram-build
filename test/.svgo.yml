@@ -1,0 +1,132 @@
+# replace default config
+
+# multipass: true
+# full: true
+
+plugins:
+    # - name
+    #
+    # or:
+    # - name: false
+    # - name: true
+    #
+    # or:
+    # - name:
+    #     param1: 1
+    #     param2: 2
+    - addAttributesToSVGElement: false
+    - addClassesToSVGElement: false
+    - removeScriptElement: true
+    - removeStyleElement: true
+    - removeUselessDefs: true
+    - cleanupAttrs
+    - cleanupEnableBackground
+    - cleanupIDs:
+          force: true
+    - cleanupListOfValues
+    - cleanupNumericValues
+    - collapseGroups
+    - convertColors
+    - convertEllipseToCircle
+    - convertPathData
+    - convertShapeToPath
+    - convertStyleToAttrs
+    - convertTransform
+    - inlineStyles: true
+    - mergePaths: true
+    - minifyStyles
+    - moveElemsAttrsToGroup
+    - moveGroupAttrsToElems
+    - prefixIds
+    - removeAttributesBySelector
+    - removeAttrs:
+          attrs:
+              - "data-.*"
+              - "class"
+    - removeComments
+    - removeDesc
+    - removeDimensions: true
+    - removeDoctype
+    - removeEditorsNSData
+    - removeElementsByAttr
+
+    - removeMetadata
+    - removeNonInheritableGroupAttrs
+    - removeOffCanvasPaths: true
+    - removeRasterImages: true
+
+    - removeTitle
+    - removeUnknownsAndDefaults
+    - removeUnusedNS
+    - removeUselessStrokeAndFill
+    - removeViewBox
+    - removeXMLNS
+    - removeXMLProcInst
+
+    - removeEmptyAttrs
+    - removeEmptyText
+    - removeHiddenElems: true
+
+    - removeEmptyContainers: true
+    - reusePaths: true
+
+    - sortAttrs: true
+    - sortDefsChildren: true
+      # - removeDoctype
+      # - removeXMLProcInst
+      # - removeComments
+      # - removeMetadata
+      # - removeXMLNS: false
+      # - removeEditorsNSData
+      # - cleanupAttrs
+      # - inlineStyles
+      # - minifyStyles
+      # - convertStyleToAttrs
+      # - cleanupIDs
+      # - prefixIds
+      # - removeRasterImages
+      # - removeUselessDefs
+      # - cleanupNumericValues
+      # - cleanupListOfValues
+      # - convertColors
+      # - removeUnknownsAndDefaults
+      # - removeNonInheritableGroupAttrs
+      # - removeUselessStrokeAndFill
+      # - removeViewBox
+      # - cleanupEnableBackground
+      # - removeHiddenElems
+      # - removeEmptyText
+      # - convertShapeToPath
+      # - convertEllipseToCircle
+      # - moveElemsAttrsToGroup
+      # - moveGroupAttrsToElems
+      # - collapseGroups
+      # - convertPathData
+      # - convertTransform
+      # - removeEmptyAttrs
+      # - removeEmptyContainers
+      # - mergePaths
+      # - removeUnusedNS
+      # - sortAttrs
+      # - sortDefsChildren
+      # - removeTitle
+      # - removeDesc
+      # - removeDimensions
+      # - removeAttrs
+      # - removeAttributesBySelector
+      # - removeElementsByAttr
+      # - addClassesToSVGElement
+      # - removeStyleElement
+      # - removeScriptElement
+      # - addAttributesToSVGElement
+      # - removeOffCanvasPaths
+      # - reusePaths
+      # - transformsWithOnePath
+
+# configure the indent (default 4 spaces) used by `--pretty` here:
+#
+# @see https://github.com/svg/svgo/blob/master/lib/svgo/js2svg.js#L6 for more config options
+#
+# js2svg:
+#  pretty: true
+#  indent: '  '

@@ -290,6 +290,7 @@ exports.getDataURI = function (img) {
     if ("image/svg+xml" === mimeType) {
         // ret += ";charset=UTF-8,";
         return imagemin([img], {
+            glob:false,
             plugins: [imageminPlugin.svgo({
                 js2svg: {
                     attrStart: "='",
@@ -315,9 +316,12 @@ exports.getDataURI = function (img) {
         // ret += ";base64,";
         // ret += img.toString("base64");
         return imagemin([img], {
+            glob:false,
             plugins: imageminPlugin.getDefaultPlugins(),
         })
-            .then(f => f[0].data.toString("base64"))
+            .then(f => {
+                f[0].data.toString("base64")
+        })
             .then(data => `"data:${mimeType};base64,${data}"`);
     }
 };

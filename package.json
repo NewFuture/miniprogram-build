@@ -63,7 +63,7 @@
         "mime": "^2.4.4",
         "rimraf": "^3.0.0",
         "rollup": "^1.19.4",
-        "sass": "^1.21.0",
+        "sass": "^1.22.10",
         "through2": "^3.0.1",
         "ts-transform-paths": "^2.0.0",
         "yargs": "^14.0.0"
@@ -84,8 +84,8 @@
         "tslib": ">=1.7"
     },
     "devDependencies": {
-        "conventional-changelog-cli": "^2.0.21",
+        "conventional-changelog-cli": "^2.0.23",
         "tslib": "^1.10.0",
-        "typescript": "^3.5.2"
+        "typescript": "^3.5.3"
     }
 }
