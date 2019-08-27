@@ -1,6 +1,7 @@
 ///@ts-check
 'use strict';
 
+
 var gulp = require('gulp');
 var colors = require('ansi-colors');
 var path = require('path');
@@ -19,6 +20,7 @@ var image = require('./tasks/image');
 var npm = require('./tasks/npm');
 var copy = require('./tasks/copy');
 var clean = require('./tasks/clean');
+var devtool = require('./tasks/devtool');
 
 const $config = require('./config').default;
 
@@ -52,6 +54,13 @@ gulp.task('json', json.build($config));
 gulp.task('image', image.build($config));
 gulp.task('copy', copy.build($config));
 gulp.task('npm', npm.build($config));
+
+//devtool cli
+gulp.task('open', devtool.open)
+gulp.task('close', devtool.close)
+gulp.task('quit', devtool.quit)
+gulp.task('upload', devtool.upload)
+
 
 // watch
 gulp.task('typescript-watch', typescript.watch($config));
