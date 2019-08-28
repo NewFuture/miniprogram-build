@@ -1,8 +1,8 @@
 
 const path = require('path');
+const os = require('os');
 const devtool = require('wechat-devtool');
 const colors = require('ansi-colors');
-
 
 const logger = require('../log/logger');
 const config = require('../config').default;
@@ -24,7 +24,7 @@ exports.open = function () {
 }
 
 exports.close = function () {
-    logger.info(TITLE, 'closing project' + colors.underline.gray(config.dist))
+    logger.info(TITLE, 'closing project ' + colors.underline.gray(config.dist))
     return devtool.cli('--close', path.resolve(config.dist))
         .then(function (res) {
             if (res.stderr) {
@@ -43,7 +43,7 @@ exports.quit = function () {
     return devtool.cli('--quit', path.resolve(config.dist))
         .then(function (res) {
             if (res.stderr) {
-                errLog({ name: '微信开发工具调用出错', message: res.stderr.trim() });
+                errLog({ name: 'fail to call wechatdevtools CLI', message: res.stderr.trim() });
             } else {
                 return new Promise(resolve => setTimeout(resolve, 3000));
             }
@@ -54,7 +54,31 @@ exports.quit = function () {
 }
 
 exports.upload = function () {
-    logger.info(TITLE, 'uploading project')
+    const version = devtool.getPkgVersion() || '0.0.0';
+    const uploadProject = version + '@' + path.resolve(config.dist);
+    logger.info(TITLE, 'uploading project: ' + colors.underline(uploadProject))
+    const logPath = path.join(os.tmpdir(), 'mplog-' + version + '-' + Date.now() + '.json')
+
+    return devtool.getCommitMsg()
+        .then(function (message) {
+            message = (message || process.env.npm_package_description || '').trim('').substr(0, 2048)
+            logger.info(TITLE, colors.gray(message.split('\n', 1)[0]))
+            return devtool.cli('--upload', uploadProject, '--upload-info-output', logPath, '--upload-desc', encodeURI(message))
+        })
+        .then(function (res) {
+            if (res.stderr) {
+                errLog({ name: 'fail to upload prject ' + uploadProject, message: res.stderr.trim() });
+            } else {
+                const size = require(logPath).size.total;
+                logger.info(
+                    TITLE,
+                    colors.green.bold('√ ') +
+                    colors.green(config.dist + ' 上传成功 !')
+                    + colors.gray(' (') + colors.bold.magentaBright(size + ' KB') + colors.gray(')')
+                );
+                // require('rimraf')(logPath);
+            }
+        })
 }
 
 // gulp.task('close', () => devtool.cli('--close', $config.dist).then(() => new Promise(resolve => setTimeout(resolve, 3000))));
