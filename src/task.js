@@ -57,11 +57,14 @@ gulp.task('npm', npm.build($config));
 
 //devtool cli
 gulp.task('open', devtool.open);
+gulp.task('try-open', devtool.tryOpen)
 gulp.task('close', devtool.close);
 gulp.task('quit', devtool.quit);
 gulp.task('upload', devtool.upload);
-gulp.task('auto-preview',devtool.autopreview)
-gulp.task('autopreview',devtool.autopreview)
+gulp.task('auto-preview', devtool.autopreview)
+gulp.task('autopreview', devtool.autopreview)
+
+
 
 
 // watch
@@ -97,7 +100,7 @@ gulp.task('watch', gulp.series(
 );
 
 //开发模式
-gulp.task('dev', gulp.series('build', 'watch'));
+gulp.task('dev', gulp.series('quit', 'clean', 'compile', gulp.parallel('try-open', 'watch')));
 
 gulp.on('error', console.trace);
 gulp.on('error', error('gulp'));

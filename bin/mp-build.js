@@ -92,9 +92,9 @@ var argv = require("yargs")
     .command(c("upload"), cd(`upload dist project ${odc("<上传小程序>")}`))
     .command(c("open"), cd(`open dist in wechat devtool ${odc("<开发工具中打开项目>")}`))
     .command(c("close"), cd(`close dist in Wechat devtool ${odc("<开发工具中关闭项目>")}`))
-    .command(c("auto-preview"), cd(`auto-preview project ${odc("<自动预览当前项目>")}`))
-    .command(c("autopreview"), false)
-    .command(c("quit"), cd(`quit Wechat devtool ${odc("<退出开发工具>")}`))
+    .command(c("quit"), cd(`quit Wechat devtool ${odc("<退出微信开发工具>")}`))
+    .command(c("autopreview"), cd(`auto-preview project ${odc("<当前项目发布自动预览>")}`))
+    .command(c("auto-preview"), false)
 
     .command(cw("js-watch"), cd(`watch changes of ts/js files ${odc("<监测ts/js改动>")}`))
     .command("typescript-watch", false) //"watch changes of ts files ${odc("<监测ts改动>"
