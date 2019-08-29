@@ -78,9 +78,11 @@ exports.quit = function () {
                         return new Promise(resolve => setTimeout(resolve, 3000));
                     }
                 }).then(function (res) {
-                    logger.info(TITLE, successIcon, colors.green('已经退出并关闭微信开发工具'));
+                    logger.info(TITLE, successIcon, colors.green('已关闭并退出微信开发工具'));
                     return res;
                 });
+        } else {
+            logger.info(TITLE, colors.gray('[skip] 跳过退出项目'));
         }
     });
 }
