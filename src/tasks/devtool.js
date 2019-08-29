@@ -1,4 +1,6 @@
 
+///@ts-check
+"use strict";
 const path = require('path');
 const os = require('os');
 const devtool = require('wechat-devtool');
@@ -15,13 +17,14 @@ const errLog = require('../log/error')(RAW_TITLE);
  * 打开项目
  */
 exports.open = function () {
-    logger.info(TITLE, 'opening project ' + colors.underline.gray(config.dist))
+    logger.info(TITLE, colors.cyan('open'), 'project in', colors.underline(config.dist))
     return devtool.cli('--open', path.resolve(config.dist))
         .then(function (res) {
             if (res.stderr) {
                 errLog({ name: '开发工具打开项目出错', message: res.stderr.trim() });
             } else {
-                logger.info(TITLE, '[√] 已经打开项目' + config.dist)
+                logger.info(TITLE, colors.green('√ 已经使用微信开发工具自动打开此项目'));
+                logger.info(TITLE, colors.gray(' 可切换至开发工具窗口进行调试 :)'));
             }
         });
 }
@@ -30,7 +33,8 @@ exports.open = function () {
  * 关闭项目
  */
 exports.close = function () {
-    logger.info(TITLE, 'closing project ' + colors.underline.gray(config.dist))
+    logger.info(TITLE, colors.cyan('close'), 'project in', colors.underline(config.dist))
+    logger.info(TITLE, colors.gray('正在关闭... (3s 内请勿点击开发者工具)'))
     return exports.isOpenPort().then(function (isOpen) {
         if (isOpen) {
             return devtool.cli('--close', path.resolve(config.dist))
@@ -41,7 +45,7 @@ exports.close = function () {
                         return new Promise(resolve => setTimeout(resolve, 3000));
                     }
                 }).then(function (res) {
-                    logger.info(TITLE, '[√] 已经关闭项目 ' + config.dist);
+                    logger.info(TITLE, colors.green('√ 已在微信开发工具中关闭此项目'));
                     return res;
                 });
         }
@@ -53,7 +57,8 @@ exports.close = function () {
  * 退出
  */
 exports.quit = function () {
-    logger.info(TITLE, 'quit...')
+    logger.info(TITLE, colors.cyan('quit...'))
+    logger.info(TITLE, colors.gray('正在退出... (3s 内请勿点击开发者工具)'))
     return exports.isOpenPort().then(function (isOpen) {
         if (isOpen) {
             return devtool.cli('--quit', path.resolve(config.dist))
@@ -64,25 +69,44 @@ exports.quit = function () {
                         return new Promise(resolve => setTimeout(resolve, 3000));
                     }
                 }).then(function (res) {
-                    logger.info(TITLE, '[√] 已经退出微信开发工具');
+                    logger.info(TITLE, colors.green('√ 已经退出并关闭微信开发工具'));
                     return res;
                 });
         }
     });
 }
 
+function getSize(path) {
+    try {
+        const size = require(path).size.total;
+        let color;
+        if (size < 512) {
+            color = colors.green;
+        } else if (size < 1024) {
+            color = colors.magentaBright
+        } else if (size < 1536) {
+            color = colors.bold.yellowBright
+        } else {
+            color = colors.bold.red
+        }
+        return colors.gray('(') + color(size + ' KB') + colors.gray(')');
+    } catch (err) {
+        logger.error(TITLE, err);
+        return colors.dim.yellowBright('[unknown size]');
+    }
+}
 /**
  * 上传
  */
 exports.upload = function () {
     const version = devtool.getPkgVersion() || '0.0.0';
     const uploadProject = version + '@' + path.resolve(config.dist);
-    logger.info(TITLE, 'uploading project: ' + colors.underline(uploadProject))
+    logger.info(TITLE, colors.cyan('upload'), 'project in', colors.underline(uploadProject));
     const logPath = path.join(os.tmpdir(), 'mplog-' + version + '-' + Date.now() + '.json')
 
     return devtool.getCommitMsg()
         .then(function (message) {
-            message = (message || process.env.npm_package_description || '').trim('').substr(0, 2048)
+            message = (message || process.env.npm_package_description || '').trim().substr(0, 2048)
             logger.info(TITLE, colors.gray(message.split('\n', 1)[0]))
             return devtool.cli('--upload', uploadProject, '--upload-info-output', logPath, '--upload-desc', encodeURI(message))
         })
@@ -90,13 +114,13 @@ exports.upload = function () {
             if (res.stderr) {
                 errLog({ name: 'fail to upload prject ' + uploadProject, message: res.stderr.trim() });
             } else {
-                const size = require(logPath).size.total;
                 logger.info(
                     TITLE,
-                    colors.green.bold('√ ') +
-                    colors.green(config.dist + ' 上传成功 !')
-                    + colors.gray(' (') + colors.bold.magentaBright(size + ' KB') + colors.gray(')')
+                    colors.green.bold('√'),
+                    colors.green('成功上传此项目至微信小程序后台!')
+                    , getSize(logPath)
                 );
+                logger.info(TITLE, colors.gray('(多人开发时,可能需要管理员选定体验版)'))
                 // require('rimraf')(logPath);
             }
         })
@@ -107,16 +131,22 @@ exports.upload = function () {
  */
 exports.autopreview = function () {
     //cli --auto-preview /Users/username/demo --auto-preview-info-output /Users/username/info.json
-    logger.info(TITLE, 'auto preview project: ' + config.dist)
-    return devtool.cli('--auto-preview', path.resolve(config.dist))
+    logger.info(TITLE, colors.cyan('auto preview'), 'project in', colors.underline(config.dist));
+    const logPath = path.resolve(os.tmpdir(), 'mp-preview-log.' + Date.now() + '.json');
+    return devtool.cli('--auto-preview', path.resolve(config.dist), '--auto-preview-info-output', logPath)
         .then(function (res) {
             if (res.stderr) {
                 errLog({ name: 'fail to call wechatdevtools CLI', message: res.stderr.trim() });
-            } else {
-                return new Promise(resolve => setTimeout(resolve, 3000));
             }
         }).then(function (res) {
-            logger.info(TITLE, '[√] 已更新');
+            logger.info(
+                TITLE,
+                colors.green.bold('√'),
+                colors.green('已通过开发工具成功发布自动预览!'),
+                getSize(logPath)
+            );
+            logger.info(TITLE, colors.gray(' 请打开手机微信（或在电脑端微信）上查看预览 :)'));
+            require('rimraf')(logPath, function () { });
             return res;
         });
 }
@@ -137,23 +167,9 @@ function warnNotInstelled() {
  * 是否安装
  */
 exports.isCliInstalled = function () {
-    return devtool.getCLIPath(function (path) {
+    return devtool.getCLIPath().then(function (path) {
         if (!path) {
-            warnNotInstelled()
-        }
-    }).catch(() => {
-        warnNotInstelled();
-        return false;
-    })
-}
-
-/**
- * 是否安装
- */
-exports.isCliInstalled = function () {
-    return devtool.getCLIPath(function (path) {
-        if (!path) {
-            warnNotInstelled()
+            warnNotInstelled();
         }
         return !!path;
     }).catch(() => {
@@ -165,7 +181,7 @@ exports.isCliInstalled = function () {
  * 是否安装
  */
 exports.isOpenPort = function () {
-    return devtool.getPort(function (port) {
+    return devtool.getPort().then(function (port) {
         if (!port) {
             logger.warn(TITLE, '[skip] 微信开发工具端口未开启或启动 已自动跳过...');
         }

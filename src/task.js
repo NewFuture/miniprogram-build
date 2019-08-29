@@ -56,10 +56,12 @@ gulp.task('copy', copy.build($config));
 gulp.task('npm', npm.build($config));
 
 //devtool cli
-gulp.task('open', devtool.open)
-gulp.task('close', devtool.close)
-gulp.task('quit', devtool.quit)
-gulp.task('upload', devtool.upload)
+gulp.task('open', devtool.open);
+gulp.task('close', devtool.close);
+gulp.task('quit', devtool.quit);
+gulp.task('upload', devtool.upload);
+gulp.task('auto-preview',devtool.autopreview)
+gulp.task('autopreview',devtool.autopreview)
 
 
 // watch
