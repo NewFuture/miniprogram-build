@@ -1,7 +1,7 @@
 # [miniprogram-build](https://github.com/NewFuture/miniprogram-build)
 
-[![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build) 
-[![Build Status](https://travis-ci.com/NewFuture/miniprogram-build.svg?branch=master)](https://travis-ci.com/NewFuture/miniprogram-build) 
+[![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build)
+[![Build Status](https://travis-ci.com/NewFuture/miniprogram-build.svg?branch=master)](https://travis-ci.com/NewFuture/miniprogram-build)
 [![Greenkeeper badge](https://badges.greenkeeper.io/NewFuture/miniprogram-build.svg)](https://greenkeeper.io/)
 [![cnpm version](https://npm.taobao.org/badge/v/miniprogram-build.svg)](https://npm.taobao.org/package/miniprogram-build)
 
@@ -13,11 +13,13 @@
 
 ![task flow](https://user-images.githubusercontent.com/6290356/56422894-43b87500-62dc-11e9-816c-24992b90f691.png)
 
+> 注: **自动预览功能需要安装[微信开发工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)并打开`端口设置`**
+
 ## 使用 Usage
 
 ### 立即尝试 quick start
 
-查看全部命令 show all commands (需要npm >= 5.2)
+查看全部命令 show all commands (需要 npm >= 5.2)
 
 ```
 npx miniprogram-build -h
@@ -38,20 +40,27 @@ Short Alias [短名称]: `mp` 或 `mp-build`
 #### 命令 Commands:
 
 ```
-dev      build and watch <构建和检测文件修改>
-init     create config file <创建配置文件>
-watch    watch file changes <监测文件变化>
-build    clean and compile <清理和编译所有文件>
-clean    remove all files in dist <清理dist>
-compile  compile all source files to dist <编译所有源文件>
-js       compile ts/js files to `.js` <编译生成js>
-wxs      compile wxts/wxs files to `.wxs` <编译生成wxs>
-wxss     compile scss/sass/css/wxss to `.wxss` <编译生成wxss>
-wxml     compile html/wxml files to `.wxml` <编译生成wxml>
-json     compile all json/jsonc files to `.json` <编译生成json>
-image    compresse all images in source to dist <压缩所有图片>
-copy     copy all files match `copy` to dist <复制需要复制的文件>
-npm      build npm dependencies to dist <编译npm依赖>
+dev         build and watch <构建和检测文件修改>
+init        create config file <创建配置文件>
+build       clean and compile <清理和编译所有文件>
+watch       watch file changes <监测文件变化>
+compile     compile all source files to dist <编译所有源文件>
+clean       remove all files in dist <清理dist>
+
+upload      upload current project <上传项目>
+open        open project in devtool <打开项目>
+autopreview auto-preview project <当前项目发布自动预览>
+close       close dist in Wechat devtool <开发工具中关闭项目>
+quit        quit Wechat devtool <退出微信开发工具>
+
+js          compile ts/js files to `.js` <编译生成js>
+wxs         compile wxts/wxs files to `.wxs` <编译生成wxs>
+wxss        compile scss/sass/css/wxss to `.wxss` <编译生成wxss>
+wxml        compile html/wxml files to `.wxml` <编译生成wxml>
+json        compile all json/jsonc files to `.json` <编译生成json>
+image       compresse all images in source to dist <压缩所有图片>
+copy        copy all files match `copy` to dist <复制需要复制的文件>
+npm         build npm dependencies to dist <编译npm依赖>
 ```
 
 #### 参数 Options:
@@ -83,32 +92,36 @@ npx miniprogram-build --config=config.dev.json
 - 使用`config.prod.json`生产环境开启优化重新编译,rebuild for production with `config.prod.json`
 
 > 如果 `production` 参数未指定, 环境变量中 NODE_ENV 为 `production`或`prod`时同样置为 `true`
+
 ```bash
 npx miniprogram-build build --config=./config.prod.json --production
 ```
 
-- 编译替换`{{APP_ID}}`为1234567, compile the source and replace template var _{_*{*`APP_ID`*}*_}_ with 123456
+- 编译替换`{{APP_ID}}`为 1234567, compile the source and replace template var _{__{_`APP_ID`_}__}_ with 123456
+
 ```bash
 npx miniprogram-build compile --var.APP_ID=1234567
 ```
+
 ### 默认配置文件 default config
 
 ```json
 {
-    "production": false,
-    "src": "src",
-    "dist": "dist",
-    "assets": "assets",
-    "copy": "",
-    "exclude": [],
-    "tsconfig": "tsconfig.json",
-    "var": {
-        "APP_ID": "all {{APP_ID}} in json/ts files will replaced by this value"
-    }
+  "production": false,
+  "src": "src",
+  "dist": "dist",
+  "assets": "assets",
+  "copy": "",
+  "exclude": [],
+  "tsconfig": "tsconfig.json",
+  "var": {
+    "APP_ID": "all {{APP_ID}} in json/ts files will replaced by this value"
+  }
 }
 ```
 
 可使用`init`命令生成配置文件
+
 ```bash
 npx miniprogram-build init
 ```
@@ -119,64 +132,64 @@ npx miniprogram-build init
 
 ### tips
 
--   CSS npm packags install as devDependences with `npm i -D` (CSS 的 npm 依赖使用`npm i -D`方式安装)
+- CSS npm packags install as devDependences with `npm i -D` (CSS 的 npm 依赖使用`npm i -D`方式安装)
 
 ## Features
 
--   `js`
-    -   [x] compile `TS`
-    -   [x] sourcemaps
-    -   [x] replace _{_*{*`VAR_NAME`*}*_}_
-    -   [x] tree shaking
--   `wxs`
-    -   [x] compile `TS` (`.wxts`)
-    -   [x] replace _{_*{*`VAR_NAME`*}*_}_
-    -   [x] npm support
-    -   [x] tree shaking
--   `wxss`
-    -   [x] compile
-        -   `scss`/`sass`
-        -   `css`
-    -   [x] replace _{_*{*`VAR_NAME`*}*_}_ (注意: 为了防止 stylelint 报错, 需要将变量用引号包裹起来, 内部会自动去除)
-    -   [x] import `node_modules`
-    -   [x] sourcemaps
-    -   [x] minify (release) / expanded (debug)
-    -   [x] inline image
-        -   svg datauri
-        -   png/jpg base64
-        -   image compress
-    -   [x] clean-css
-    -   [x] keep import wxss
-    -   [x] assest folder
--   `wxml`
-    -   [x] `wxml`
-    -   [x] `html`
-    -   [x] copy rename
-    -   [x] error report
--   `JSON`
-    -   [x] comments (添加注释)
-    -   [x] trailing comma
-    -   [x] minify
-    -   [x] replace _{_*{*`VAR_NAME`*}*_}_
--   miniprogram npm
-    -   [x] rollup js lib
-    -   [x] components
--   resource
-    -   [x] copy/src
-    -   [x] image compress
-    -   [x] error report
--   console verbose
-    -   [x] all files
-    -   [x] file size
+- `js`
+  - [x] compile `TS`
+  - [x] sourcemaps
+  - [x] replace _{__{_`VAR_NAME`_}__}_
+  - [x] tree shaking
+- `wxs`
+  - [x] compile `TS` (`.wxts`)
+  - [x] replace _{__{_`VAR_NAME`_}__}_
+  - [x] npm support
+  - [x] tree shaking
+- `wxss`
+  - [x] compile
+    - `scss`/`sass`
+    - `css`
+  - [x] replace _{__{_`VAR_NAME`_}__}_ (注意: 为了防止 stylelint 报错, 需要将变量用引号包裹起来, 内部会自动去除)
+  - [x] import `node_modules`
+  - [x] sourcemaps
+  - [x] minify (release) / expanded (debug)
+  - [x] inline image
+    - svg datauri
+    - png/jpg base64
+    - image compress
+  - [x] clean-css
+  - [x] keep import wxss
+  - [x] assest folder
+- `wxml`
+  - [x] `wxml`
+  - [x] `html`
+  - [x] copy rename
+  - [x] error report
+- `JSON`
+  - [x] comments (添加注释)
+  - [x] trailing comma
+  - [x] minify
+  - [x] replace _{__{_`VAR_NAME`_}__}_
+- miniprogram npm
+  - [x] rollup js lib
+  - [x] components
+- resource
+  - [x] copy/src
+  - [x] image compress
+  - [x] error report
+- console verbose
+  - [x] all files
+  - [x] file size
 
 ## Todo
 
--   [x] exclude path
--   [x] multi watcher
--   [x] config
--   [x] 显示报错位置
--   [x] break errors
--   [ ] cache
+- [x] exclude path
+- [x] multi watcher
+- [x] config
+- [x] 显示报错位置
+- [x] break errors
+- [ ] cache
 
 ## test examples
 
