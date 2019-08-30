@@ -5,6 +5,7 @@ const colors = require("ansi-colors");
 const config = require("../src/config");
 
 function cb(str) { return colors.cyanBright.bold(str) }
+function c(str) { return colors.greenBright.bold(str) }
 function cw(str) { return colors.magentaBright.bold(str) }
 function cd(str) { return colors.cyan.italic(str) }
 function od(str) { return colors.italic(str) }
@@ -72,6 +73,7 @@ var argv = require("yargs")
     .command("init", cd(`create config file ${odc("<创建配置文件>")}`))
     .command(cb("build"), cd(`clean and compile ${odc("<清理和编译所有文件>")}`))
     .command(cw("watch"), cd(`watch file changes ${odc("<监测文件变化>")}`))
+
     .command(cb("clean"), cd(`remove all files in dist ${odc("<清理dist>")}`))
     .command(cb("compile"), cd(`compile all source files to dist ${odc("<编译所有源文件>")}`))
     .command(cb("js"), cd(`compile ts/js files to \`.js\` ${odc("<编译生成js>")}`))
@@ -86,6 +88,14 @@ var argv = require("yargs")
     .command(cb("image"), cd(`compresse all images in source to dist ${odc("<压缩所有图片>")}`))
     .command(cb("copy"), cd(`copy all files match \`copy\` ${odc("<复制需要复制的文件>")}`))
     .command(cb("npm"), cd(`build npm dependencies to dist ${odc("<编译npm依赖>")}`))
+
+    .command(c("upload"), cd(`upload dist project ${odc("<上传小程序>")}`))
+    .command(c("open"), cd(`open dist in wechat devtool ${odc("<开发工具中打开项目>")}`))
+    .command(c("close"), cd(`close dist in Wechat devtool ${odc("<开发工具中关闭项目>")}`))
+    .command(c("quit"), cd(`quit Wechat devtool ${odc("<退出微信开发工具>")}`))
+    .command(c("autopreview"), cd(`auto-preview project ${odc("<当前项目发布自动预览>")}`))
+    .command(c("auto-preview"), false)
+
     .command(cw("js-watch"), cd(`watch changes of ts/js files ${odc("<监测ts/js改动>")}`))
     .command("typescript-watch", false) //"watch changes of ts files ${odc("<监测ts改动>"
     .command("javascript-watch", false) // "watch changes of js files ${odc("<监测js改动>"

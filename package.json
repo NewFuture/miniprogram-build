@@ -62,10 +62,11 @@
         "json5": "^2.1.0",
         "mime": "^2.4.4",
         "rimraf": "^3.0.0",
-        "rollup": "^1.19.4",
+        "rollup": "^1.20.3",
         "sass": "^1.22.10",
         "through2": "^3.0.1",
         "ts-transform-paths": "^2.0.0",
+        "wechat-devtool": "^1.2.3",
         "yargs": "^14.0.0"
     },
     "optionalDependencies": {
@@ -84,8 +85,10 @@
         "tslib": ">=1.7"
     },
     "devDependencies": {
+        "@types/gulp": "^4.0.6",
+        "@types/rimraf": "^2.0.2",
         "conventional-changelog-cli": "^2.0.23",
         "tslib": "^1.10.0",
-        "typescript": "^3.5.3"
+        "typescript": "^3.6.2"
     }
 }

@@ -1,6 +1,7 @@
 ///@ts-check
 'use strict';
 
+
 var gulp = require('gulp');
 var colors = require('ansi-colors');
 var path = require('path');
@@ -19,6 +20,7 @@ var image = require('./tasks/image');
 var npm = require('./tasks/npm');
 var copy = require('./tasks/copy');
 var clean = require('./tasks/clean');
+var devtool = require('./tasks/devtool');
 
 const $config = require('./config').default;
 
@@ -53,6 +55,18 @@ gulp.task('image', image.build($config));
 gulp.task('copy', copy.build($config));
 gulp.task('npm', npm.build($config));
 
+//devtool cli
+gulp.task('open', devtool.open);
+gulp.task('try-open', devtool.tryOpen)
+gulp.task('close', devtool.close);
+gulp.task('quit', devtool.quit);
+gulp.task('upload', devtool.upload);
+gulp.task('auto-preview', devtool.autopreview)
+gulp.task('autopreview', devtool.autopreview)
+
+
+
+
 // watch
 gulp.task('typescript-watch', typescript.watch($config));
 gulp.task('javascript-watch', javascript.watch($config, ['js']));
@@ -86,7 +100,7 @@ gulp.task('watch', gulp.series(
 );
 
 //开发模式
-gulp.task('dev', gulp.series('build', 'watch'));
+gulp.task('dev', gulp.series('quit', 'clean', 'compile', gulp.parallel('try-open', 'watch')));
 
 gulp.on('error', console.trace);
 gulp.on('error', error('gulp'));

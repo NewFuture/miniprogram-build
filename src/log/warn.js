@@ -22,7 +22,7 @@ module.exports = function(TITLE, sub) {
             if (typeof info === "string" || !info) {
                 log.warn(TITLE, info || "");
             } else {
-                log.warn(TITLE, colors.yellow(info.message || ""), colors.gray.bgYellowBright.bold(info.code || ""));
+                log.warn(TITLE, colors.yellowBright(info.message || ""), colors.gray.bgYellowBright.bold(info.code || ""));
 
                 if (info.loc) {
                     log.warn(
