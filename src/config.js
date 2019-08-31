@@ -39,7 +39,7 @@ function loadConfig(configFile) {
         var config = json5.parse(json);
         // @ts-ignore
         const version = require('../package.json').version;
-        log.info(TITLE, colors.cyan.italic(`v${version}`), 'load config', colors.blue.underline(configFile))
+        log.info(TITLE, colors.cyan.italic.dim(`v${version}`), colors.gray.dim('load config'), colors.gray.bold.underline(configFile))
         const allowedKeys = Object.keys(exports.default);
 
         config = Object.keys(config)

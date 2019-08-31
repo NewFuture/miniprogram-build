@@ -80,7 +80,7 @@ exports.close = function (pass) {
  * 退出
  */
 exports.quit = function (pass) {
-    logger.info(TITLE, startIcon, colors.cyan('quit'), colors.gray('尝试退出微信开发者工具...'))
+    logger.info(TITLE, startIcon, colors.cyan('quit'), 'Wechat Devtools', colors.gray('尝试退出微信开发者工具...'))
     return exports.isOpenPort().then(function (isOpen) {
         if (isOpen) {
             return devtool.cli('--quit', path.resolve(exports.dist))
@@ -130,14 +130,15 @@ function getSize(path) {
  */
 exports.upload = function () {
     const version = devtool.getPkgVersion() || '0.0.0';
-    const uploadProject = version + '@' + path.resolve(exports.dist);
-    logger.info(TITLE, startIcon, colors.cyan('upload'), 'project in', colors.underline(uploadProject));
+    const dist = path.resolve(exports.dist);
+    const uploadProject = version + '@' + dist;
+    logger.info(TITLE, startIcon, colors.cyan('upload'), 'project in', colors.underline(dist));
     const logPath = path.join(os.tmpdir(), 'mplog-' + version + '-' + Date.now() + '.json')
 
     return devtool.getCommitMsg()
         .then(function (message) {
             message = (message || process.env.npm_package_description || '').trim().substr(0, 2048)
-            logger.info(TITLE, colors.gray(message.split('\n', 1)[0]))
+            logger.info(TITLE, colors.gray.bold(version + ':'), colors.dim.gray.underline(message.split('\n', 1)[0]))
             return devtool.cli('--upload', uploadProject, '--upload-info-output', logPath, '--upload-desc', encodeURI(message))
         })
         .then(function (res) {
