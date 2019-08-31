@@ -16,7 +16,17 @@ const TITLE = require('../log/color')(RAW_TITLE);
 const errLog = require('../log/error')(RAW_TITLE);
 
 const startIcon = colors.whiteBright('[►]');
+const warnIcon = colors.yellowBright.bold('[!]');
 const successIcon = colors.green.bold('√');
+
+
+function logSuccess(msg) {
+    logger.info(
+        TITLE,
+        successIcon,
+        colors.green(msg)
+    );
+}
 
 /**
  * 打开项目
@@ -26,63 +36,73 @@ exports.open = function () {
     return devtool.cli('--open', path.resolve(config.dist))
         .then(function (res) {
             if (res.stderr) {
-                errLog({ name: '开发工具打开项目出错', message: res.stderr.trim() });
+                errLog({ name: '无法使用微信开发者工具打开此项目', message: res.stderr});
             } else {
-                logger.info(TITLE, colors.green('√ 已经使用微信开发工具自动打开此项目'));
+                logSuccess('已经使用微信开发工具自动打开此项目')
                 logger.info(TITLE, colors.gray(' 可切换至开发工具窗口进行调试 :)'));
             }
         });
 }
 
+
 /**
  * 关闭项目
  */
-exports.close = function () {
+exports.close = function (pass) {
     logger.info(TITLE, startIcon, colors.cyan('close'), 'project in', colors.underline(config.dist))
     return exports.isOpenPort().then(function (isOpen) {
         if (!isOpen) {
-            logger.warn(TITLE, '[skip] 跳过关闭项目,请打安装[微信开发工具]并打开[端口设置]');
+            logger.warn(TITLE, warnIcon, '跳过关闭项目,请打安装[微信开发工具]并打开[端口设置]');
         } else if (!fs.existsSync(path.resolve(config.dist, 'project.config.json'))) {
-            logger.warn(TITLE, '[skip] 跳过关闭项目,', config.dist + '/project.config.json', '不存在');
+            logger.warn(TITLE, warnIcon, '跳过关闭项目,', config.dist + '/project.config.json', '文件不存在');
         } else {
             return devtool.cli('--close', path.resolve(config.dist))
                 .then(function (res) {
                     if (res.stderr) {
-                        errLog({ name: '微信开发工具关闭项目出错', message: res.stderr.trim() });
+                        if (pass) {
+                            return Promise.reject(res.stderr);
+                        } else {
+                            errLog({ name: '微信开发工具关闭项目出错', message: res.stderr.trim() });
+                        }
                     } else {
                         logger.info(TITLE, colors.gray('正在开发工具中关闭此项目... (3秒内勿对其操作)'))
-                        return new Promise(resolve => setTimeout(resolve, 3000));
+                        return new Promise(resolve => setTimeout(resolve, 3000))
+                            .then(function (res) {
+                                logSuccess('已在微信开发工具中关闭此项目');
+                                return res;
+                            })
                     }
-                }).then(function (res) {
-                    logger.info(TITLE, successIcon, colors.green('已在微信开发工具中关闭此项目'));
-                    return res;
                 });
         }
     })
-
 }
 
 /**
  * 退出
  */
-exports.quit = function () {
+exports.quit = function (pass) {
     logger.info(TITLE, startIcon, colors.cyan('quit'), colors.gray('尝试关闭开发工具...'))
     return exports.isOpenPort().then(function (isOpen) {
         if (isOpen) {
             return devtool.cli('--quit', path.resolve(config.dist))
                 .then(function (res) {
                     if (res.stderr) {
-                        errLog({ name: 'fail to call wechatdevtools CLI', message: res.stderr.trim() });
+                        if (pass) {
+                            return Promise.reject(res.stderr);
+                        } else {
+                            errLog({ name: 'fail to call wechatdevtools CLI', message: res.stderr.trim() });
+                        }
                     } else {
                         logger.info(TITLE, colors.gray('正在退出开发工具... (3秒内勿对其操作)'))
-                        return new Promise(resolve => setTimeout(resolve, 3000));
+                        return new Promise(resolve => setTimeout(resolve, 3000))
+                            .then(function (res) {
+                                logSuccess('已关闭并退出微信开发工具');
+                                return res;
+                            })
                     }
-                }).then(function (res) {
-                    logger.info(TITLE, successIcon, colors.green('已关闭并退出微信开发工具'));
-                    return res;
                 });
         } else {
-            logger.info(TITLE, colors.gray('[skip] 跳过退出项目'));
+            logger.info(TITLE, warnIcon, colors.gray('跳过退出项目'));
         }
     });
 }
@@ -167,10 +187,12 @@ exports.autopreview = function () {
  * 安装提示
  */
 function warnNotInstelled() {
-    logger.warn(TITLE, colors.yellowBright.bold('[!] ') + colors.yellowBright('小程序开发工具未安装'))
-    logger.warn(TITLE, colors.yellowBright('    下载安装 https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html'))
-    logger.warn(TITLE, colors.yellowBright.bold('[!] ') + colors.yellowBright('Wechat devtools not found'))
-    logger.warn(TITLE, colors.yellowBright('    download link https://developers.weixin.qq.com/miniprogram/en/dev/devtools/download.html'))
+    logger.warn(
+        colors.bgRed('\t\t 微信开发者工具未安装 <Wechat devtools not found> '),
+        colors.yellowBright('\n\t\t\t 请手动下载安装工具 <Please install the devtool>:'),
+        colors.yellowBright('\n\tdownload link https://developers.weixin.qq.com/miniprogram/en/dev/devtools/download.html'),
+        colors.yellowBright('\n\t下载和安装链接 https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html')
+        , '\n');
 }
 
 
@@ -216,6 +238,17 @@ exports.tryOpen = function () {
                     colors.bold.magentaBright('[微信开发工具]') + '并' +
                     colors.bold.magentaBright('[打开端口设置]') +
                     ')'));
+        }
+    })
+}
+
+exports.tryQuit = function () {
+    return exports.quit(true).catch(err => {
+        if (err && typeof err === "string") {
+            logger.error(TITLE, warnIcon, 'quit failed !',
+                '\n\t' + colors.yellowBright('微信开发者工具需开启[服务端口] <Wechat devtool [Service Port] should be opened>:'),
+                '\n' + colors.yellowBright(err)
+            );
         }
     })
 }

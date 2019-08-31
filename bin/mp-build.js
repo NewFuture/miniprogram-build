@@ -94,7 +94,9 @@ var argv = require("yargs")
     .command(c("close"), cd(`close dist in Wechat devtool ${odc("<开发工具中关闭项目>")}`))
     .command(c("quit"), cd(`quit Wechat devtool ${odc("<退出微信开发工具>")}`))
     .command(c("autopreview"), cd(`auto-preview project ${odc("<当前项目发布自动预览>")}`))
-    .command(c("auto-preview"), false)
+    .command("auto-preview", false)
+    .command("try-open", false)
+    .command("try-quit", false)
 
     .command(cw("js-watch"), cd(`watch changes of ts/js files ${odc("<监测ts/js改动>")}`))
     .command("typescript-watch", false) //"watch changes of ts files ${odc("<监测ts改动>"

@@ -17,15 +17,17 @@ module.exports = function (TITLE) {
             color(TITLE),
             colors.bold.redBright("[×]"),
             colors.red(err.name),
-            "\n",
+            "\n" +
             colors.bgRed(err.message),
-            "\n",
+            "\n" +
             //@ts-ignore
-            colors.red.underline(err.fileName||err.relativePath),
-            "\n" + (skip ? '' : err.stack ? (err.stack + '\n' + err) : JSON.stringify(err, null, 2).substring(0,2000))
+            colors.red.underline(err.fileName || err.relativePath),
+            "\n" + (skip ? '' : err.stack ? (err.stack + '\n' + err) : JSON.stringify(err, null, 2).substring(0, 2000))
         );
         if (skip) {
-            return this.emit("end", err);
+            if (this && this.emit) {
+                return this.emit("end", err);
+            }
         } else {
             process.exit(1);
         }
