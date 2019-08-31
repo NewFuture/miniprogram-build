@@ -23,6 +23,7 @@ var clean = require('./tasks/clean');
 var devtool = require('./tasks/devtool');
 
 const $config = require('./config').default;
+devtool.dist = $config.dist;
 
 exports.$gulp = gulp;
 /**

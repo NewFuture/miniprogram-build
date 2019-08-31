@@ -58,10 +58,13 @@ function loadConfig(configFile) {
  * 自动读取配置 
  */
 function autoLoad() {
-    // try load default configure file
-    for (var index = 0; index < DEFAULT_CONFIG_FILES.length; index++) {
-        if (fs.existsSync(DEFAULT_CONFIG_FILES[index])) {
-            return loadConfig(DEFAULT_CONFIG_FILES[index]);
+    if (process.argv.indexOf('-c') === -1 && process.argv.indexOf('--config') === -1) {
+        // 未指定配置时才加载
+        // try load default configure file
+        for (var index = 0; index < DEFAULT_CONFIG_FILES.length; index++) {
+            if (fs.existsSync(DEFAULT_CONFIG_FILES[index])) {
+                return loadConfig(DEFAULT_CONFIG_FILES[index]);
+            }
         }
     }
     return {}

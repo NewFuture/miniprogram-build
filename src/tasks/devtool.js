@@ -9,7 +9,6 @@ const devtool = require('wechat-devtool');
 const colors = require('ansi-colors');
 
 const logger = require('../log/logger');
-const config = require('../config').default;
 
 const RAW_TITLE = 'devtool:';
 const TITLE = require('../log/color')(RAW_TITLE);
@@ -32,13 +31,13 @@ function logSuccess(msg) {
  * 打开项目
  */
 exports.open = function () {
-    logger.info(TITLE, startIcon, colors.cyan('open'), 'project in', colors.underline(config.dist))
-    return devtool.cli('--open', path.resolve(config.dist))
+    logger.info(TITLE, startIcon, colors.cyan('open'), 'project in', colors.underline(exports.dist))
+    return devtool.cli('--open', path.resolve(exports.dist))
         .then(function (res) {
             if (res.stderr) {
-                errLog({ name: '无法使用微信开发者工具打开此项目', message: res.stderr});
+                errLog({ name: '无法使用微信开发者工具打开此项目', message: res.stderr });
             } else {
-                logSuccess('已经使用微信开发工具自动打开此项目')
+                logSuccess('已经使用微信开发者工具自动打开此项目')
                 logger.info(TITLE, colors.gray(' 可切换至开发工具窗口进行调试 :)'));
             }
         });
@@ -49,26 +48,26 @@ exports.open = function () {
  * 关闭项目
  */
 exports.close = function (pass) {
-    logger.info(TITLE, startIcon, colors.cyan('close'), 'project in', colors.underline(config.dist))
+    logger.info(TITLE, startIcon, colors.cyan('close'), 'project in', colors.underline(exports.dist))
     return exports.isOpenPort().then(function (isOpen) {
         if (!isOpen) {
-            logger.warn(TITLE, warnIcon, '跳过关闭项目,请打安装[微信开发工具]并打开[端口设置]');
-        } else if (!fs.existsSync(path.resolve(config.dist, 'project.config.json'))) {
-            logger.warn(TITLE, warnIcon, '跳过关闭项目,', config.dist + '/project.config.json', '文件不存在');
+            logger.warn(TITLE, warnIcon, '跳过关闭项目,请打安装[微信开发者工具]并打开[端口设置]');
+        } else if (!fs.existsSync(path.resolve(exports.dist, 'project.config.json'))) {
+            logger.warn(TITLE, warnIcon, '跳过关闭项目,', exports.dist + '/project.config.json', '文件不存在');
         } else {
-            return devtool.cli('--close', path.resolve(config.dist))
+            return devtool.cli('--close', path.resolve(exports.dist))
                 .then(function (res) {
                     if (res.stderr) {
                         if (pass) {
                             return Promise.reject(res.stderr);
                         } else {
-                            errLog({ name: '微信开发工具关闭项目出错', message: res.stderr.trim() });
+                            errLog({ name: '微信开发者工具关闭项目出错', message: res.stderr.trim() });
                         }
                     } else {
                         logger.info(TITLE, colors.gray('正在开发工具中关闭此项目... (3秒内勿对其操作)'))
                         return new Promise(resolve => setTimeout(resolve, 3000))
                             .then(function (res) {
-                                logSuccess('已在微信开发工具中关闭此项目');
+                                logSuccess('已在微信开发者工具中关闭此项目');
                                 return res;
                             })
                     }
@@ -84,7 +83,7 @@ exports.quit = function (pass) {
     logger.info(TITLE, startIcon, colors.cyan('quit'), colors.gray('尝试关闭开发工具...'))
     return exports.isOpenPort().then(function (isOpen) {
         if (isOpen) {
-            return devtool.cli('--quit', path.resolve(config.dist))
+            return devtool.cli('--quit', path.resolve(exports.dist))
                 .then(function (res) {
                     if (res.stderr) {
                         if (pass) {
@@ -96,7 +95,7 @@ exports.quit = function (pass) {
                         logger.info(TITLE, colors.gray('正在退出开发工具... (3秒内勿对其操作)'))
                         return new Promise(resolve => setTimeout(resolve, 3000))
                             .then(function (res) {
-                                logSuccess('已关闭并退出微信开发工具');
+                                logSuccess('已关闭并退出微信开发者工具');
                                 return res;
                             })
                     }
@@ -131,7 +130,7 @@ function getSize(path) {
  */
 exports.upload = function () {
     const version = devtool.getPkgVersion() || '0.0.0';
-    const uploadProject = version + '@' + path.resolve(config.dist);
+    const uploadProject = version + '@' + path.resolve(exports.dist);
     logger.info(TITLE, startIcon, colors.cyan('upload'), 'project in', colors.underline(uploadProject));
     const logPath = path.join(os.tmpdir(), 'mplog-' + version + '-' + Date.now() + '.json')
 
@@ -162,9 +161,9 @@ exports.upload = function () {
  */
 exports.autopreview = function () {
     //cli --auto-preview /Users/username/demo --auto-preview-info-output /Users/username/info.json
-    logger.info(TITLE, startIcon, colors.cyan('auto preview'), 'project in', colors.underline(config.dist));
+    logger.info(TITLE, startIcon, colors.cyan('auto preview'), 'project in', colors.underline(exports.dist));
     const logPath = path.resolve(os.tmpdir(), 'mp-preview-log.' + Date.now() + '.json');
-    return devtool.cli('--auto-preview', path.resolve(config.dist), '--auto-preview-info-output', logPath)
+    return devtool.cli('--auto-preview', path.resolve(exports.dist), '--auto-preview-info-output', logPath)
         .then(function (res) {
             if (res.stderr) {
                 errLog({ name: 'fail to call wechatdevtools CLI', message: res.stderr.trim() });
@@ -217,11 +216,11 @@ function isCliInstalled() {
 exports.isOpenPort = function () {
     return devtool.getPort().then(function (port) {
         if (!port) {
-            logger.warn(TITLE, '[skip] 微信开发工具端口未开启或启动 已自动跳过...');
+            logger.warn(TITLE, warnIcon, '[skip]微信开发者工具服务端口未开启或启动 已自动跳过...');
         }
         return port > 0;
     }).catch(() => {
-        logger.warn(TITLE, '[skip] 微信开发工具端口未开启或启动 已自动跳过...');
+        logger.warn(TITLE, warnIcon, '[skip]微信开发者工具服务端口未开启或启动 已自动跳过...');
         return false;
     })
 }
@@ -235,7 +234,7 @@ exports.tryOpen = function () {
                 TITLE,
                 '无法自动打开调试工具!',
                 colors.red('(请先安装' +
-                    colors.bold.magentaBright('[微信开发工具]') + '并' +
+                    colors.bold.magentaBright('[微信开发者工具]') + '并' +
                     colors.bold.magentaBright('[打开端口设置]') +
                     ')'));
         }
@@ -252,3 +251,5 @@ exports.tryQuit = function () {
         }
     })
 }
+
+exports.dist = ''

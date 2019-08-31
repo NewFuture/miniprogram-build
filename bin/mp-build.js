@@ -14,7 +14,7 @@ function ed(str) { return colors.gray(str) }
 
 var argv = require("yargs")
     .scriptName("mp")
-    .usage(colors.whiteBright.bold.inverse("\nWechat MiniProgram build tools <微信小程序编译打包工具>\n"))
+    .usage(colors.whiteBright.inverse.bold("\nWechat MiniProgram build tools <微信小程序编译打包工具>\n"))
     .usage(`${colors.italic("Short Usage")} <短用法>: ${colors.bold.yellowBright("$0")} ${colors.cyanBright("[command...]")} ${colors.italic("[--option]")}`)
     .usage(`${colors.italic("Full Name")} <完整名称>: ${colors.bold.yellowBright("miniprogram-build")} ${colors.cyanBright("[命令...]")} ${colors.italic("[--选项]")}`)
     .example(colors.green.italic("$0 js js-watch"), ed("编译并监测生成js文件"))
@@ -22,13 +22,17 @@ var argv = require("yargs")
     .example(colors.green.italic("$0 --release --var.APP_ID=1234"), ed("优化编译,并替换变量{{APP_ID}}"))
     // configuration
     .pkgConf("mpconfig")
-    .config(config.auto())
     .config("config", od(`JSONC config file ${odc("<配置置文件,命令参数优先级高于配置>")}`), config.load)
+    .config(config.auto())
     .alias("c", "config")
     .help("help", od(`show help ${odc("<显示帮助信息>")}`))
     .alias("h", "help")
     .describe("version", od(`show version number ${odc("<查看本版号>")}`))
-    .epilog(colors.italic(colors.gray("2018 - " + new Date().getFullYear()) + " " + colors.cyan.dim("@ NewFuture")))
+    .epilog(colors.red.bold("♥ ")
+        + colors.italic(colors.gray("2018 - " + new Date().getFullYear()) + colors.cyan.dim(" @NewFuture "))
+        + colors.gray(" → https://github.com/NewFuture/miniprogram-build")
+        + colors.red.bold(" ♥")
+    )
     .option("production", {
         describe: od(`production mode ${odc("<发布模式会优化压缩>")}`),
         default: process.env.NODE_ENV === "production" || process.env.NODE_ENV === "prod",
