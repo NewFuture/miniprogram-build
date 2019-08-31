@@ -17,16 +17,16 @@ var TITLE = 'javascript:';
  * @param {string|string[]} jsFile
  */
 function compilejs(config, jsFile) {
-    return gulp.src(jsFile, { base: config.src, sourcemaps: !config.release })
+    return gulp.src(jsFile, { base: config.src, sourcemaps: !config.production, ignore: config.exclude })
         .pipe(debug({
             title: TITLE,
             // dist: config.dist,
             distExt: '.js'
         }))
-        .pipe(config.release ? empty() : sourcemaps.init())
+        .pipe(config.production ? empty() : sourcemaps.init())
         .pipe(replace(pkgVar(config.var), undefined, "{{", "}}"))
         .on('error', error(TITLE))
-        .pipe(config.release ? empty() : sourcemaps.write())
+        .pipe(config.production ? empty() : sourcemaps.write())
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true, showTotal: true }))
 

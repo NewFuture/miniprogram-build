@@ -14,7 +14,7 @@ function copyTo(config) {
      * @param {string|string[]} file
      */
     return function (file) {
-        return copy(config.dist, file, config.src);
+        return copy(config.dist, file, { base: config.src, ignore: config.exclude });
     }
 }
 
@@ -37,7 +37,7 @@ exports.watch = function (config) {
     return function (cb) {
         if (config.copy) {
             watchLog('copy', config.copy);
-            gulp.watch(extToGlob(config, config.copy), {})
+            gulp.watch(extToGlob(config, config.copy), { ignored: config.exclude })
                 .on('change', copyTo(config))
                 .on('add', copyTo(config))
                 .on('unlink', unlink(config.src, config.dist));

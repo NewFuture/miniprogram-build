@@ -59,7 +59,7 @@ function compileWxts(config, tsFile, tsconfig) {
         warn(TITLE)('' + error);
     }
     return gulp
-        .src(tsFile, { base: config.src, sourcemaps: !config.release })
+        .src(tsFile, { base: config.src, sourcemaps: !config.production, ignore: config.exclude })
         .pipe(
             debug({
                 title: TITLE,
@@ -67,7 +67,7 @@ function compileWxts(config, tsFile, tsconfig) {
                 distExt: ".wxs",
             }),
         )
-        .pipe(config.release ? empty() : sourcemaps.init())
+        .pipe(config.production ? empty() : sourcemaps.init())
         .pipe(
             gulpRollup(
                 {
@@ -87,7 +87,7 @@ function compileWxts(config, tsFile, tsconfig) {
         .on("error", error(TITLE))
         .pipe(rename({ extname: ".wxs" }))
         .pipe(replace(pkgVar(config.var), undefined, "{{", "}}"))
-        .pipe(config.release ? empty() : sourcemaps.write())
+        .pipe(config.production ? empty() : sourcemaps.write())
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }));
 }

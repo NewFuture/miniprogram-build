@@ -13,11 +13,10 @@ const color = require('../log/color');
 exports.build = function (config) {
     return function (cb) {
         const projectJson = path.join(config.dist, 'project.config.json')
-        const appJson = path.join(config.dist, 'app.json')
-        log(color('clean:'),  colors.dim('delete'), colors.bold(config.dist), colors.dim.gray(`[exclude: ${projectJson},${appJson}]`));
+        log(color('clean:'), colors.dim('delete'), colors.bold(config.dist), colors.dim.gray(`[exclude: ${projectJson}]`));
         rm(`${config.dist}/**/*`, {
             glob: {
-                ignore: [projectJson, appJson]
+                ignore: [projectJson]
             }
         }, cb);
         // return (config.dist);

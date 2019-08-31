@@ -17,7 +17,7 @@ var TITLE = "wxml:";
 function compress(config, wxmlsrc) {
     return (
         gulp
-            .src(wxmlsrc, { base: config.src })
+            .src(wxmlsrc, { base: config.src, ignore: config.exclude })
             // .pipe(debug({
             //     title: TITLE,
             //     // dist: config.dist,
@@ -36,7 +36,7 @@ function compress(config, wxmlsrc) {
             //         caseSensitive: true,
             //         collapseWhitespace: true,
             //         collapseBooleanAttributes: false,
-            //         removeComments: config.release,
+            //         removeComments: config.production,
             //         // minifyCSS: true,
             //         keepClosingSlash: true,
             //         html5: true,

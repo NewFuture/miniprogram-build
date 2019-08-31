@@ -10,10 +10,10 @@ var TITLE = 'copy:';
  * 
  * @param {string} dist 
  * @param {string|string[]} file 
- * @param {string} src
+ * @param {{base:string,ignore?:any}} opt
  */
-function copy(dist, file, src) {
-    return gulp.src(file, src ? { base: src } : undefined)
+function copy(dist, file, opt) {
+    return gulp.src(file, opt)
         .pipe(gulp.dest(dist))
         .pipe(size({ title: TITLE, showFiles: true }))
         ;

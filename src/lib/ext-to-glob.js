@@ -4,8 +4,15 @@
 var path = require('path');
 
 /**
+ *
+ * @param {string} glob
+ */
+function wrapExclude(glob) {
+    return glob && /!/.test(glob) ? glob : '!' + glob;
+}
+/**
  * @param {object} config
- * @param {string[]|string} exts 
+ * @param {string[]|string} exts
  * @param {boolean} [includeAssets]
  */
 module.exports = function (config, exts, includeAssets) {
@@ -20,9 +27,9 @@ module.exports = function (config, exts, includeAssets) {
 
     if (config.exclude) {
         if (config.exclude instanceof Array) {
-            glob = glob.concat(config.exclude);
+            glob = glob.concat(config.exclude.map(wrapExclude));
         } else {
-            glob.push(config.exclude);
+            glob.push(wrapExclude(config.exclude));
         }
     }
 

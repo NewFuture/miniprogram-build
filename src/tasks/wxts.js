@@ -14,6 +14,7 @@ var unlink = require("../lib/unlink");
 var extToGlob = require("../lib/ext-to-glob");
 var watchLog = require("../log/watch");
 
+const ts = require('./typescript');
 var WXTS_EXTS = ["wxts"];
 function compile(config, file) {
     var tsconfig = {};
@@ -51,7 +52,7 @@ exports.watch = function (config) {
         var glob = extToGlob(config, WXTS_EXTS);
         watchLog("wxts", glob);
         gulp.watch(glob, {
-            ignored: config.src + "/*/**.d.ts",
+            ignored: ts.pushArrayOrItem(config.exclude, config.src + "/*/**.d.ts"),
         })
             .on("change", function (file) {
                 return compile(config, file);

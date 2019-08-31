@@ -17,14 +17,14 @@ var TITLE = 'json:';
  */
 function replaceJson(config, jsonFile) {
     jsonFile = jsonFile || (config.src + '/**/*.{json,jsonc}');
-    return gulp.src(jsonFile, { base: config.src })
+    return gulp.src(jsonFile, { base: config.src, ignore: config.exclude })
         .pipe(debug({
             title: TITLE,
             // dist: config.dist,
             distExt: '.json'
         }))
         .pipe(rename({ 'extname': '.json' }))
-        .pipe(jsonMini(!config.release))
+        .pipe(jsonMini(!config.production))
         .on('error', err(TITLE))
         .pipe(multiReplace(pkgVar(config.var), undefined, '{{', '}}'))
         .pipe(gulp.dest(config.dist))

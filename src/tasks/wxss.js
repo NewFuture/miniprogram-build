@@ -47,7 +47,7 @@ exports.watch = function (config) {
     return function (cb) {
         var glob = extToSrc(config, WXSS_EXTS, true);
         watchLog('wxss', glob)
-        gulp.watch(glob, {})
+        gulp.watch(glob, { ignored: config.exclude })
             .on('change', update)
             .on('add', update)
             .on('unlink', function (file) {

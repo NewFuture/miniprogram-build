@@ -9,12 +9,12 @@ var TITLE = 'image:';
 /**
  * 
  * @param {string|string[]} imgsrc
- * @param {string} src 
  * @param {string} dist 
+ * @param {{base:string,ignore?:any}} opt
  * 
  */
-function compressImage(imgsrc, src, dist) {
-    return gulp.src(imgsrc, { base: src })
+function compressImage(imgsrc, dist, opt) {
+    return gulp.src(imgsrc, opt)
         // .pipe(debug({ title: 'image:' }))
         .pipe(imagemin({ verbose: true }))
         .on('error', err(TITLE))

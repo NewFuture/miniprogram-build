@@ -32,6 +32,13 @@ exports.build = function (config) {
     }
 };
 
+exports.pushArrayOrItem = function pushArrayOrItem(arr, item) {
+    if (arr instanceof Array) {
+        return arr.slice(0).push(item)
+    } else {
+        return arr ? [arr, item] : [item]
+    }
+}
 /**
  * @param {object} config
  */
@@ -40,8 +47,9 @@ exports.watch = function (config) {
         var glob = extToGlob(config, TS_EXTS);
         watchLog("typescript", glob);
         gulp.watch(glob, {
-            ignored: config.src + "/*/**.d.ts",
+            ignored: exports.pushArrayOrItem(config.exclude, config.src + "/*/**.d.ts"),
         })
+
             .on("change", function (file) {
                 return compileTs(config, file);
             })

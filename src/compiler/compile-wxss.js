@@ -33,12 +33,12 @@ function compileScss(config, scssFile) {
     //     //     ],
     //     // }),
     // ];
-    // if (config.release) {
+    // if (config.production) {
     //     postCssPlgins.push(cssnano());
     // }
     return gulp
-        .src(scssFile, { base: config.src })
-        // .pipe(config.release ? empty() : sourcemaps.init())
+        .src(scssFile, { base: config.src, ignore: config.exclude })
+        // .pipe(config.production ? empty() : sourcemaps.init())
         .pipe(
             debug({
                 title: TITLE,
@@ -71,11 +71,11 @@ function compileScss(config, scssFile) {
             cleanCSS({
                 sourceMap: false,
                 inline: ['none'],
-                format: config.release ? "minify" : "beautify",
+                format: config.production ? "minify" : "beautify",
                 level: {
                     1: {
                         all: true,
-                        specialComments: config.release ? 0 : "all",
+                        specialComments: config.production ? 0 : "all",
                     },
                     2: {
                         restructureRules: true, // controls rule restructuring;
@@ -128,7 +128,7 @@ function compileScss(config, scssFile) {
                 return '@import "' + $2 + '"';
             }),
         )
-        // .pipe(config.release ? empty() : sourcemaps.write())
+        // .pipe(config.production ? empty() : sourcemaps.write())
         // .pipe(rename({ extname: ".wxss" }))
         .pipe(gulp.dest(config.dist))
         .pipe(size({ title: TITLE, showFiles: true }));

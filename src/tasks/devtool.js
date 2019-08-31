@@ -80,7 +80,7 @@ exports.close = function (pass) {
  * 退出
  */
 exports.quit = function (pass) {
-    logger.info(TITLE, startIcon, colors.cyan('quit'), colors.gray('尝试关闭开发工具...'))
+    logger.info(TITLE, startIcon, colors.cyan('quit'), colors.gray('尝试退出微信开发者工具...'))
     return exports.isOpenPort().then(function (isOpen) {
         if (isOpen) {
             return devtool.cli('--quit', path.resolve(exports.dist))
@@ -101,7 +101,7 @@ exports.quit = function (pass) {
                     }
                 });
         } else {
-            logger.info(TITLE, warnIcon, colors.gray('跳过退出项目'));
+            logger.info(TITLE, warnIcon, colors.gray('跳过退出微信开发者'));
         }
     });
 }

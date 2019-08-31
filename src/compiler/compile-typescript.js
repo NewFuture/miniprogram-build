@@ -26,12 +26,12 @@ function compileTS(config, tsFile) {
         getCustomTransformers: (program) => require("ts-transform-paths").default()
     });
 
-    var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: true }) : tsProject.src();
+    var src = tsFile ? gulp.src(tsFile, { base: config.src, sourcemaps: true, ignore: config.exclude }) : tsProject.src();
     //    console.log(tsFile,src)
     return src
         .on("error", error(TITLE))
         .pipe(debug({
-            title: TITLE, 
+            title: TITLE,
             // dist: config.dist,
             distExt: '.js'
         }))

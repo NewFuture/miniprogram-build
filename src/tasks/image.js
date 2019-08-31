@@ -14,7 +14,7 @@ function compress(config) {
      * @param {string|string[]} file
      */
     return function (file) {
-        return compileImage(file, config.src, config.dist);
+        return compileImage(file, config.dist, { base: config.src, ignore: config.exclude });
     }
 }
 
@@ -34,7 +34,7 @@ exports.watch = function (config) {
     return function (cb) {
         var glob = extToGlob(config, IMAGE_EXTS);
         watchLog('image', glob)
-        gulp.watch(glob)
+        gulp.watch(glob, { ignored: config.exclude })
             .on('change', compress(config))
             .on('add', compress(config))
             .on('unlink', unlink(config.src, config.dist));
