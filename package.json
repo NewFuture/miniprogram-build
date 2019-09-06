@@ -1,6 +1,6 @@
 {
     "name": "miniprogram-build",
-    "version": "6.6.6",
+    "version": "6.6.5",
     "description": "A command line tool to build & watch MiniProgram.",
     "keywords": [
         "MiniProgram",

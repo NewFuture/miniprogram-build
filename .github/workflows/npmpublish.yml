@@ -1,33 +1,35 @@
 name: Release NPM
 
-on: [release]
+on: [push, release]
 
 jobs:
     build:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
+            - uses: actions/bin/filter@master
+              with: tag
             - uses: actions/setup-node@v1
               with:
                   node-version: 12
             - run: npm i
             - run: npm test
 
+
+
     publish-npm:
-        needs: build
+        needs: tag
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: 12
-                  registry-url: https://registry.npmjs.org/
-            - run: npm publish
+            - name: publish to npm 
+              uses: actions/npm@master
               env:
+                  NPM_REGISTRY_URL: https://registry.npmjs.org/
                   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
     publish-gpr:
-        needs: build
+        needs: tag
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
@@ -41,11 +43,11 @@ jobs:
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
     github-release:
-        needs: build
+        needs: tag
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
             - name: Create github Release
-              uses: elgohr/Github-Release-Action@v1
+              uses: elgohr/Github-Release-Action@master
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
