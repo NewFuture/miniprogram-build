@@ -1,9 +1,11 @@
 # [miniprogram-build](https://github.com/NewFuture/miniprogram-build)
 
 [![npm version](https://badge.fury.io/js/miniprogram-build.svg)](https://www.npmjs.com/package/miniprogram-build)
+[![cnpm version](https://npm.taobao.org/badge/v/miniprogram-build.svg)](https://npm.taobao.org/package/miniprogram-build)
+
+![Build Status](https://github.com/NewFuture/miniprogram-build/workflows/Node%20CI/badge.svg)
 [![Build Status](https://travis-ci.com/NewFuture/miniprogram-build.svg?branch=master)](https://travis-ci.com/NewFuture/miniprogram-build)
 [![Greenkeeper badge](https://badges.greenkeeper.io/NewFuture/miniprogram-build.svg)](https://greenkeeper.io/)
-[![cnpm version](https://npm.taobao.org/badge/v/miniprogram-build.svg)](https://npm.taobao.org/package/miniprogram-build)
 
 > A command line tool to build & watch MiniProgram. Not a Framework, just a tool.
 >
@@ -83,13 +85,13 @@ npm         build npm dependencies to dist <编译npm依赖>
 
 #### 例子 examples
 
-- 使用配置`config.dev.json`开发调试, dev with `config.dev.json`
+-   使用配置`config.dev.json`开发调试, dev with `config.dev.json`
 
 ```bash
 npx miniprogram-build --config=config.dev.json
 ```
 
-- 使用`config.prod.json`生产环境开启优化重新编译,rebuild for production with `config.prod.json`
+-   使用`config.prod.json`生产环境开启优化重新编译,rebuild for production with `config.prod.json`
 
 > 如果 `production` 参数未指定, 环境变量中 NODE_ENV 为 `production`或`prod`时同样置为 `true`
 
@@ -97,7 +99,7 @@ npx miniprogram-build --config=config.dev.json
 npx miniprogram-build build --config=./config.prod.json --production
 ```
 
-- 编译替换`{{APP_ID}}`为 1234567, compile the source and replace template var _{__{_`APP_ID`_}__}_ with 123456
+-   编译替换`{` `{`__APP_ID__`}` `}`为 1234567, compile the source and replace template var `{` `{`__APP_ID__`}` `}` with 123456
 
 ```bash
 npx miniprogram-build compile --var.APP_ID=1234567
@@ -107,16 +109,16 @@ npx miniprogram-build compile --var.APP_ID=1234567
 
 ```json
 {
-  "production": false,
-  "src": "src",
-  "dist": "dist",
-  "assets": "assets",
-  "copy": "",
-  "exclude": [],
-  "tsconfig": "tsconfig.json",
-  "var": {
-    "APP_ID": "all {{APP_ID}} in json/ts files will replaced by this value"
-  }
+    "production": false,
+    "src": "src",
+    "dist": "dist",
+    "assets": "assets",
+    "copy": "",
+    "exclude": [],
+    "tsconfig": "tsconfig.json",
+    "var": {
+        "APP_ID": "all {{APP_ID}} in json/ts files will replaced by this value"
+    }
 }
 ```
 
@@ -132,64 +134,64 @@ npx miniprogram-build init
 
 ### tips
 
-- CSS npm packags install as devDependences with `npm i -D` (CSS 的 npm 依赖使用`npm i -D`方式安装)
+-   CSS npm packags install as devDependences with `npm i -D` (CSS 的 npm 依赖使用`npm i -D`方式安装)
 
 ## Features
 
-- `js`
-  - [x] compile `TS`
-  - [x] sourcemaps
-  - [x] replace _{__{_`VAR_NAME`_}__}_
-  - [x] tree shaking
-- `wxs`
-  - [x] compile `TS` (`.wxts`)
-  - [x] replace _{__{_`VAR_NAME`_}__}_
-  - [x] npm support
-  - [x] tree shaking
-- `wxss`
-  - [x] compile
-    - `scss`/`sass`
-    - `css`
-  - [x] replace _{__{_`VAR_NAME`_}__}_ (注意: 为了防止 stylelint 报错, 需要将变量用引号包裹起来, 内部会自动去除)
-  - [x] import `node_modules`
-  - [x] sourcemaps
-  - [x] minify (release) / expanded (debug)
-  - [x] inline image
-    - svg datauri
-    - png/jpg base64
-    - image compress
-  - [x] clean-css
-  - [x] keep import wxss
-  - [x] assest folder
-- `wxml`
-  - [x] `wxml`
-  - [x] `html`
-  - [x] copy rename
-  - [x] error report
-- `JSON`
-  - [x] comments (添加注释)
-  - [x] trailing comma
-  - [x] minify
-  - [x] replace _{__{_`VAR_NAME`_}__}_
-- miniprogram npm
-  - [x] rollup js lib
-  - [x] components
-- resource
-  - [x] copy/src
-  - [x] image compress
-  - [x] error report
-- console verbose
-  - [x] all files
-  - [x] file size
+-   `js`
+    -   [x] compile `TS`
+    -   [x] sourcemaps
+    -   [x] replace `{` `{`__VAR_NAME__`}` `}`
+    -   [x] tree shaking
+-   `wxs`
+    -   [x] compile `TS` (`.wxts`)
+    -   [x] replace `{` `{`__VAR_NAME__`}` `}`
+    -   [x] npm support
+    -   [x] tree shaking
+-   `wxss`
+    -   [x] compile
+        -   `scss`/`sass`
+        -   `css`
+    -   [x] replace `{` `{`__VAR_NAME__`}` `}` (注意: 为了防止 stylelint 报错, 需要将变量用引号包裹起来, 内部会自动去除)
+    -   [x] import `node_modules`
+    -   [x] sourcemaps
+    -   [x] minify (release) / expanded (debug)
+    -   [x] inline image
+        -   svg datauri
+        -   png/jpg base64
+        -   image compress
+    -   [x] clean-css
+    -   [x] keep import wxss
+    -   [x] assest folder
+-   `wxml`
+    -   [x] `wxml`
+    -   [x] `html`
+    -   [x] copy rename
+    -   [x] error report
+-   `JSON`
+    -   [x] comments (添加注释)
+    -   [x] trailing comma
+    -   [x] minify
+    -   [x] replace `{` `{`__VAR_NAME__`}` `}`
+-   miniprogram npm
+    -   [x] rollup js lib
+    -   [x] components
+-   resource
+    -   [x] copy/src
+    -   [x] image compress
+    -   [x] error report
+-   console verbose
+    -   [x] all files
+    -   [x] file size
 
 ## Todo
 
-- [x] exclude path
-- [x] multi watcher
-- [x] config
-- [x] 显示报错位置
-- [x] break errors
-- [ ] cache
+-   [x] exclude path
+-   [x] multi watcher
+-   [x] config
+-   [x] 显示报错位置
+-   [x] break errors
+-   [ ] cache
 
 ## test examples
 
