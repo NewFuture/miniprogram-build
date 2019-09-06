@@ -12,6 +12,8 @@ jobs:
                   node-version: 12
             - run: npm i
             - run: npm test
+            - run: '[[ $GITHUB_REF == refs/tags/v* ]] || [[ $GITHUB_REF == refs/tags/V* ]]'
+            - run: 'sed -i "s/^\(\W*version\W*\).*\(\W,\)$/\1${GITHUB_REF:11}\2/" package.json'
 
     publish-npm:
         needs: build
@@ -19,8 +21,6 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - uses: actions/setup-node@v1
-            - run: '[[ $GITHUB_REF == refs/tags/v* ]] || [[ $GITHUB_REF == refs/tags/V* ]]'
-            - run: 'sed -i "s/^\(\W*version\W*\).*\(\W,\)$/\1${GITHUB_REF:11}\2/" package.json'
               with:
                   node-version: 12
                   registry-url: https://registry.npmjs.org/
@@ -38,8 +38,6 @@ jobs:
                   node-version: 12
                   registry-url: https://npm.pkg.github.com/
                   scope: "@newfuture"
-            - run: '[[ $GITHUB_REF == refs/tags/v* ]] || [[ $GITHUB_REF == refs/tags/V* ]]'
-            - run: 'sed -i "s/^\(\W*version\W*\).*\(\W,\)$/\1${GITHUB_REF:11}\2/" package.json'
             - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

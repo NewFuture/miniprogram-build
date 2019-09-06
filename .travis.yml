@@ -9,16 +9,16 @@ node_js:
 # git:
 #   depth: 1
 
-before_deploy:
-  - "[[ $TRAVIS_TAG == v* ]] || [[ $TRAVIS_TAG == V* ]]"
-  - sed -i "s/^\(\W*version\W*\).*\(\W,\)$/\1${TRAVIS_TAG:1}\2/" package.json
+# before_deploy:
+#   - "[[ $TRAVIS_TAG == v* ]] || [[ $TRAVIS_TAG == V* ]]"
+#   - sed -i "s/^\(\W*version\W*\).*\(\W,\)$/\1${TRAVIS_TAG:1}\2/" package.json
 
-deploy:
-    - provider: npm
-      email: npmjs@newfututre.cc
-      api_key: "${NPM_TOKEN}"
-      skip_cleanup: true
-      on:
-          tags: true
-          branch: master
-          node_js: 'stable'
+# deploy:
+#     - provider: npm
+#       email: npmjs@newfututre.cc
+#       api_key: "${NPM_TOKEN}"
+#       skip_cleanup: true
+#       on:
+#           tags: true
+#           branch: master
+#           node_js: 'stable'
