@@ -1,3 +1,102 @@
+## [0.0.1](https://github.com/NewFuture/miniprogram-build/compare/v6.6.3...v0.0.1) (2019-09-06)
+
+
+
+## [6.6.3](https://github.com/NewFuture/miniprogram-build/compare/v6.6.2...v6.6.3) (2019-09-06)
+
+
+
+## [6.6.2](https://github.com/NewFuture/miniprogram-build/compare/v6.6.1...v6.6.2) (2019-09-06)
+
+
+### Bug Fixes
+
+* **devtool:** encode upload message ([fea8da5](https://github.com/NewFuture/miniprogram-build/commit/fea8da5))
+
+
+
+## [6.6.1](https://github.com/NewFuture/miniprogram-build/compare/v6.6.0...v6.6.1) (2019-08-31)
+
+
+### Bug Fixes
+
+* **config:** load config & devtool ([3d75df1](https://github.com/NewFuture/miniprogram-build/commit/3d75df1))
+* **devtool:** tryopen skip error ([ee83172](https://github.com/NewFuture/miniprogram-build/commit/ee83172))
+* **exclude:** ignore exclude in all task ([4ef2a05](https://github.com/NewFuture/miniprogram-build/commit/4ef2a05))
+
+
+### Features
+
+* **devtool:** close 提示 ([8f56863](https://github.com/NewFuture/miniprogram-build/commit/8f56863))
+* **devtool:** open close quit ([9367718](https://github.com/NewFuture/miniprogram-build/commit/9367718))
+* **devtool:** upload ([6557c56](https://github.com/NewFuture/miniprogram-build/commit/6557c56))
+* **devtool:** 更新提示 ([6d10432](https://github.com/NewFuture/miniprogram-build/commit/6d10432))
+* **devtool:** 自动预览和文字提示调整 ([8826411](https://github.com/NewFuture/miniprogram-build/commit/8826411))
+* **devtool:** 自动预览和检查 ([c3ebc8f](https://github.com/NewFuture/miniprogram-build/commit/c3ebc8f))
+* **messages:** 更新提示信息 ([785ca9e](https://github.com/NewFuture/miniprogram-build/commit/785ca9e))
+
+
+
+## [6.5.1](https://github.com/NewFuture/miniprogram-build/compare/v6.5.0...v6.5.1) (2019-08-20)
+
+
+### Bug Fixes
+
+* **imagemin:** v7.0 glob ([c06951d](https://github.com/NewFuture/miniprogram-build/commit/c06951d))
+
+
+
+# [6.5.0](https://github.com/NewFuture/miniprogram-build/compare/v6.4.3...v6.5.0) (2019-08-20)
+
+
+### Bug Fixes
+
+* **package:** update ansi-colors to version 4.1.0 ([638bf97](https://github.com/NewFuture/miniprogram-build/commit/638bf97))
+* **package:** update imagemin to version 7.0.0 ([15c6771](https://github.com/NewFuture/miniprogram-build/commit/15c6771))
+* 修复替换scss中注入的变量linter会报错的问题 ([641afe6](https://github.com/NewFuture/miniprogram-build/commit/641afe6))
+* **package:** update rimraf to version 3.0.0 ([981d15f](https://github.com/NewFuture/miniprogram-build/commit/981d15f))
+* **package:** update yargs to version 14.0.0 ([30418f8](https://github.com/NewFuture/miniprogram-build/commit/30418f8))
+
+
+### Features
+
+* 允许在scss文件中注入env变量 ([5cd94fd](https://github.com/NewFuture/miniprogram-build/commit/5cd94fd))
+* **svg:** support local  .svgo.yml ([e3723c5](https://github.com/NewFuture/miniprogram-build/commit/e3723c5))
+
+
+
+## [6.4.3](https://github.com/NewFuture/miniprogram-build/compare/v6.4.2...v6.4.3) (2019-06-28)
+
+
+### Bug Fixes
+
+* **log:** remove unused messages ([673da13](https://github.com/NewFuture/miniprogram-build/commit/673da13))
+
+
+### Features
+
+* **rollup:** support for json file import ([b296c86](https://github.com/NewFuture/miniprogram-build/commit/b296c86))
+
+
+
+## [6.4.1](https://github.com/NewFuture/miniprogram-build/compare/v6.4.0...v6.4.1) (2019-06-25)
+
+
+### Bug Fixes
+
+* **rollup:** process.env.NODE_ENV for development ([cb0e320](https://github.com/NewFuture/miniprogram-build/commit/cb0e320))
+
+
+
+# [6.4.0](https://github.com/NewFuture/miniprogram-build/compare/v6.3.0...v6.4.0) (2019-06-25)
+
+
+### Features
+
+* **cli:** production mode and rollup ([50f8ec7](https://github.com/NewFuture/miniprogram-build/commit/50f8ec7))
+
+
+
 # [6.3.0](https://github.com/NewFuture/miniprogram-build/compare/v6.2.2...v6.3.0) (2019-06-02)
 
 
@@ -202,7 +301,11 @@
 
 
 
-## [4.0.1](https://github.com/NewFuture/miniprogram-build/compare/3.6.0...v4.0.1) (2019-03-03)
+## [4.0.1](https://github.com/NewFuture/miniprogram-build/compare/v4.0.0...v4.0.1) (2019-03-03)
+
+
+
+# [4.0.0](https://github.com/NewFuture/miniprogram-build/compare/3.6.0...v4.0.0) (2019-03-03)
 
 
 
