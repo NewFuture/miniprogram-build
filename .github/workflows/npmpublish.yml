@@ -1,29 +1,28 @@
 name: Release NPM
 
-on: [push, release]
+on:
+    push:
+        tags:
+            - "v*"
+            - "V*"
 
 jobs:
     build:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
-            - uses: actions/bin/filter@master
-              with: 
-                args: tag v*
             - uses: actions/setup-node@v1
               with:
                   node-version: 12
             - run: npm i
             - run: npm test
 
-
-
     publish-npm:
         needs: build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
-            - name: publish to npm 
+            - name: publish to npm
               uses: actions/npm@master
               env:
                   NPM_REGISTRY_URL: https://registry.npmjs.org/
