@@ -23,7 +23,7 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - name: publish to npm
-              uses: actions/npm@master
+              uses: actions/npm@v1
               env:
                   NPM_REGISTRY_URL: https://registry.npmjs.org/
                   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
@@ -48,6 +48,6 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - name: Create github Release
-              uses: elgohr/Github-Release-Action@master
+              uses: Roang-zero1/github-create-release-action@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
