@@ -1,3 +1,7 @@
+## [6.6.6](https://github.com/NewFuture/miniprogram-build/compare/v6.6.5...v6.6.6) (2019-09-06)
+
+
+
 ## [6.6.5](https://github.com/NewFuture/miniprogram-build/compare/v6.6.3...v6.6.5) (2019-09-06)
 
 
