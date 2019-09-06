@@ -1,4 +1,4 @@
-name: Publish NPM
+name: Release NPM
 
 on: [release]
 
@@ -12,8 +12,6 @@ jobs:
                   node-version: 12
             - run: npm i
             - run: npm test
-            - run: '[[ $GITHUB_REF == refs/tags/v* ]] || [[ $GITHUB_REF == refs/tags/V* ]]'
-            - run: 'sed -i "s/^\(\W*version\W*\).*\(\W,\)$/\1${GITHUB_REF:11}\2/" package.json'
 
     publish-npm:
         needs: build
@@ -41,3 +39,13 @@ jobs:
             - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+    github-release:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - name: Create github Release
+              uses: elgohr/Github-Release-Action@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
