@@ -33,13 +33,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: 12
-                  registry-url: https://npm.pkg.github.com/
-                  scope: "@newfuture"
-            - run: npm publish
+            - name:  publish to github registry
+              uses: actions/npm@v1
               env:
+                  NPM_REGISTRY_URL: https://npm.pkg.github.com/
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
     github-release:
@@ -48,6 +45,6 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - name: Create github Release
-              uses: Roang-zero1/github-create-release-action@v1
+              uses: Roang-zero1/github-create-release-action@v1.0.2
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
