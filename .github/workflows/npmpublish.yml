@@ -8,7 +8,8 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - uses: actions/bin/filter@master
-              with: tag
+              with: 
+                args: tag v*
             - uses: actions/setup-node@v1
               with:
                   node-version: 12
@@ -18,7 +19,7 @@ jobs:
 
 
     publish-npm:
-        needs: tag
+        needs: build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
@@ -29,7 +30,7 @@ jobs:
                   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
     publish-gpr:
-        needs: tag
+        needs: build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
@@ -43,7 +44,7 @@ jobs:
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
     github-release:
-        needs: tag
+        needs: build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
