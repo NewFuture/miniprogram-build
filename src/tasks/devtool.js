@@ -20,7 +20,7 @@ const successIcon = colors.green.bold('√');
 
 
 function logSuccess(msg) {
-    logger.info(
+    logger(
         TITLE,
         successIcon,
         colors.green(msg)
@@ -126,6 +126,14 @@ function getSize(path) {
     }
 }
 /**
+ * 特殊字符转义
+ * @param {string} s 
+ */
+function encode(s) {
+    return s.replace(/&|<|>/g, escape);
+}
+
+/**
  * 上传
  */
 exports.upload = function () {
@@ -139,7 +147,7 @@ exports.upload = function () {
         .then(function (message) {
             message = (message || process.env.npm_package_description || '').trim().substr(0, 2048)
             logger.info(TITLE, colors.gray.bold(version + ':'), colors.dim.gray.underline(message.split('\n', 1)[0]))
-            return devtool.cli('--upload', uploadProject, '--upload-info-output', logPath, '--upload-desc', encodeURI(message))
+            return devtool.cli('--upload', uploadProject, '--upload-info-output', logPath, '--upload-desc', encode(message))
         })
         .then(function (res) {
             if (res.stderr) {
