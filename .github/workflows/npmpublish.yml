@@ -23,7 +23,7 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - name: publish to npm
-              uses: actions/npm@v1
+              uses: actions/npm@v2.0.0
               env:
                   NPM_REGISTRY_URL: https://registry.npmjs.org/
                   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
@@ -34,7 +34,7 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - name:  publish to github registry
-              uses: actions/npm@v1
+              uses: actions/npm@v2.0.0
               env:
                   NPM_REGISTRY_URL: https://npm.pkg.github.com/
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
