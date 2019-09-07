@@ -1,50 +1,60 @@
-name: Release NPM
+name: ReleaseNPM
 
 on:
-    push:
-        tags:
-            - "v*"
-            - "V*"
+  push:
+    tags:
+      - "v*"
+      - "V*"
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v1
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: 12
-            - run: npm i
-            - run: npm test
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm i
+      - run: npm test
 
-    publish-npm:
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v1
-            - name: publish to npm
-              uses: actions/npm@v2.0.0
-              env:
-                  NPM_REGISTRY_URL: https://registry.npmjs.org/
-                  NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: publish to npm
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+        env:
+          NPM_REGISTRY_URL: https://registry.npmjs.org/
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - run: npm publish --access public
 
-    publish-gpr:
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v1
-            - name:  publish to github registry
-              uses: actions/npm@v2.0.0
-              env:
-                  NPM_REGISTRY_URL: https://npm.pkg.github.com/
-                  NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: publish to github registry
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: "https://npm.pkg.github.com"
+          scope: '@NewFuture'
+      - run: |
+          npm config set registry https://npm.pkg.github.com/ 
+          npm publish --access public
+        env:
+          NPM_REGISTRY_URL: https://npm.pkg.github.com/
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-    github-release:
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v1
-            - name: Create github Release
-              uses: Roang-zero1/github-create-release-action@v1.0.2
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  github-release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Create github Release
+        uses: Roang-zero1/github-create-release-action@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
