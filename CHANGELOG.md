@@ -1,3 +1,11 @@
+## [6.6.6](https://github.com/NewFuture/miniprogram-build/compare/v6.6.2...v6.6.6) (2019-09-07)
+
+
+### Features
+
+* **tips:** update info output ([ff58831](https://github.com/NewFuture/miniprogram-build/commit/ff58831))
+
+
 
 ## [6.6.2](https://github.com/NewFuture/miniprogram-build/compare/v6.6.1...v6.6.2) (2019-09-06)
 
