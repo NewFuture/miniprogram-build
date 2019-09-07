@@ -42,9 +42,9 @@ function log(img, file) {
     fancyLog.info(
         TITLE,
         // path.relative(path.join(file.cwd, file.base), img)
-        colors.underline(path.relative(file.base, img)),
+        colors.gray.bold.underline(path.relative(file.base, img)),
         colors.gray("→"),
-        colors.gray("(" + colors.underline(path.relative(file.base, file.path)) + ")"),
+        colors.gray.dim("(" + colors.underline(path.relative(file.base, file.path)) + ")"),
     );
 }
 
@@ -290,7 +290,7 @@ exports.getDataURI = function (img) {
     if ("image/svg+xml" === mimeType) {
         // ret += ";charset=UTF-8,";
         return imagemin([img], {
-            glob:false,
+            glob: false,
             plugins: [imageminPlugin.svgo({
                 js2svg: {
                     attrStart: "='",
@@ -316,12 +316,12 @@ exports.getDataURI = function (img) {
         // ret += ";base64,";
         // ret += img.toString("base64");
         return imagemin([img], {
-            glob:false,
+            glob: false,
             plugins: imageminPlugin.getDefaultPlugins(),
         })
             .then(f => {
                 f[0].data.toString("base64")
-        })
+            })
             .then(data => `"data:${mimeType};base64,${data}"`);
     }
 };

@@ -14,9 +14,9 @@ const RAW_TITLE = 'devtool:';
 const TITLE = require('../log/color')(RAW_TITLE);
 const errLog = require('../log/error')(RAW_TITLE);
 
-const startIcon = colors.whiteBright('[►]');
-const warnIcon = colors.yellowBright.bold('[!]');
-const successIcon = colors.green.bold('√');
+const startIcon = colors.bold.whiteBright(colors.symbols.pointer);
+const warnIcon = colors.yellowBright.bold(colors.symbols.warning);
+const successIcon = colors.greenBright.bold.italic(colors.symbols.check);
 
 
 function logSuccess(msg) {

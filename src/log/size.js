@@ -27,7 +27,7 @@ module.exports = opts => {
         let title = opts.title;
         title = title ? titleColor(title) : '';
         if (opts.sub) {
-            sym += chalk.cyanBright(`<${chalk.bold.underline(opts.sub)}>`);
+            sym += chalk.cyanBright(` <${chalk.bold.underline(opts.sub)}>`);
         }
         size = opts.pretty ? prettyBytes(size) : (size + ' B');
         duration = duration ? chalk.gray("[" + prettyTime(duration) + "]") : '';
@@ -50,7 +50,7 @@ module.exports = opts => {
 
             if (opts.showFiles === true && size > 0) {
                 log(
-                    chalk.reset.whiteBright('[√]'),
+                    chalk.reset.whiteBright.dim(chalk.symbols.check),
                     chalk.green.underline.bold(opts.showTotal ? chalk.dim(file.relative) : file.relative),
                     size,
                     !opts.showTotal);
@@ -82,7 +82,7 @@ module.exports = opts => {
         if (!(fileCount === 1 && opts.showFiles) && totalSize > 0 && fileCount > 0 && opts.showTotal) {
             const diff = process.hrtime(time);
             const duration = diff[0] * 1e9 + diff[1]
-            log(chalk.reset.bold.greenBright.italic('√'), chalk.green('All ' + fileCount + (fileCount > 1 ? ' files' : ' file') + ' done!'), totalSize, duration, true);
+            log(chalk.reset.bold.greenBright.italic(chalk.symbols.check), chalk.green('All ' + fileCount + (fileCount > 1 ? ' files' : ' file') + ' done!'), totalSize, duration, true);
         }
         cb();
     });

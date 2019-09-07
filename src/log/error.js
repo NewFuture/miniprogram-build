@@ -15,7 +15,7 @@ module.exports = function (TITLE) {
         const skip = process.env.SKIP_ERROR;
         log.error(
             color(TITLE),
-            colors.bold.redBright("[×]"),
+            colors.bold.redBright("[" + colors.symbols.cross + "]"),
             colors.red(err.name),
             "\n" +
             colors.bgRed(err.message),
