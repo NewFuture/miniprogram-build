@@ -1,21 +1,3 @@
-## [6.6.4](https://github.com/NewFuture/miniprogram-build/compare/v6.6.6-6...v6.6.4) (2019-09-07)
-
-
-
-## [6.6.6-6](https://github.com/NewFuture/miniprogram-build/compare/v6.6.6...v6.6.6-6) (2019-09-06)
-
-
-
-## [6.6.6](https://github.com/NewFuture/miniprogram-build/compare/v6.6.5...v6.6.6) (2019-09-06)
-
-
-
-## [6.6.5](https://github.com/NewFuture/miniprogram-build/compare/v6.6.3...v6.6.5) (2019-09-06)
-
-
-
-## [6.6.3](https://github.com/NewFuture/miniprogram-build/compare/v6.6.2...v6.6.3) (2019-09-06)
-
 
 
 ## [6.6.2](https://github.com/NewFuture/miniprogram-build/compare/v6.6.1...v6.6.2) (2019-09-06)
