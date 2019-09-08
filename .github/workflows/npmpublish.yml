@@ -58,3 +58,4 @@ jobs:
               uses: Roang-zero1/github-create-release-action@v1.0.2
               env:
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+                  UPDATE_EXISTING: true
