@@ -9,7 +9,7 @@ var multiReplace = require('../lib/multi-replace');
 const pkgVar = require('../lib/package-var');
 var jsonMini = require('../lib/json-mini');
 
-var TITLE = 'json:';
+var TITLE = 'json';
 /**
  * 复制 Json文件
  * @param {object} config

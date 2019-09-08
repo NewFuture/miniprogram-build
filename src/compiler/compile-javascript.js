@@ -10,7 +10,7 @@ const debug = require("../log/compile");
 const size = require('../log/size');
 var error = require("../log/error");
 
-var TITLE = 'javascript:';
+var TITLE = 'javascript';
 /**
  * 编译TS
  * @param {object} config * 

@@ -10,7 +10,7 @@ const colors = require('ansi-colors');
 
 const logger = require('../log/logger');
 
-const RAW_TITLE = 'devtool:';
+const RAW_TITLE = 'devtool';
 const TITLE = require('../log/color')(RAW_TITLE);
 const errLog = require('../log/error')(RAW_TITLE);
 
@@ -19,11 +19,13 @@ const warnIcon = colors.yellowBright.bold(colors.symbols.warning);
 const successIcon = colors.greenBright.bold.italic(colors.symbols.check);
 
 
+function logStart(action, msg) {
+    logger(TITLE, startIcon, colors.cyan(action), msg);
+}
+
 function logSuccess(msg) {
     logger(
-        TITLE,
-        successIcon,
-        colors.green(msg)
+        TITLE, successIcon, colors.green(msg)
     );
 }
 
@@ -31,7 +33,7 @@ function logSuccess(msg) {
  * 打开项目
  */
 exports.open = function () {
-    logger.info(TITLE, startIcon, colors.cyan('open'), 'project in', colors.underline(exports.dist))
+    logStart('open', 'project in ' + colors.underline(exports.dist))
     return devtool.cli('--open', path.resolve(exports.dist))
         .then(function (res) {
             if (res.stderr) {
@@ -48,7 +50,7 @@ exports.open = function () {
  * 关闭项目
  */
 exports.close = function (pass) {
-    logger.info(TITLE, startIcon, colors.cyan('close'), 'project in', colors.underline(exports.dist))
+    logStart('close', 'project in ' + colors.underline(exports.dist))
     return exports.isOpenPort().then(function (isOpen) {
         if (!isOpen) {
             logger.warn(TITLE, warnIcon, '跳过关闭项目,请打安装[微信开发者工具]并打开[端口设置]');
@@ -80,7 +82,7 @@ exports.close = function (pass) {
  * 退出
  */
 exports.quit = function (pass) {
-    logger.info(TITLE, startIcon, colors.cyan('quit'), 'Wechat Devtools', colors.gray('尝试退出微信开发者工具...'))
+    logStart('quit', 'Wechat Devtools ' + colors.gray('尝试退出微信开发者工具...'))
     return exports.isOpenPort().then(function (isOpen) {
         if (isOpen) {
             return devtool.cli('--quit', path.resolve(exports.dist))
@@ -130,7 +132,7 @@ function getSize(path) {
  * @param {string} s 
  */
 function encode(s) {
-    return s.replace(/&|<|>/g, escape);
+    return s.replace(/&|<|>/g, escape).replace(/\n/g, ' ');
 }
 
 /**
@@ -140,7 +142,7 @@ exports.upload = function () {
     const version = devtool.getPkgVersion() || '0.0.0';
     const dist = path.resolve(exports.dist);
     const uploadProject = version + '@' + dist;
-    logger.info(TITLE, startIcon, colors.cyan('upload'), 'project in', colors.underline(dist));
+    logStart('upload', 'project in ' + colors.underline(dist));
     const logPath = path.join(os.tmpdir(), 'mplog-' + version + '-' + Date.now() + '.json')
 
     return devtool.getCommitMsg()
@@ -170,7 +172,7 @@ exports.upload = function () {
  */
 exports.autopreview = function () {
     //cli --auto-preview /Users/username/demo --auto-preview-info-output /Users/username/info.json
-    logger.info(TITLE, startIcon, colors.cyan('auto preview'), 'project in', colors.underline(exports.dist));
+    logStart('auto-preview', 'project in ' + colors.underline(exports.dist));
     const logPath = path.resolve(os.tmpdir(), 'mp-preview-log.' + Date.now() + '.json');
     return devtool.cli('--auto-preview', path.resolve(exports.dist), '--auto-preview-info-output', logPath)
         .then(function (res) {

@@ -5,7 +5,7 @@ var imagemin = require('../lib/image-min');
 var err = require('../log/error');
 const size = require('../log/size');
 
-var TITLE = 'image:';
+var TITLE = 'image';
 /**
  * 
  * @param {string|string[]} imgsrc

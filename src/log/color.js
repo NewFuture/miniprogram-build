@@ -36,11 +36,11 @@ let index = 0;
 function color(str) {
     str = str && str.trim();
     if (!maps[str]) {
-        maps[str] = colors.gray.dim(index+'.')+colors
-        .reset
+        maps[str] = colors.gray.dim.italic.inverse('' + index) + colors
+            .reset
         [availableStyle[index % availableStyle.length]]
         [availableColors[index++ % availableColors.length]]
-        .bold(str);
+            .bold(str);
     }
     return maps[str];
 }

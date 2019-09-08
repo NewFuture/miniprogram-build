@@ -31,7 +31,7 @@ module.exports = opts => {
         }
         size = opts.pretty ? prettyBytes(size) : (size + ' B');
         duration = duration ? chalk.gray("[" + prettyTime(duration) + "]") : '';
-        fancyLog(title, sym, what, chalk.gray('(') + chalk[highlightSize ? 'magentaBright' : 'gray'](size) + chalk.gray(')') + duration);
+        fancyLog(title , sym , what, chalk.gray('(') + chalk[highlightSize ? 'magentaBright' : 'gray'](size) + chalk.gray(')') + duration);
     }
 
     return through.obj((file, enc, cb) => {

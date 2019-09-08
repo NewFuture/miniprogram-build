@@ -14,7 +14,7 @@ function ed(str) { return colors.gray(str) }
 
 var argv = require("yargs")
     .scriptName("mp")
-    .usage(colors.whiteBright.inverse.bold("\nWechat MiniProgram build tools <微信小程序编译打包工具>\n"))
+    .usage(colors.whiteBright.inverse.bold("\n> Wechat MiniProgram build tools 微信小程序编译打包工具 <\n"))
     .usage(`${colors.italic("Short Usage")} <短用法>: ${colors.bold.yellowBright("$0")} ${colors.cyanBright("[command...]")} ${colors.italic("[--option]")}`)
     .usage(`${colors.italic("Full Name")} <完整名称>: ${colors.bold.yellowBright("miniprogram-build")} ${colors.cyanBright("[命令...]")} ${colors.italic("[--选项]")}`)
     .example(colors.green.italic("$0 js js-watch"), ed("编译并监测生成js文件"))

@@ -10,7 +10,7 @@ var replace = require("../lib/multi-replace");
 // var tsImport = require("../lib/tsimport");
 var error = require("../log/error");
 
-var TITLE = "typescript:";
+var TITLE = "typescript";
 /**
  * 编译TS
  * @param {object} config *

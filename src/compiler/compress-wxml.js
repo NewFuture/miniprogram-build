@@ -8,7 +8,7 @@ const size = require("../log/size");
 var err = require("../log/error");
 // var minimize = require("gulp-minimize");
 
-var TITLE = "wxml:";
+var TITLE = "wxml";
 /**
  *
  * @param {object} config

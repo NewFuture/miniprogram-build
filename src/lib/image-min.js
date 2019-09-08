@@ -111,7 +111,7 @@ module.exports = (plugins, options) => {
 					}
 
 					if (options.verbose) {
-						log(color(`${PLUGIN_NAME}:`), chalk.underline(file.relative), chalk.gray(` (${msg})`));
+						log(color(`${PLUGIN_NAME}`), chalk.symbols.check, chalk.underline(file.relative), chalk.gray(` (${msg})`));
 					}
 
 					file.contents = data;

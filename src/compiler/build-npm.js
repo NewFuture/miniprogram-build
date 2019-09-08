@@ -15,7 +15,7 @@ const warn = require("../log/warn");
 const debug = require("../log/compile");
 const size = require("../log/size");
 
-const TITLE = "npm:";
+const TITLE = "npm";
 
 /**
  * 组件component

@@ -38,7 +38,7 @@ const defaultConfig = {
     // strictPropertyInitialization: true,
     strictNullChecks: true,
 };
-var TITLE = "wxts:";
+var TITLE = "wxts";
 /**
  * 编译TS
  * @param {object} config *

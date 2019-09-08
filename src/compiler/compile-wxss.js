@@ -15,7 +15,7 @@ const pkgVar = require('../lib/package-var');
 var error = require("../log/error");
 const debug = require("../log/compile");
 const size = require("../log/size");
-var TITLE = "wxss:";
+var TITLE = "wxss";
 /**
  * 编译scss
  * @param {object} config
