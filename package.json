@@ -31,7 +31,7 @@
     ],
     "scripts": {
         "version": "conventional-changelog -r 0 -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-        "postversion": "git push && git push --tags",
+        "postversion": "git push --follow-tags -q",
         "test:empty": "cd test-empty && node ../bin/mp-build.js build && node ../bin/mp-build.js compile --release",
         "test:empty-ts": "cd test-ts && node ../bin/mp-build.js build && node ../bin/mp-build.js compile --release",
         "test:full": "npm test --prefix=test",
