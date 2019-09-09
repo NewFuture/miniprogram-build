@@ -103,7 +103,7 @@ gulp.task('watch', gulp.series(
 
 //开发模式
 gulp.task('dev', gulp.series(
-    'try-quit', 'clean', 'compile',
+    'clean', 'compile',
     gulp.parallel('try-open', 'watch'),
     taskLog(colors.inverse(rainbow('all tasks are ready, waiting for code change ...')))
 ));
