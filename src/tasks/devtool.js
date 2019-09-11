@@ -132,7 +132,7 @@ function getSize(path) {
  * @param {string} s 
  */
 function encode(s) {
-    return s.replace(/&|<|>/g, escape).replace(/\n/g, ' ');
+    return s.trim().replace(/&|<|>/g, escape).replace(/\r?\n/g, '%0A').replace(/\s/g, '%20');
 }
 
 /**
