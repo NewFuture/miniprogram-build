@@ -1,3 +1,18 @@
+# [6.8.0](https://github.com/NewFuture/miniprogram-build/compare/v6.6.6...v6.8.0) (2019-09-12)
+
+
+### Bug Fixes
+
+* **devtool:** upload 字符转义 ([9f7d8c3](https://github.com/NewFuture/miniprogram-build/commit/9f7d8c3))
+* **task:** remove try-quit in dev mod ([f55dc80](https://github.com/NewFuture/miniprogram-build/commit/f55dc80))
+
+
+### Features
+
+* **output:** short output tips ([7788002](https://github.com/NewFuture/miniprogram-build/commit/7788002))
+
+
+
 ## [6.6.6](https://github.com/NewFuture/miniprogram-build/compare/v6.6.2...v6.6.6) (2019-09-07)
 
 
