@@ -61,6 +61,7 @@ function compileScss(config, scssFile) {
             }),
         )
         .on("error", error("wxss"))
+        .pipe(replace('@charset "UTF-8";', ''))
         // .pipe(
         //     replace(/@import url\(["']?([\w\/\.\-\_]*)["']?\)/g, ($1, $2) => {
         //         return '@import "' + $2 + '"';
