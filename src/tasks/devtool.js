@@ -67,7 +67,7 @@ exports.close = function (pass) {
                         }
                     } else {
                         logger.info(TITLE, colors.gray('正在开发工具中关闭此项目... (3秒内勿对其操作)'))
-                        return new Promise(resolve => setTimeout(resolve, 3000))
+                        return new Promise(resolve => setTimeout(resolve, 5000))
                             .then(function (res) {
                                 logSuccess('已在微信开发者工具中关闭此项目');
                                 return res;
