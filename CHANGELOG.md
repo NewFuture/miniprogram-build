@@ -1,3 +1,17 @@
+## [6.8.1](https://github.com/NewFuture/miniprogram-build/compare/v6.8.0...v6.8.1) (2019-09-29)
+
+
+### Features
+
+* **devtool:** 延长close等待时间 ([a5f0acd](https://github.com/NewFuture/miniprogram-build/commit/a5f0acd))
+
+
+### Performance Improvements
+
+* **wxss:** remove [@charset](https://github.com/charset) "UTF-8" ([d6d290b](https://github.com/NewFuture/miniprogram-build/commit/d6d290b))
+
+
+
 # [6.8.0](https://github.com/NewFuture/miniprogram-build/compare/v6.6.6...v6.8.0) (2019-09-12)
 
 
