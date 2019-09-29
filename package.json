@@ -62,11 +62,11 @@
         "json5": "^2.1.0",
         "mime": "^2.4.4",
         "rimraf": "^3.0.0",
-        "rollup": "^1.21.0",
-        "sass": "^1.22.10",
+        "rollup": "^1.22.0",
+        "sass": "^1.22.12",
         "through2": "^3.0.1",
         "ts-transform-paths": "^2.0.0",
-        "wechat-devtool": "^1.2.3",
+        "wechat-devtool": "^1.2.4",
         "yargs": "^14.0.0"
     },
     "optionalDependencies": {
@@ -89,6 +89,6 @@
         "@types/rimraf": "^2.0.2",
         "conventional-changelog-cli": "^2.0.23",
         "tslib": "^1.10.0",
-        "typescript": "^3.6.2"
+        "typescript": "^3.6.3"
     }
 }
