@@ -23,7 +23,7 @@ exports.watch = function (config) {
     return function (cb) {
         var glob = extToGlob(config, JSON_EXTS);
         watchLog('json', glob)
-        gulp.watch(glob, {ignored: config.exclude})
+        gulp.watch(glob, { ignored: config.exclude })
             .on('change', function (file) { return compileJson(config, file); })
             .on('add', function (file) { return compileJson(config, file); })
             .on('unlink', unlink(config.src, config.dist, '.json'))

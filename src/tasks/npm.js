@@ -67,7 +67,7 @@ exports.build = function (config) {
 exports.watch = function (config) {
     return function (cb) {
         watchLog('npm', PACKAGE_JSON);
-        gulp.watch(PACKAGE_JSON, {})
+        gulp.watch(PACKAGE_JSON, { delay: 1200, ignorePermissionErrors: true })
             .on('change', function () { exports.build(config)(); })
             .on('add', function () { exports.build(config)(); })
             .on('unlink', unlink("miniprogram_npm", config.dist));

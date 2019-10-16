@@ -34,7 +34,7 @@ exports.watch = function (config) {
     return function (cb) {
         var glob = extToGlob(config, IMAGE_EXTS);
         watchLog('image', glob)
-        gulp.watch(glob, { ignored: config.exclude })
+        gulp.watch(glob, { ignored: config.exclude, delay: 1200 })
             .on('change', compress(config))
             .on('add', compress(config))
             .on('unlink', unlink(config.src, config.dist));

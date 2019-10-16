@@ -28,7 +28,7 @@ exports.watch = function (config, JS_EXTS) {
     return function (cb) {
         var glob = extToGlob(config, JS_EXTS);
         watchLog("javascript-" + JS_EXTS.join('-'), glob);
-        gulp.watch(glob, { ignored: config.exclude })
+        gulp.watch(glob, { ignored: config.exclude, delay: 1200 })
             .on("change", function (file) {
                 return compileJs(config, file);
             })

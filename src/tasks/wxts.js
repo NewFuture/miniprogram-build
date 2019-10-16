@@ -53,6 +53,7 @@ exports.watch = function (config) {
         watchLog("wxts", glob);
         gulp.watch(glob, {
             ignored: ts.pushArrayOrItem(config.exclude, config.src + "/*/**.d.ts"),
+            delay: 1200
         })
             .on("change", function (file) {
                 return compile(config, file);

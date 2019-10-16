@@ -23,7 +23,7 @@ exports.watch = function (config) {
     return function (cb) {
         var glob = extToGlob(config, WXML_EXTS);
         watchLog('wxml', glob)
-        gulp.watch(glob, { ignored: config.exclude })
+        gulp.watch(glob, { ignored: config.exclude, delay: 1200 })
             .on('change', function (file) { return compileWxml(config, file); })
             .on('add', function (file) { return compileWxml(config, file); })
             .on('unlink', unlink(config.src, config.dist, '.wxml'));

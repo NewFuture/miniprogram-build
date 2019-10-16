@@ -48,6 +48,7 @@ exports.watch = function (config) {
         watchLog("typescript", glob);
         gulp.watch(glob, {
             ignored: exports.pushArrayOrItem(config.exclude, config.src + "/*/**.d.ts"),
+            delay: 1200
         })
 
             .on("change", function (file) {
