@@ -1,3 +1,12 @@
+## [6.8.3](https://github.com/NewFuture/miniprogram-build/compare/v6.8.2...v6.8.3) (2019-10-24)
+
+
+### Performance Improvements
+
+* **watch:** delay ([19be511](https://github.com/NewFuture/miniprogram-build/commit/19be511))
+
+
+
 ## [6.8.2](https://github.com/NewFuture/miniprogram-build/compare/v6.8.1...v6.8.2) (2019-09-29)
 
 
