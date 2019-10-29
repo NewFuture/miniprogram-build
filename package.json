@@ -1,6 +1,6 @@
 {
     "name": "miniprogram-build",
-    "version": "6.8.3",
+    "version": "6.8.4-alpha",
     "description": "A command line tool to build & watch MiniProgram.",
     "keywords": [
         "MiniProgram",
@@ -59,15 +59,15 @@
         "gulp-sourcemaps": "^2.6.5",
         "gulp-typescript": "^5.0.1",
         "imagemin": "^7.0.0",
-        "json5": "^2.1.0",
+        "json5": "^2.1.1",
         "mime": "^2.4.4",
         "rimraf": "^3.0.0",
-        "rollup": "^1.22.0",
-        "sass": "^1.22.12",
+        "rollup": "^1.26.0",
+        "sass": "^1.23.1",
         "through2": "^3.0.1",
         "ts-transform-paths": "^2.0.0",
         "wechat-devtool": "^1.2.5",
-        "yargs": "^14.0.0"
+        "yargs": "^14.2.0"
     },
     "optionalDependencies": {
         "rollup-plugin-replace": "^2.2.0",
@@ -86,9 +86,9 @@
     },
     "devDependencies": {
         "@types/gulp": "^4.0.6",
-        "@types/rimraf": "^2.0.2",
-        "conventional-changelog-cli": "^2.0.23",
+        "@types/rimraf": "^2.0.3",
+        "conventional-changelog-cli": "^2.0.25",
         "tslib": "^1.10.0",
-        "typescript": "^3.6.3"
+        "typescript": "^3.6.4"
     }
 }

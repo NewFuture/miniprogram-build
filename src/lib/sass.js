@@ -2,7 +2,7 @@
 "use strict";
 const path = require('path');
 const chalk = require('ansi-colors');
-const through = require('through2');
+const through = require('./through2-concurrent');
 // const applySourceMap = require('vinyl-sourcemaps-apply');
 const PluginError = require('./error');
 
@@ -20,7 +20,7 @@ const PLUGIN_NAME = 'sass';
 //////////////////////////////
 // Main Gulp Sass function
 //////////////////////////////
-const gulpSass = (options, sync) => through.obj((file, enc, cb) => { // eslint-disable-line consistent-return
+const gulpSass = (options, sync) => through.obj({ maxConcurrency: 3 }, (file, enc, cb) => { // eslint-disable-line consistent-return
   if (file.isNull()) {
     return cb(null, file);
   }
