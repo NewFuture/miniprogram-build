@@ -39,13 +39,11 @@ function compileScss(config, scssFile) {
     return gulp
         .src(scssFile, { base: config.src, ignore: config.exclude })
         // .pipe(config.production ? empty() : sourcemaps.init())
-        .pipe(
-            debug({
-                title: TITLE,
-                // dist: config.dist,
-                distExt: ".wxss",
-            }),
-        )
+        .pipe(debug({
+            title: TITLE,
+            dist: config.dist,
+            distExt: ".wxss",
+        }))
         .pipe(replace(pkgVar(config.var), undefined, "\"{{", "}}\""))
         .pipe(replace(pkgVar(config.var), undefined, "'{{", "}}'"))
         .pipe(

@@ -32,7 +32,7 @@ function compileTS(config, tsFile) {
         .on("error", error(TITLE))
         .pipe(debug({
             title: TITLE,
-            // dist: config.dist,
+            dist: config.dist,
             distExt: '.js'
         }))
         .pipe(sourcemaps.init())

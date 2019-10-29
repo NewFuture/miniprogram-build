@@ -21,9 +21,8 @@ function compile(config) {
  * @param {object} config
  */
 exports.build = function (config) {
-    return function (cb) {
-        compile(config);
-        cb && cb();
+    return function () {
+        return compile(config);
     };
 }
 

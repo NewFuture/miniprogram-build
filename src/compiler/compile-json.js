@@ -18,10 +18,10 @@ var TITLE = 'json';
 function replaceJson(config, jsonFile) {
     jsonFile = jsonFile || (config.src + '/**/*.{json,jsonc}');
     return gulp
-    .src(jsonFile, { base: config.src, ignore: config.exclude })
+        .src(jsonFile, { base: config.src, ignore: config.exclude })
         .pipe(debug({
             title: TITLE,
-            // dist: config.dist,
+            dist: config.dist,
             distExt: '.json'
         }))
         .pipe(rename({ 'extname': '.json' }))

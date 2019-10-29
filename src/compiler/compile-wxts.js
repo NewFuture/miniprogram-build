@@ -60,13 +60,11 @@ function compileWxts(config, tsFile, tsconfig) {
     }
     return gulp
         .src(tsFile, { base: config.src, sourcemaps: !config.production, ignore: config.exclude })
-        .pipe(
-            debug({
-                title: TITLE,
-                // dist: config.dist,
-                distExt: ".wxs",
-            }),
-        )
+        .pipe(debug({
+            title: TITLE,
+            dist: config.dist,
+            distExt: ".wxs",
+        }))
         .pipe(config.production ? empty() : sourcemaps.init())
         .pipe(
             gulpRollup(

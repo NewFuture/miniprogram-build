@@ -20,7 +20,7 @@ function compilejs(config, jsFile) {
     return gulp.src(jsFile, { base: config.src, sourcemaps: !config.production, ignore: config.exclude })
         .pipe(debug({
             title: TITLE,
-            // dist: config.dist,
+            dist: config.dist,
             distExt: '.js'
         }))
         .pipe(config.production ? empty() : sourcemaps.init())
