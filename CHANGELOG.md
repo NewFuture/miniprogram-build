@@ -1,3 +1,12 @@
+## [6.8.6](https://github.com/NewFuture/miniprogram-build/compare/v6.8.5...v6.8.6) (2019-10-30)
+
+
+### Bug Fixes
+
+* **packages:** rollup replace ([7ef03c9](https://github.com/NewFuture/miniprogram-build/commit/7ef03c91da4fc70598e436157c69691a27c7e3bf))
+
+
+
 ## [6.8.5](https://github.com/NewFuture/miniprogram-build/compare/v6.8.3...v6.8.5) (2019-10-30)
 
 
