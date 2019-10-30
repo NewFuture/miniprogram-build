@@ -23,7 +23,7 @@ module.exports = function loadPlugins(name) {
         warn(TITLE, name)(error);
     }
     try {
-        const replace = require("rollup-plugin-replace");
+        const replace = require("@rollup/plugin-replace");
         // @ts-ignore
         PLUGINS.push(replace({
             'process.env.NODE_ENV': JSON.stringify(
@@ -31,7 +31,17 @@ module.exports = function loadPlugins(name) {
             )
         }));
     } catch (error) {
-        warn(TITLE, name)(error);
+        try {
+            const replace = require("rollup-plugin-replace");
+            // @ts-ignore
+            PLUGINS.push(replace({
+                'process.env.NODE_ENV': JSON.stringify(
+                    process.env.NODE_ENV || 'development',
+                )
+            }));
+        } catch (error) {
+            warn(TITLE, name)(error);
+        }
     }
     try {
         const rollupNodeResolve = require("rollup-plugin-node-resolve");

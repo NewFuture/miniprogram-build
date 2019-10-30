@@ -20,18 +20,18 @@ const TITLE = "npm";
 /**
  * 组件component
  * @param {string} dependencyName 
- * @param {string} mpDistPath 
+ * @param {string} mpSrcPath 
  * @param {string} destName 
  */
-function createMpTask(dependencyName, mpDistPath, destName) {
+function createMpTask(dependencyName, mpSrcPath, destName) {
     return () => {
         return gulp
-            .src(path.join(mpDistPath, "**/*"))
+            .src(path.join(mpSrcPath, "**/*"))
             .pipe(
                 debug({
                     title: TITLE,
                     srcName: `<${dependencyName}(component)>`,
-                    dist: path.join("miniprogram_npm", dependencyName) + path.sep,
+                    dist: path.join(destName, "miniprogram_npm", dependencyName) + path.sep,
                     // distName: destName
                     // once: true,
                 }),
@@ -72,7 +72,7 @@ function createNpmTask(dependencyName, entryFilePath, destName, dependencyNames)
                 debug({
                     title: TITLE,
                     srcName: `<${dependencyName}>`,
-                    dist: path.join("miniprogram_npm", dependencyName),
+                    dist: path.join(destName, "miniprogram_npm", dependencyName),
                     // distName: destName
                 }),
             )
