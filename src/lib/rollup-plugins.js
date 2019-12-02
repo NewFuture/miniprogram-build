@@ -17,7 +17,7 @@ module.exports = function loadPlugins(name) {
         PLUGINS = [];
     }
     try {
-        const json = require("rollup-plugin-json");
+        const json = require("@rollup/plugin-json");
         PLUGINS.push(json());
     } catch (error) {
         warn(TITLE, name)(error);
