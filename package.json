@@ -86,7 +86,7 @@
     },
     "devDependencies": {
         "@types/gulp": "^4.0.6",
-        "@types/rimraf": "^2.0.3",
+        "@types/rimraf": "^3.0.0",
         "conventional-changelog-cli": "^2.0.25",
         "tslib": "^1.10.0",
         "typescript": "^3.6.4"
