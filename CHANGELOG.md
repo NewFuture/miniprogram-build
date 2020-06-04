@@ -1,17 +1,21 @@
-## [6.8.6](https://github.com/NewFuture/miniprogram-build/compare/v6.8.5...v6.8.6) (2019-10-30)
+# [6.9.0](https://github.com/NewFuture/miniprogram-build/compare/v6.8.6...v6.9.0) (2020-06-04)
+
+
+### Bug Fixes
+
+* **package:** update gulp-rename to version 2.0.0 ([6852459](https://github.com/NewFuture/miniprogram-build/commit/685245908f4ef1fb605ba94511f43f8edb9a9be4))
+* **package:** update rollup to version 2.0.0 ([2191c99](https://github.com/NewFuture/miniprogram-build/commit/2191c9919d2328dcb13460aceb1e2dbc1c8d3cf9))
+* **package:** update wechat-devtool to version 2.0.0 ([fa8812d](https://github.com/NewFuture/miniprogram-build/commit/fa8812d760fd2d455a09ad8d03fc11a4981501db))
+* **package:** update yargs to version 15.0.1 ([c52663b](https://github.com/NewFuture/miniprogram-build/commit/c52663b37dca7781d5ee96f0e13d3ee806a35d5b))
+
+
+
+## [6.8.6](https://github.com/NewFuture/miniprogram-build/compare/v6.8.3...v6.8.6) (2019-10-30)
 
 
 ### Bug Fixes
 
 * **packages:** rollup replace ([7ef03c9](https://github.com/NewFuture/miniprogram-build/commit/7ef03c91da4fc70598e436157c69691a27c7e3bf))
-
-
-
-## [6.8.5](https://github.com/NewFuture/miniprogram-build/compare/v6.8.3...v6.8.5) (2019-10-30)
-
-
-### Bug Fixes
-
 * **wxss:** [#47](https://github.com/NewFuture/miniprogram-build/issues/47) ([a7a8fbc](https://github.com/NewFuture/miniprogram-build/commit/a7a8fbc806a219c88b976e6afed521e585e6c38b))
 
 
@@ -114,15 +118,15 @@
 
 * **package:** update ansi-colors to version 4.1.0 ([638bf97](https://github.com/NewFuture/miniprogram-build/commit/638bf977c584fe059237ae1de6b590931f126d13))
 * **package:** update imagemin to version 7.0.0 ([15c6771](https://github.com/NewFuture/miniprogram-build/commit/15c6771fc456c3f1fdc5d5670b74fb822cedb931))
-* 修复替换scss中注入的变量linter会报错的问题 ([641afe6](https://github.com/NewFuture/miniprogram-build/commit/641afe66674e043ca3225b5d15f48bada7f45fd9))
 * **package:** update rimraf to version 3.0.0 ([981d15f](https://github.com/NewFuture/miniprogram-build/commit/981d15f932e1147eec3922b989a40dcce3ddf241))
 * **package:** update yargs to version 14.0.0 ([30418f8](https://github.com/NewFuture/miniprogram-build/commit/30418f8daa375e7cd5e440eba71b5799723ba3e7))
+* 修复替换scss中注入的变量linter会报错的问题 ([641afe6](https://github.com/NewFuture/miniprogram-build/commit/641afe66674e043ca3225b5d15f48bada7f45fd9))
 
 
 ### Features
 
-* 允许在scss文件中注入env变量 ([5cd94fd](https://github.com/NewFuture/miniprogram-build/commit/5cd94fdc6db4a830de32bcf3d78b2200364a51a4))
 * **svg:** support local  .svgo.yml ([e3723c5](https://github.com/NewFuture/miniprogram-build/commit/e3723c56d5fd6297aa5855b4fcd9904855800699))
+* 允许在scss文件中注入env变量 ([5cd94fd](https://github.com/NewFuture/miniprogram-build/commit/5cd94fdc6db4a830de32bcf3d78b2200364a51a4))
 
 
 
