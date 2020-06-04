@@ -123,7 +123,7 @@ function compileScss(config, scssFile) {
             }),
         )
         .pipe(
-            replace(/@import url\(["']?([\w\/\.\-\_]*)["']?\)/g, ($1, $2) => {
+            replace(/@import url\(["']?([\w\/\.\-\_@]*)["']?\)/g, ($1, $2) => {
                 return '@import "' + $2 + '"';
             }),
         )

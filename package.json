@@ -76,9 +76,9 @@
         "rollup-plugin-commonjs": "^10.0.0",
         "rollup-plugin-node-resolve": "^5.0.0",
         "imagemin-gifsicle": "^6.0.1",
-        "imagemin-jpegtran": "^6.0.0",
+        "imagemin-jpegtran": "^7.0.0",
         "imagemin-optipng": "^8.0.0",
-        "imagemin-svgo": "^7.0.0"
+        "imagemin-svgo": "^8.0.0"
     },
     "peerDependencies": {
         "typescript": ">=2.7.1",
@@ -88,7 +88,7 @@
         "@types/gulp": "^4.0.6",
         "@types/rimraf": "^3.0.0",
         "conventional-changelog-cli": "^2.0.25",
-        "tslib": "^1.10.0",
+        "tslib": "^2.0.0",
         "typescript": "^3.6.4"
     }
 }
