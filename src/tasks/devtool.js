@@ -34,14 +34,14 @@ function logSuccess(msg) {
  */
 exports.open = function () {
     logStart('open', 'project in ' + colors.underline(exports.dist))
-    return devtool.cli('--open', path.resolve(exports.dist))
+    return devtool.cli('open', "--project", path.resolve(exports.dist))
         .then(function (res) {
             if (res.stderr) {
-                errLog({ name: '无法使用微信开发者工具打开此项目', message: res.stderr });
-            } else {
-                logSuccess('已经使用微信开发者工具自动打开此项目')
-                logger.info(TITLE, colors.gray(' 可切换至开发工具窗口进行调试 :)'));
+                console.info(res.stderr);
             }
+            logSuccess('已经使用微信开发者工具自动打开此项目')
+            logger.info(TITLE, colors.gray(' 可切换至开发工具窗口进行调试 :)'));
+            return exports.reset();
         });
 }
 
@@ -57,22 +57,22 @@ exports.close = function (pass) {
         } else if (!fs.existsSync(path.resolve(exports.dist, 'project.config.json'))) {
             logger.warn(TITLE, warnIcon, '跳过关闭项目,', exports.dist + '/project.config.json', '文件不存在');
         } else {
-            return devtool.cli('--close', path.resolve(exports.dist))
+            return devtool.cli('close', "--project", path.resolve(exports.dist))
                 .then(function (res) {
-                    if (res.stderr) {
-                        if (pass) {
-                            return Promise.reject(res.stderr);
-                        } else {
-                            errLog({ name: '微信开发者工具关闭项目出错', message: res.stderr.trim() });
-                        }
-                    } else {
-                        logger.info(TITLE, colors.gray('正在开发工具中关闭此项目... (3秒内勿对其操作)'))
-                        return new Promise(resolve => setTimeout(resolve, 5000))
-                            .then(function (res) {
-                                logSuccess('已在微信开发者工具中关闭此项目');
-                                return res;
-                            })
-                    }
+                    // if (res.stderr) {
+                    //     if (pass) {
+                    //         return Promise.reject(res.stderr);
+                    //     } else {
+                    //         errLog({ name: '微信开发者工具关闭项目出错', message: res.stderr.trim() });
+                    //     }
+                    // } else {
+                    logger.info(TITLE, colors.gray('正在开发工具中关闭此项目... (3秒内勿对其操作)'))
+                    return new Promise(resolve => setTimeout(resolve, 5000))
+                        .then(function (res) {
+                            logSuccess('已在微信开发者工具中关闭此项目');
+                            return res;
+                        })
+                    // }
                 });
         }
     })
@@ -85,22 +85,25 @@ exports.quit = function (pass) {
     logStart('quit', 'Wechat Devtools ' + colors.gray('尝试退出微信开发者工具...'))
     return exports.isOpenPort().then(function (isOpen) {
         if (isOpen) {
-            return devtool.cli('--quit', path.resolve(exports.dist))
+            return devtool.cli('quit')
                 .then(function (res) {
-                    if (res.stderr) {
-                        if (pass) {
-                            return Promise.reject(res.stderr);
-                        } else {
-                            errLog({ name: 'fail to call wechatdevtools CLI', message: res.stderr.trim() });
-                        }
-                    } else {
-                        logger.info(TITLE, colors.gray('正在退出开发工具... (3秒内勿对其操作)'))
-                        return new Promise(resolve => setTimeout(resolve, 3000))
-                            .then(function (res) {
-                                logSuccess('已关闭并退出微信开发者工具');
-                                return res;
-                            })
-                    }
+                    // if (res.stderr) {
+                    //     if (pass) {
+                    //         return Promise.reject(res.stderr);
+                    //     } else {
+                    //         errLog({ name: 'fail to call wechatdevtools CLI', message: res.stderr.trim() });
+                    //     }
+                    // } else {
+                    // if (res.stderr) {
+                    //     logger.info(TITLE, res.stderr);
+                    // }
+                    logger.info(TITLE, colors.gray('正在退出开发工具... (3秒内勿对其操作)'))
+                    return new Promise(resolve => setTimeout(resolve, 3000))
+                        .then(function (res) {
+                            logSuccess('已关闭并退出微信开发者工具');
+                            return res;
+                        })
+                    // }
                 });
         } else {
             logger.info(TITLE, warnIcon, colors.gray('跳过退出微信开发者'));
@@ -110,7 +113,7 @@ exports.quit = function (pass) {
 
 function getSize(path) {
     try {
-        const size = require(path).size.total;
+        const size = require(path).size.total / 1024;
         let color;
         if (size < 512) {
             color = colors.green;
@@ -121,7 +124,7 @@ function getSize(path) {
         } else {
             color = colors.bold.red
         }
-        return colors.gray('(') + color(size + ' KB') + colors.gray(')');
+        return colors.gray('(') + color(size.toFixed(2) + ' KB') + colors.gray(')');
     } catch (err) {
         logger.error(TITLE, err);
         return colors.dim.yellowBright('[unknown size]');
@@ -129,7 +132,7 @@ function getSize(path) {
 }
 /**
  * 特殊字符转义
- * @param {string} s 
+ * @param {string} s
  */
 function encode(s) {
     return s.trim().replace(/&|<|>/g, escape).replace(/\r?\n/g, '%0A').replace(/\s/g, '%20');
@@ -141,7 +144,7 @@ function encode(s) {
 exports.upload = function () {
     const version = devtool.getPkgVersion() || '0.0.0';
     const dist = path.resolve(exports.dist);
-    const uploadProject = version + '@' + dist;
+    // const uploadProject = version + '@' + dist;
     logStart('upload', 'project in ' + colors.underline(dist));
     const logPath = path.join(os.tmpdir(), 'mplog-' + version + '-' + Date.now() + '.json')
 
@@ -149,21 +152,24 @@ exports.upload = function () {
         .then(function (message) {
             message = (message || process.env.npm_package_description || '').trim().substr(0, 2048)
             logger.info(TITLE, colors.gray.bold(version + ':'), colors.dim.gray.underline(message.split('\n', 1)[0]))
-            return devtool.cli('--upload', uploadProject, '--upload-info-output', logPath, '--upload-desc', encode(message))
+            return devtool.cli('upload', "--project", dist, "--version", version, '--info-output', logPath, '--desc', encode(message))
         })
         .then(function (res) {
+            // if (res.stderr) {
+            //     errLog({ name: 'fail to upload prject ' + uploadProject, message: res.stderr.trim() });
+            // } else {
             if (res.stderr) {
-                errLog({ name: 'fail to upload prject ' + uploadProject, message: res.stderr.trim() });
-            } else {
-                logger.info(
-                    TITLE,
-                    successIcon,
-                    colors.green('成功上传此项目至微信小程序后台!')
-                    , getSize(logPath)
-                );
-                logger.info(TITLE, colors.gray('(多人开发时,可能需要管理员选定体验版)'))
-                // require('rimraf')(logPath);
+                console.info(res.stderr)
             }
+            logger.info(
+                TITLE,
+                successIcon,
+                colors.green('成功上传此项目至微信小程序后台!')
+                , getSize(logPath)
+            );
+            logger.info(TITLE, colors.gray('(多人开发时,可能需要管理员选定体验版)'))
+            // require('rimraf')(logPath);
+            // }
         })
 }
 
@@ -174,12 +180,11 @@ exports.autopreview = function () {
     //cli --auto-preview /Users/username/demo --auto-preview-info-output /Users/username/info.json
     logStart('auto-preview', 'project in ' + colors.underline(exports.dist));
     const logPath = path.resolve(os.tmpdir(), 'mp-preview-log.' + Date.now() + '.json');
-    return devtool.cli('--auto-preview', path.resolve(exports.dist), '--auto-preview-info-output', logPath)
+    return devtool.cli('auto-preview', '--project', path.resolve(exports.dist), '--info-output', logPath)
         .then(function (res) {
-            if (res.stderr) {
-                errLog({ name: 'fail to call wechatdevtools CLI', message: res.stderr.trim() });
-            }
-        }).then(function (res) {
+            // if (res.stderr) {
+            //     errLog({ name: 'fail to call wechatdevtools CLI', message: res.stderr.trim() });
+            // }
             logger.info(
                 TITLE,
                 successIcon,
@@ -192,6 +197,13 @@ exports.autopreview = function () {
         });
 }
 
+exports.reset = function () {
+    return devtool.cli('reset-fileutils', '--project', path.resolve(exports.dist))
+        .then((res) => {
+            logSuccess('微信开发者工具已重建文件监听');
+            return res;
+        })
+}
 
 /**
  * 安装提示
@@ -236,10 +248,26 @@ exports.isOpenPort = function () {
     })
 }
 
+function getErrMsg(err) {
+    if (!err) {
+        return ""
+    } else if (typeof err === "string") {
+        return err
+    } else if (err.stderr) {
+        return err.stderr
+    } else if (err.message) {
+        return err.message
+    } else if (typeof err.toString === "function") {
+        return err.toString()
+    }
+}
 exports.tryOpen = function () {
     return isCliInstalled().then(function (isInstalled) {
         if (isInstalled) {
-            return exports.open()
+            return exports.open().catch(function (err) {
+                const msg = getErrMsg(err);
+                logger.error(TITLE, msg ? msg.trim() : "无法打开开发工具");
+            })
         } else {
             logger.error(
                 TITLE,
@@ -254,12 +282,12 @@ exports.tryOpen = function () {
 
 exports.tryQuit = function () {
     return exports.quit(true).catch(err => {
-        if (err && typeof err === "string") {
-            logger.error(TITLE, warnIcon, 'quit failed !',
-                '\n\t' + colors.yellowBright('微信开发者工具需开启[服务端口] <Wechat devtool [Service Port] should be opened>:'),
-                '\n' + colors.yellowBright(err)
-            );
-        }
+        // if (err && typeof err === "string") {
+        logger.error(TITLE, warnIcon, 'quit failed !',
+            '\n\t' + colors.yellowBright('微信开发者工具需开启[服务端口] <Wechat devtool [Service Port] should be opened>:'),
+            '\n' + colors.yellowBright(getErrMsg(err) || '')
+        );
+        // }
     })
 }
 

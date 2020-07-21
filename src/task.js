@@ -67,8 +67,6 @@ gulp.task('try-open', devtool.tryOpen)
 gulp.task('try-quit', devtool.tryQuit)
 
 
-
-
 // watch
 gulp.task('typescript-watch', typescript.watch($config));
 gulp.task('javascript-watch', javascript.watch($config, ['js']));
@@ -98,15 +96,15 @@ gulp.task('build', gulp.series('clean', 'compile'));
 // 监测文件修改
 gulp.task('watch', gulp.series(
     gulp.parallel('js-watch', 'wxs-watch', 'wxss-watch', 'wxml-watch', 'json-watch', 'image-watch', 'copy-watch', 'npm-watch'),
-    taskLog(colors.greenBright.bold('\tAll watch tasks started !')))
+    taskLog(colors.greenBright.bold('\tAll watch tasks started !'))),
 );
 
 //开发模式
 gulp.task('dev', gulp.series(
-    'try-quit',
+    // 'try-quit',
     'clean', 'compile',
     gulp.parallel('try-open', 'watch'),
-    taskLog(colors.inverse(rainbow('all tasks are ready, waiting for code change ...')))
+    taskLog(colors.inverse(rainbow('all tasks are ready, waiting for code change ...'))),
 ));
 
 gulp.on('error', console.trace);
