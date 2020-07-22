@@ -1,8 +1,6 @@
-import {request} from 'miniprogram-network';
 
 import {x} from "./x.wxs";
-x()
-request()
+
 const foo = "'hello world' from comm.wxs" + Date.now();
 const bar = function (d: string) {
     return decodeURI(d);
