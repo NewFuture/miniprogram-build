@@ -67,7 +67,7 @@
         "through2": "^3.0.1",
         "ts-transform-paths": "^2.0.0",
         "wechat-devtool": "^2.0.0",
-        "yargs": "^15.0.1"
+        "yargs": "~15.3.1"
     },
     "optionalDependencies": {
         "@rollup/plugin-json": "^4.0.0",
