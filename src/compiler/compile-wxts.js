@@ -46,7 +46,7 @@ var TITLE = "wxts";
  * @param {any} tsconfig
  */
 function compileWxts(config, tsFile, tsconfig) {
-    const ts = require("rollup-plugin-typescript");
+    const ts = require("@rollup/plugin-typescript");
     const gulpRollup = require("gulp-better-rollup");
     let dependencies = []
     const plugins = [].concat(loadPlugins())

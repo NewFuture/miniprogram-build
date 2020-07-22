@@ -32,7 +32,7 @@ module.exports = function loadPlugins(name) {
         }));
     } catch (error) {
         try {
-            const replace = require("rollup-plugin-replace");
+            const replace = require("@rollup/plugin-replace");
             // @ts-ignore
             PLUGINS.push(replace({
                 'process.env.NODE_ENV': JSON.stringify(
@@ -44,7 +44,7 @@ module.exports = function loadPlugins(name) {
         }
     }
     try {
-        const rollupNodeResolve = require("rollup-plugin-node-resolve");
+        const rollupNodeResolve = require("@rollup/plugin-node-resolve");
         PLUGINS.push(
             //@ts-ignore
             rollupNodeResolve({
@@ -55,7 +55,7 @@ module.exports = function loadPlugins(name) {
         warn(TITLE, name)(error);
     }
     try {
-        const rollupCommonjs = require("rollup-plugin-commonjs");
+        const rollupCommonjs = require("@rollup/plugin-commonjs");
         PLUGINS.push(
             //@ts-ignore
             rollupCommonjs({}),
