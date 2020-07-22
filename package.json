@@ -72,7 +72,7 @@
     "optionalDependencies": {
         "@rollup/plugin-json": "^4.0.0",
         "@rollup/plugin-replace": "^2.2.0",
-        "@rollup/plugin-typescript": "^5.0.2",
+        "@rollup/plugin-typescript": "^2.1.0",
         "@rollup/plugin-commonjs": "^14.0.0",
         "@rollup/plugin-node-resolve": "^8.4.0",
         "imagemin-gifsicle": "^7.0.0",
