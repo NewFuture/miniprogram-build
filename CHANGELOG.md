@@ -1,3 +1,7 @@
+# [7.0.0](https://github.com/NewFuture/miniprogram-build/compare/v6.9.0...v7.0.0) (2020-07-22)
+
+
+
 # [6.9.0](https://github.com/NewFuture/miniprogram-build/compare/v6.8.6...v6.9.0) (2020-06-04)
 
 
@@ -118,15 +122,15 @@
 
 * **package:** update ansi-colors to version 4.1.0 ([638bf97](https://github.com/NewFuture/miniprogram-build/commit/638bf977c584fe059237ae1de6b590931f126d13))
 * **package:** update imagemin to version 7.0.0 ([15c6771](https://github.com/NewFuture/miniprogram-build/commit/15c6771fc456c3f1fdc5d5670b74fb822cedb931))
+* 修复替换scss中注入的变量linter会报错的问题 ([641afe6](https://github.com/NewFuture/miniprogram-build/commit/641afe66674e043ca3225b5d15f48bada7f45fd9))
 * **package:** update rimraf to version 3.0.0 ([981d15f](https://github.com/NewFuture/miniprogram-build/commit/981d15f932e1147eec3922b989a40dcce3ddf241))
 * **package:** update yargs to version 14.0.0 ([30418f8](https://github.com/NewFuture/miniprogram-build/commit/30418f8daa375e7cd5e440eba71b5799723ba3e7))
-* 修复替换scss中注入的变量linter会报错的问题 ([641afe6](https://github.com/NewFuture/miniprogram-build/commit/641afe66674e043ca3225b5d15f48bada7f45fd9))
 
 
 ### Features
 
-* **svg:** support local  .svgo.yml ([e3723c5](https://github.com/NewFuture/miniprogram-build/commit/e3723c56d5fd6297aa5855b4fcd9904855800699))
 * 允许在scss文件中注入env变量 ([5cd94fd](https://github.com/NewFuture/miniprogram-build/commit/5cd94fdc6db4a830de32bcf3d78b2200364a51a4))
+* **svg:** support local  .svgo.yml ([e3723c5](https://github.com/NewFuture/miniprogram-build/commit/e3723c56d5fd6297aa5855b4fcd9904855800699))
 
 
 
