@@ -127,7 +127,7 @@ function getSize(path) {
         return colors.gray('(') + color(size.toFixed(2) + ' KB') + colors.gray(')');
     } catch (err) {
         logger.error(TITLE, err);
-        return colors.dim.yellowBright('[unknown size]');
+        return new Error("上传失败 upload error [fail to get size]")
     }
 }
 /**
