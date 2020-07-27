@@ -1,3 +1,7 @@
+## [7.0.1](https://github.com/NewFuture/miniprogram-build/compare/v7.0.0...v7.0.1) (2020-07-27)
+
+
+
 # [7.0.0](https://github.com/NewFuture/miniprogram-build/compare/v6.9.0...v7.0.0) (2020-07-22)
 
 
