@@ -47,7 +47,7 @@ module.exports = function loadPlugins(name) {
         const rollupNodeResolve = require("@rollup/plugin-node-resolve");
         PLUGINS.push(
             //@ts-ignore
-            rollupNodeResolve({
+            rollupNodeResolve.nodeResolve ({
                 // modulesOnly: true,
             }),
         );

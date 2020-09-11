@@ -20,7 +20,7 @@ const wxtsConfig = {
     module: "ES6",
     downlevelIteration: true, //Provide full support for iterables in for..of, spread and destructuring when targeting ES5 or ES3.
     isolatedModules: true, //Transpile each file as a separate module (similar to “ts.transpileModule”).
-    noLib: true,
+    // noLib: true,
     lib: ["es5"],
 };
 
