@@ -1,6 +1,6 @@
 {
     "name": "miniprogram-build",
-    "version": "7.0.3",
+    "version": "8.0.0.beta.1",
     "description": "A command line tool to build & watch MiniProgram.",
     "keywords": [
         "MiniProgram",
@@ -22,7 +22,7 @@
         "mp": "bin/mp-build.js"
     },
     "engines": {
-        "node": ">=8"
+        "node": ">=10"
     },
     "files": [
         "src/",
@@ -52,20 +52,20 @@
     },
     "homepage": "https://github.com/NewFuture/miniprogram-build#readme",
     "dependencies": {
-        "ansi-colors": "^4.1.1",
+        "ansi-colors": "^4.1.3",
         "gulp": "^4.0.2",
         "gulp-better-rollup": "^4.0.1",
         "gulp-rename": "^2.0.0",
-        "gulp-sourcemaps": "^2.6.5",
+        "gulp-sourcemaps": "^3.0.0",
         "gulp-typescript": "^5.0.1",
         "imagemin": "^7.0.1",
-        "json5": "^2.1.3",
+        "json5": "^2.2.1",
         "mime": "^2.4.6",
         "rimraf": "^3.0.2",
-        "rollup": "^2.26.11",
-        "sass": "^1.26.10",
-        "through2": "^3.0.2",
-        "ts-transform-paths": "^2.0.1",
+        "rollup": "^2.79.0",
+        "sass": "^1.54.8",
+        "through2": "^4.0.2",
+        "ts-transform-paths": "^2.0.3",
         "wechat-devtool": "^2.0.0",
         "yargs": "~15.3.1"
     },
@@ -81,8 +81,8 @@
         "imagemin-svgo": "^8.0.0"
     },
     "peerDependencies": {
-        "typescript": ">=2.7.1",
-        "tslib": ">=1.7"
+        "tslib": ">=1.7",
+        "typescript": ">=2.7.1"
     },
     "devDependencies": {
         "@types/gulp": "^4.0.6",
